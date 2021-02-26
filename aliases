@@ -1,7 +1,7 @@
 alias l="exa -lh --git"
 alias a="exa -lha --git"
 alias c='clear'
-alias v="vim"
+alias v="nvim"
 alias vi="echo 'Use v'"
 alias o="open"
 alias ls="exa --git"

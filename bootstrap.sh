@@ -1,16 +1,23 @@
 #!/bin/bash
 
-# oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# create directories
+mkdir $HOME/.zsh
+mkdir -p $HOME/.config/nvim
 
-# zsh syntax highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-# zsh fish like autocompletion
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# zsh plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/plugins/zsh-autosuggestions
+git clone https://github.com/lukechilds/zsh-nvm.git $HOME/.zsh/plugins/zsh-nvm
 
 # symlink files to $HOME
 ln -sfn $PWD/zshrc $HOME/.zshrc
 ln -sfn $PWD/gitconfig $HOME/.gitconfig
 ln -sfn $PWD/init.vim $HOME/.config/nvim/init.vim
 ln -sfn $PWD/tmux.conf $HOME/.tmux.conf
+
+# macos
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 10
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-others -array
+killall Dock

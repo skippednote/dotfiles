@@ -2,8 +2,7 @@
 export EDITOR="nvim"
 
 # nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+export NVM_LAZY_LOAD=true
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -20,8 +19,9 @@ export PATH=$PATH:$HOME/Library/Python/3.8/bin
 # nvim
 export PATH=$PATH:/usr/local/nvim/bin
 
+# Platform
+export PATH=$HOME/.platformsh/bin:$PATH
+if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi
 
-# BEGIN SNIPPET: Platform.sh CLI configuration
-HOME=${HOME:-'/Users/skippednote'}
-export PATH="$HOME/"'.platformsh/bin':"$PATH"
-if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
+# go
+export GOPATH=$HOME/go
