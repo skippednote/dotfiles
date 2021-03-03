@@ -1,10 +1,17 @@
 export LANG=en_US.UTF-8
-HYPHEN_INSENSITIVE="true"
-ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
 
-autoload -U compinit && compinit
-zmodload -i zsh/complist
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+export SAVEHIST=1000000000
+export HISTFILE="$HOME/.zsh_history"
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt share_history
+setopt inc_append_history
+
 setopt auto_cd
 cdpath=($HOME $HOME/code $HOME/code/work $HOME/code/personal)
 
@@ -18,3 +25,5 @@ source $HOME/code/personal/dotfiles/aliases
 source $HOME/code/personal/dotfiles/funcs
 source $HOME/code/personal/dotfiles/paths
 
+autoload -U compinit && compinit
+zmodload -i zsh/complist

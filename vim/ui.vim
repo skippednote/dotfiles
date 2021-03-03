@@ -3,7 +3,7 @@ syntax on
 syntax enable
 syntax enable
 " set termguicolors
-colorscheme dracula
+colorscheme gruvbox
 set background=dark
 set cursorline
 set colorcolumn=+1

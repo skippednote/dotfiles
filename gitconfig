@@ -10,7 +10,7 @@
   ui = auto
 
 [core]
-  editor = vim
+  editor = nvim
   fileMode = true  
   pager = delta
   excludesfile = $HOME/.gitignore

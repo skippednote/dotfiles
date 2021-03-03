@@ -3,6 +3,7 @@
 # create directories
 mkdir $HOME/.zsh
 mkdir -p $HOME/.config/nvim
+mkdir -p $HOME/.config/kitty
 
 # zsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/plugins/zsh-syntax-highlighting
@@ -14,6 +15,7 @@ ln -sfn $PWD/zshrc $HOME/.zshrc
 ln -sfn $PWD/gitconfig $HOME/.gitconfig
 ln -sfn $PWD/init.vim $HOME/.config/nvim/init.vim
 ln -sfn $PWD/tmux.conf $HOME/.tmux.conf
+ln -sfn $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
 
 # macos
 defaults write -g KeyRepeat -int 1

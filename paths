@@ -6,9 +6,10 @@ export NVM_LAZY_LOAD=true
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 
 # bat
-export BAT_THEME=OneHalfLight
+export BAT_THEME=gruvbox
 
 # composer
 export PATH=$PATH:$HOME/.composer/vendor/bin
@@ -24,4 +25,8 @@ export PATH=$HOME/.platformsh/bin:$PATH
 if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi
 
 # go
+export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
+
+# kitty
+export PATH=$PATH:/usr/local/kitty/bin
