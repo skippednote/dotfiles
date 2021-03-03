@@ -20,6 +20,7 @@ eval "$(starship init zsh)"
 source $HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/plugins/zsh-nvm/zsh-nvm.plugin.zsh
+source $HOME/.zsh/plugins/forgit/forgit.plugin.zsh
 
 source $HOME/code/personal/dotfiles/aliases
 source $HOME/code/personal/dotfiles/funcs

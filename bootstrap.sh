@@ -9,6 +9,7 @@ mkdir -p $HOME/.config/kitty
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/plugins/zsh-autosuggestions
 git clone https://github.com/lukechilds/zsh-nvm.git $HOME/.zsh/plugins/zsh-nvm
+git clone https://github.com/wfxr/forgit.git $HOME/.zsh/plugin/forgit
 
 # kitty themes
 git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
@@ -19,11 +20,14 @@ ln -sfn $PWD/gitconfig $HOME/.gitconfig
 ln -sfn $PWD/init.vim $HOME/.config/nvim/init.vim
 ln -sfn $PWD/tmux.conf $HOME/.tmux.conf
 ln -sfn $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
+ln -sfn $PWD/Xresources $HOME/.Xresources
 ln -sfn $HOME/.config/kitty/kitty-themes/themes/gruvbox_dark.conf $HOME/.config/kitty/theme.conf
 
 # macos
-defaults write -g KeyRepeat -int 1
-defaults write -g InitialKeyRepeat -int 10
-defaults write com.apple.dock persistent-apps -array
-defaults write com.apple.dock persistent-others -array
-killall Dock
+if [[ $OSTYPE == *"darwin"* ]]; then
+  defaults write -g KeyRepeat -int 1
+  defaults write -g InitialKeyRepeat -int 10
+  defaults write com.apple.dock persistent-apps -array
+  defaults write com.apple.dock persistent-others -array
+  killall Dock
+fi
