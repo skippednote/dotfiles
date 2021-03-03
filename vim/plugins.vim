@@ -4,6 +4,7 @@ Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-signify'
 Plug 'rhysd/committia.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'stsewd/fzf-checkout.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'gruvbox-community/gruvbox'
