@@ -9,6 +9,11 @@ alias tree="ls --tree"
 alias cat="bat"
 alias k="kubectl"
 
+if [[ $OSTYPE == *"linux"* ]]; then
+  alias pbcopy="xsel --clipboard"
+  alias pbpaste="xsel --clipboard"
+fi
+
 alias d="cd ~/code/personal/dotfiles"
 alias reload="source ~/.zshrc"
 alias path='echo $PATH | tr ":" "\n"'

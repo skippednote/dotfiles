@@ -10,12 +10,16 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/pl
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.zsh/plugins/zsh-autosuggestions
 git clone https://github.com/lukechilds/zsh-nvm.git $HOME/.zsh/plugins/zsh-nvm
 
+# kitty themes
+git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
+
 # symlink files to $HOME
 ln -sfn $PWD/zshrc $HOME/.zshrc
 ln -sfn $PWD/gitconfig $HOME/.gitconfig
 ln -sfn $PWD/init.vim $HOME/.config/nvim/init.vim
 ln -sfn $PWD/tmux.conf $HOME/.tmux.conf
 ln -sfn $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
+ln -sfn $HOME/.config/kitty/kitty-themes/themes/gruvbox_dark.conf $HOME/.config/kitty/theme.conf
 
 # macos
 defaults write -g KeyRepeat -int 1
