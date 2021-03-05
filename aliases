@@ -12,6 +12,7 @@ alias k="kubectl"
 if [[ $OSTYPE == *"linux"* ]]; then
   alias pbcopy="xsel --clipboard"
   alias pbpaste="xsel --clipboard"
+  alias open="xdg-open"
 fi
 
 alias d="cd ~/code/personal/dotfiles"
