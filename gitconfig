@@ -24,6 +24,9 @@
 [merge]
   tool = nvim
 
+[init]
+  defaultBranch = main
+
 [push]
   branch = current
   default = current
