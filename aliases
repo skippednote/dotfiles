@@ -8,6 +8,7 @@ alias ls="exa --git"
 alias tree="ls --tree"
 alias cat="bat"
 alias k="kubectl"
+alias g="git"
 
 if [[ $OSTYPE == *"linux"* ]]; then
   alias pbcopy="xsel --clipboard"
@@ -16,12 +17,12 @@ if [[ $OSTYPE == *"linux"* ]]; then
 fi
 
 alias d="cd ~/code/personal/dotfiles"
+alias j='v ~/Documents/journal/$(date +"%d-%m-%Y")".md"'
 alias reload="source ~/.zshrc"
 alias path='echo $PATH | tr ":" "\n"'
 
-alias g="git"
-alias gbc='git checkout $(git branch -a | cut -c 3- | fzf)'
 
+# ssh keys
 alias genkeys='ssh-keygen -t rsa -b 4096 -C "skippednote@skippednote.dev"'
 alias copykeys='cat ~/.ssh/id_rsa.pub | pbcopy'
 
