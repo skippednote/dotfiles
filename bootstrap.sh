@@ -20,7 +20,7 @@ ln -sfn $PWD/gitconfig $HOME/.gitconfig
 ln -sfn $PWD/init.vim $HOME/.config/nvim/init.vim
 ln -sfn $PWD/tmux.conf $HOME/.tmux.conf
 ln -sfn $PWD/kitty.conf $HOME/.config/kitty/kitty.conf
-ln -sfn $HOME/.config/kitty/kitty-themes/themes/gruvbox_dark.conf $HOME/.config/kitty/theme.conf
+ln -sfn $HOME/.config/kitty/kitty-themes/themes/Dracula.conf $HOME/.config/kitty/theme.conf
 
 # linux
 if [[ $OSTYPE == *"darwin"* ]]; then

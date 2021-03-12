@@ -9,7 +9,7 @@ export NVM_LAZY_LOAD=true
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 
 # bat
-export BAT_THEME=gruvbox
+export BAT_THEME=Dracula
 
 # composer
 export PATH=$PATH:$HOME/.composer/vendor/bin
