@@ -9,7 +9,6 @@ set laststatus=2
 set splitright
 set splitbelow
 set autoread
-set viminfo=""
 set showmatch
 set scrolloff=5
 set list
@@ -35,4 +34,3 @@ set nowrap
 set linebreak
 set formatoptions+=j
 set textwidth=80
-

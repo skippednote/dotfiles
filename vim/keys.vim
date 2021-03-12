@@ -29,3 +29,4 @@ nnoremap <leader>p "+p<cr>
 vnoremap <leader>p "+p<cr>
 vnoremap <leader>y "+y<cr>
 nnoremap <leader>pi :e $HOME/code/personal/dotfiles/init.vim<cr> :so %<cr>:PlugInstall<cr>
+nnoremap <leader>ee :.w !zsh<cr>

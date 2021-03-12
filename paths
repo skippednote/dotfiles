@@ -16,6 +16,9 @@ export PATH=$PATH:$HOME/.composer/vendor/bin
 
 # python
 export PATH=$PATH:$HOME/Library/Python/3.8/bin
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # nvim
 export PATH=$PATH:/usr/local/nvim/bin
@@ -30,3 +33,6 @@ export GOPATH=$HOME/go
 
 # kitty
 export PATH=$PATH:/usr/local/kitty/bin
+
+# cargo
+export PATH=$PATH:$HOME/.cargo/bin
