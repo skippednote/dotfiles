@@ -20,6 +20,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
+Plug 'junegunn/gv.vim'
 call plug#end()
 
 function! s:find_git_root()
