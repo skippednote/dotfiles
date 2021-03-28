@@ -21,6 +21,7 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/gv.vim'
+Plug 'airblade/vim-rooter'
 call plug#end()
 
 function! s:find_git_root()
