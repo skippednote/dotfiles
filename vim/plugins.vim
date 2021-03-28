@@ -48,7 +48,7 @@ function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
 let g:startify_bookmarks = [
-            \ { 'i': '~/.config/nvim/init.vim' },
-            \ { 'z': '~/.zshrc' },
+            \ { 'oi': '~/.config/nvim/init.vim' },
+            \ { 'oz': '~/.zshrc' },
             \ ]
 let g:startify_enable_special = 0

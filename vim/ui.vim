@@ -4,7 +4,7 @@ syntax enable
 " set termguicolors
 let g:dracula_colorterm = 0
 let g:dracula_italic = 0
-colorscheme dracula
+colorscheme gruvbox
 " set background=dark
 set cursorline
 set colorcolumn=+1
