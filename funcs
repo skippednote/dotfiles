@@ -45,3 +45,16 @@ function blt() {
     return 1
   fi
 }
+
+function skipCypressPuppeteer() {
+  export CYPRESS_INSTALL_BINARY=0
+  export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=0
+}
+
+function ccat {
+  if [[ $OSTYPE == *"linux"* ]]; then
+    cat $1 | xel --clipboard
+  else
+    cat $1 | pbcopy
+  fi
+}

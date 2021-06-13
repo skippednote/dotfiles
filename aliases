@@ -23,8 +23,8 @@ alias path='echo $PATH | tr ":" "\n"'
 
 
 # ssh keys
-alias genkeys='ssh-keygen -t rsa -b 4096 -C "skippednote@skippednote.dev"'
-alias copykeys='cat ~/.ssh/id_rsa.pub | pbcopy'
+alias genkeys='ssh-keygen -t ed25519 -C "skippednote@gmail.com" '
+alias copykeys='cat ~/.ssh/id_ed25519.pub | pbcopy'
 
 alias vu='vagrant up'
 alias vs='vagrant ssh'
