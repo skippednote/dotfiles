@@ -41,3 +41,10 @@ if [[ -n "$terminfo[kcud1]" ]]; then
   bindkey -M emacs "$terminfo[kcud1]" history-substring-search-down
   bindkey -M viins "$terminfo[kcud1]" history-substring-search-down
 fi
+
+
+#### FIG ENV VARIABLES ####
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
+
+
