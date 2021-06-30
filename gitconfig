@@ -1,6 +1,6 @@
 [user]
-  name = Bassam Ismail
-  email = skippednote@skippednote.dev
+  name = Your Name
+  email = Your Email
 
 [color]
   branch = auto
@@ -10,7 +10,6 @@
   ui = auto
 
 [core]
-  editor = nvim
   fileMode = true  
   pager = delta
   excludesfile = $HOME/.gitignore
@@ -20,9 +19,6 @@
 
 [help]
   autocorrect = 1
-
-[merge]
-  tool = nvim
 
 [init]
   defaultBranch = main
@@ -37,12 +33,6 @@
 
 [blame]
   date = short
-
-[github]
-  user = skippednote
-
-[url "ssh://git@github.com/"]
-  insteadOf = https://github.com/
 
 [remote "origin"]
   prune = true
@@ -81,7 +71,6 @@
   sp = stash pop
   sc = stash clear
   standup = log --since=yesterday.0:00am --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --author='Bassam Ismail'  --abbrev-commit
-  b = !git branch -a | grep -v '^[\\*|HEAD]' | sed 's/remotes\\/[^\\/]*.//' | uniq | sk -m | xargs git checkout
 
 [delta]
   features = side-by-side line-numbers decorations
