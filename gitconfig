@@ -1,0 +1,115 @@
+[user]
+  name = Bassam Ismail
+  email = skippednote@gmail.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIjDh1U+ocjn687da6+n8KdMu7hwDeNIjWqCtCZOUHz
+
+[core]
+  fileMode = true  
+  pager = delta
+  autocrlf = input
+  commitGraph = true
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = auto
+
+[pager]
+  diff = delta
+  blame = delta
+  grep = delta
+  log = delta
+  reflog = delta
+  show = delta
+
+[branch]
+	autosetuprebase=always
+
+[interactive]
+  diffFilter = delta --color-only
+
+[help]
+  autocorrect = 1
+
+[init]
+  defaultBranch = main
+
+[pull]
+  ff = only
+  rebase = true
+
+[fetch]
+	prune = true
+	writeCommitGraph = true
+
+[blame]
+  date = short
+
+[github]
+  user = skippednote
+
+[remote "origin"]
+  prune = true
+
+[delta]
+  features = side-by-side line-numbers decorations
+  side-by-side = true
+  navigate = true
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+  hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+  line-numbers-left-style = cyan
+  line-numbers-right-style = cyan
+  line-numbers-minus-style = 124
+  line-numbers-plus-style = 28
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+  gpgsign = true
+
+[alias]
+  a   = add
+  aa  = add --all
+  cl  = clone
+  c   = commit -v
+  cm  = commit -s -m
+  cam = commit -s -am
+  co  = checkout
+  cob = checkout -b
+  d   = diff
+  ds  = diff --staged
+  pu  = push
+  puh = push origin HEAD
+  puhf = push origin HEAD --force-with-lease
+  pl  = pull
+  pr  = pull --rebase
+  s   = status
+  sb  = status -sb
+  rv  = remote -v
+  rhh = reset --hard HEAD
+  rhs = reset --soft HEAD
+  rhm = reset --mixed HEAD
+  lp  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  bl  = branch -l
+  br  = branch -r
+  log = log --show-signature
+  cfd = clean -fd
+  cf = clean -f
+  ignore = update-index --assume-unchanged
+  fo = fetch origin
+  sl = stash list
+  sp = stash pop
+  sc = stash clear
+  b = !git branch -a | grep -v '^[\\*|HEAD]' | sed 's/remotes\\/[^\\/]*.//' | uniq | sk -m | xargs git checkout
