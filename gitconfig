@@ -8,6 +8,7 @@
   pager = delta
   autocrlf = input
   commitGraph = true
+  excludesfile = /Users/skippednote/.gitignore
 
 [color]
   branch = auto

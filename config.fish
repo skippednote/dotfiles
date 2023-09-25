@@ -37,6 +37,12 @@ function cdr
     cd (git rev-parse --show-toplevel)
 end
 
+function genpyenv -d "Generate python virutal environment and upgrade pip"
+  python3 -m venv .venv
+  source .venv/bin/activate.fish
+  pip install -U pip
+end
+
 # Keybindings
 bind \cr _atuin_search
 bind -M insert \cr _atuin_search
