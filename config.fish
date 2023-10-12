@@ -6,6 +6,7 @@ set -Ux GOPATH $HOME/.go
 
 # initializations
 starship init fish | source
+direnv hook fish | source
 fnm env | source
 zoxide init fish | source
 atuin init fish | source
@@ -26,6 +27,7 @@ alias copykeys='cat ~/.ssh/id_ed25519.pub | pbcopy'
 alias g="git"
 alias k="kubectl"
 alias tor="npx webtorrent-cli "
+alias activatepyenv="source ./.venv/bin/activate.fish"
 
 # functions
 function mcd
@@ -38,9 +40,9 @@ function cdr
 end
 
 function genpyenv -d "Generate python virutal environment and upgrade pip"
-  python3 -m venv .venv
-  source .venv/bin/activate.fish
-  pip install -U pip
+    python3 -m venv .venv
+    source .venv/bin/activate.fish
+    pip install -U pip
 end
 
 # Keybindings

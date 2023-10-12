@@ -7,11 +7,14 @@ install:
 	ln -sfn $(cwd)/gitignore ~/.gitignore
 
 clean:
-	rm -rf ~/.config/fish/config.fish \
+	rm -rf ~/.config/fish \
 		~/.gitconfig \
-		~/.gitignore
+		~/.gitignore \
 
 cleanHome:
 	rm -rf ~/.DS_Store \
-		~/.viminfo
-
+		~/.viminfo \
+		~/.node_repl_history \
+		~/.python_history \
+		~/.lesshst \
+		~/.yarnrc
