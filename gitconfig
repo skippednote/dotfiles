@@ -114,3 +114,5 @@
   sp = stash pop
   sc = stash clear
   b = !git branch -a | grep -v '^[\\*|HEAD]' | sed 's/remotes\\/[^\\/]*.//' | uniq | sk -m | xargs git checkout
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
