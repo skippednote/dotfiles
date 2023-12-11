@@ -1,7 +1,10 @@
 # set path
 set -g fish_greeting
-set -g fish_user_paths /opt/homebrew/bin $HOME/.cargo/bin $fish_user_paths
+set -g fish_user_paths /opt/homebrew/bin $HOME/.cargo/bin $HOME/.local/bin $fish_user_paths
 set -Ux GOPATH $HOME/.go
+set -gx DIRENV_LOG_FORMAT ""
+set -Ux PYENV_ROOT $HOME/.pyenv
+fish_add_path $PYENV_ROOT/bin
 # set -gx ATUIN_NOBIND "true"
 
 # initializations
@@ -10,6 +13,7 @@ direnv hook fish | source
 fnm env | source
 zoxide init fish | source
 atuin init fish | source
+pyenv init - | source
 
 # aliases
 alias l="exa -lh --git --icons"
