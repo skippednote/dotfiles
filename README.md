@@ -1,5 +1,5 @@
 ### Installation
-
+```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 cd ~
 mkdir -p ~/code/personal/
@@ -11,3 +11,4 @@ brew install
 chsh -s $(which fish)
 open skippednote.terminal
 sudo reboot now
+```
