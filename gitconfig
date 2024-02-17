@@ -1,7 +1,7 @@
 [user]
   name = Bassam Ismail
   email = skippednote@gmail.com
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIjDh1U+ocjn687da6+n8KdMu7hwDeNIjWqCtCZOUHz
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWVSUrFfMB8oHjecLaRPmMMq8SVO5ALrTAV+ylJlZHp
 
 [core]
   fileMode = true  
