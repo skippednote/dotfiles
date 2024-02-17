@@ -8,6 +8,7 @@ git clone https://github.com/skippednote/dotfiles/
 cd dotfiles
 make
 brew install
+sudo bash -c 'echo $(which fish) >> /etc/shells'
 chsh -s $(which fish)
 open skippednote.terminal
 sudo reboot now
