@@ -2,7 +2,7 @@ import = ["~/.config/alacritty/themes/tokyo-night.toml"]
 live_config_reload = true
 
 [bell]
-# animation = "EaseOutExpo"
+animation = "EaseOutExpo"
 duration = 0
 
 [colors]
@@ -28,7 +28,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 
 [window]
-opacity = 0.97
+opacity = 0.99
 decorations = "none"
 dynamic_title = true
 option_as_alt = "Both"
