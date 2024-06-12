@@ -3,12 +3,13 @@
 cwd := $(shell pwd)
 
 install:
-	mkdir -p ~/.config/{alacritty,zellij}
+	mkdir -p ~/.config/{alacritty/{,themes},zellij}
 	ln -sfn $(cwd)/zshrc ~/.zshrc
 	ln -sfn $(cwd)/gitconfig ~/.gitconfig
 	ln -sfn $(cwd)/gitignore ~/.gitignore
 	ln -sfn $(cwd)/starship.toml ~/.config/starship.toml
 	ln -sfn $(cwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
+	ln -sfn $(cwd)/alacritty-tokyo-night.toml ~/.config/alacritty/themes/tokyo-night.toml
 	ln -sfn $(cwd)/config.kdl ~/.config/zellij/config.kdl
 
 nvim:
