@@ -1,7 +1,7 @@
 [user]
   name = Bassam Ismail
   email = skippednote@gmail.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWVSUrFfMB8oHjecLaRPmMMq8SVO5ALrTAV+ylJlZHp
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
 
 [core]
   fileMode = true  
@@ -109,10 +109,9 @@
   cfd = clean -fd
   cf = clean -f
   ignore = update-index --assume-unchanged
+  fa = fetch --all
   fo = fetch origin
   sl = stash list
   sp = stash pop
   sc = stash clear
   b = !git branch -a | grep -v '^[\\*|HEAD]' | sed 's/remotes\\/[^\\/]*.//' | uniq | sk -m | xargs git checkout
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
