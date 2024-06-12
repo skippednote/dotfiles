@@ -192,7 +192,7 @@ plugins {
     compact-bar location="zellij:compact-bar"
     session-manager location="zellij:session-manager"
     welcome-screen location="zellij:session-manager" {
-        welcome_screen true
+        welcome_screen false
     }
     filepicker location="zellij:strider" {
         cwd "/"
@@ -293,7 +293,7 @@ plugins {
 // Default: default
 //
 theme "tokyo-night"
-theme "default"
+// theme "default"
 
 // The name of the default layout to load on startup
 // Default: "default"

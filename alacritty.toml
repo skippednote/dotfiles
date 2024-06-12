@@ -28,7 +28,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 
 [window]
-opacity = 0.99
+opacity = 1
 decorations = "none"
 dynamic_title = true
 option_as_alt = "Both"
