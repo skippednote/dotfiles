@@ -11,6 +11,7 @@ install:
 	ln -sfn $(cwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
 	ln -sfn $(cwd)/alacritty-tokyo-night.toml ~/.config/alacritty/themes/tokyo-night.toml
 	ln -sfn $(cwd)/config.kdl ~/.config/zellij/config.kdl
+	curl https://raw.githubusercontent.com/hmarr/dotfiles/main/bin/update-alacritty-icon.sh | sh
 
 nvim:
 	rm -rf ~/.config/nvim
@@ -33,8 +34,7 @@ cleanHome:
 		~/.node_repl_history \
 		~/.python_history \
 		~/.lesshst \
-		~/.yarnrc \
-		~/.zprofile \
+		~/.yarnrc 
 		~/.zcompdump \
 		~/.zshenv \
 		~/.profile \
