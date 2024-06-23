@@ -9,7 +9,7 @@ export path=(
   /usr/local/nvim/bin
   $HOME/.cargo/bin
   $HOME/.local/bin
-  $HOME/Library/Application Support/JetBrains/Toolbox/scripts
+  $HOME/Library/Application\ Support/JetBrains/Toolbox/scripts
   $HOME/.yarn/bin
   $PYENV_ROOT/bin
 )
