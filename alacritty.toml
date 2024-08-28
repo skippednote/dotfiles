@@ -32,7 +32,7 @@ opacity = 1
 decorations = "none"
 dynamic_title = true
 option_as_alt = "Both"
-startup_mode = "SimpleFullscreen"
+# startup_mode = "SimpleFullscreen"
 
 [window.padding]
 x = 1

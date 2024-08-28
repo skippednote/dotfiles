@@ -2,6 +2,7 @@ export GOPATH=$HOME/.go
 export PYENV_ROOT=$HOME/.pyenv
 export ATUIN_NOBIND=true
 export BAT_THEME=base16
+export EDITOR=nvim
 
 export path=(
   $path
@@ -22,6 +23,7 @@ eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 eval "$(pyenv init -)"
 source "$HOME/.sdkman/bin/sdkman-init.sh"
+source <(kubectl completion zsh)
 source <(helm completion zsh)
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 

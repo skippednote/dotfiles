@@ -40,3 +40,6 @@ cleanHome:
 		~/.profile \
 		~/.DS_Store \
 		~/.bash*
+
+brewDump:
+	brew bundle dump --force --cask --tap --mas --brew
