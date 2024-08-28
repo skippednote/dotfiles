@@ -54,7 +54,7 @@ family = "IosevkaTerm Nerd Font Mono"
 style = "Bold Italic"
 
 [mouse]
-hide_when_typing = true
+hide_when_typing = false
 
 [[mouse.bindings]]
 action = "PasteSelection"
