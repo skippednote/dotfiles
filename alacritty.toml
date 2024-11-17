@@ -1,3 +1,4 @@
+[general]
 import = ["~/.config/alacritty/themes/tokyo-night.toml"]
 live_config_reload = true
 
@@ -78,7 +79,7 @@ mods = "None"
 action = "PasteSelection"
 mouse = "Middle"
 
-[shell]
+[terminal.shell]
 program = "/opt/homebrew/bin/zellij"
 args = ["-l", "welcome"]
 

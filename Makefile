@@ -41,5 +41,13 @@ cleanHome:
 		~/.DS_Store \
 		~/.bash*
 
+arkade:
+	curl -sLS https://get.arkade.dev | sudo sh -s
+	arkade get \
+		helm \
+		k9s \
+		kind \
+		kubectx
+
 brewDump:
 	brew bundle dump --force --cask --tap --mas --brew

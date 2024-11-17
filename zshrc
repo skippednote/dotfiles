@@ -12,6 +12,8 @@ export path=(
   $HOME/.local/bin
   $HOME/Library/Application\ Support/JetBrains/Toolbox/scripts
   $HOME/.yarn/bin
+  $HOME/.arkade/bin/
+  $HOME/.go/bin/
   $PYENV_ROOT/bin
 )
 
