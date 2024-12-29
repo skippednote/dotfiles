@@ -1,2 +1,4 @@
 [kubernetes]
 disabled = true
+[aws]
+disabled = true
