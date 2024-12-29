@@ -1,0 +1,10 @@
+theme = tokyonight
+# window-decoration = false
+macos-non-native-fullscreen = true
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+copy-on-select = true
+font-size=14
+command = "/opt/homebrew/bin/zellij -l welcome"
+cursor-style-blink = true
+font-feature = -liga
+working-directory = inherit

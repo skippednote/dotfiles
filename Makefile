@@ -3,15 +3,13 @@
 cwd := $(shell pwd)
 
 install:
-	mkdir -p ~/.config/{alacritty/{,themes},zellij}
+	mkdir -p ~/.config/zellij
 	ln -sfn $(cwd)/zshrc ~/.zshrc
 	ln -sfn $(cwd)/gitconfig ~/.gitconfig
 	ln -sfn $(cwd)/gitignore ~/.gitignore
 	ln -sfn $(cwd)/starship.toml ~/.config/starship.toml
-	ln -sfn $(cwd)/alacritty.toml ~/.config/alacritty/alacritty.toml
-	ln -sfn $(cwd)/alacritty-tokyo-night.toml ~/.config/alacritty/themes/tokyo-night.toml
 	ln -sfn $(cwd)/config.kdl ~/.config/zellij/config.kdl
-	curl https://raw.githubusercontent.com/hmarr/dotfiles/main/bin/update-alacritty-icon.sh | sh
+	ln -sfn $(cwd)/ghostty ~/Library/Application\ Support/com.mitchellh.ghostty/config
 
 nvim:
 	rm -rf ~/.config/nvim
@@ -25,7 +23,6 @@ clean:
 		~/.gitignore \
 		~/.config/starship.toml \
 		~/.config/nvim \
-		~/.config/alacritty \
 		~/.config/zellij
 
 cleanHome:
