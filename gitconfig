@@ -1,6 +1,6 @@
 [user]
   name = Bassam Ismail
-  email = skippednote@gmail.com
+	email = 2114712+skippednote@users.noreply.github.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
 
 [core]
@@ -130,3 +130,8 @@
 	set-parent = town set-parent
 	ship = town ship
 	sync = town sync
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

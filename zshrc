@@ -3,13 +3,14 @@ export PYENV_ROOT=$HOME/.pyenv
 export ATUIN_NOBIND=true
 export BAT_THEME=base16
 export EDITOR=nvim
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 export path=(
   $path
   /opt/homebrew/bin
   /usr/local/nvim/bin
-  $HOME/.cargo/bin
   $HOME/.local/bin
+  $HOME/.cargo/bin
   $HOME/Library/Application\ Support/JetBrains/Toolbox/scripts
   $HOME/.yarn/bin
   $HOME/.arkade/bin/
@@ -20,10 +21,9 @@ export path=(
 
 # initializations
 eval "$(starship init zsh)"
-eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
-eval "$(pyenv init -)"
+eval "$(mise activate zsh)"
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 source <(kubectl completion zsh)
 source <(helm completion zsh)
@@ -46,6 +46,7 @@ alias g="git"
 alias k="kubectl"
 alias tor="npx webtorrent-cli "
 alias activatepyenv="source ./.venv/bin/activate.fish"
+alias tf=terraform
 
 # functions
 mcd() {
@@ -60,3 +61,9 @@ cdr() {
 bindkey '^r' atuin-search
 bindkey '^[[A' atuin-up-search
 bindkey '^[OA' atuin-up-search
+
+
+# Herd injected PHP binary.
+export PATH="/Users/skippednote/Library/Application Support/Herd/bin/":$PATH
+export PATH="/Users/skippednote/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/Users/skippednote/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
