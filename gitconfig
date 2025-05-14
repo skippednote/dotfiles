@@ -1,0 +1,90 @@
+[user]
+  name = Bassam Ismail
+  email = skippednote@gmail.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
+
+[commit]
+	gpgsign = true
+
+[core]
+  fileMode = true  
+  pager = delta
+  autocrlf = input
+  commitGraph = true
+  excludesfile = /Users/skippednote/.gitignore
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = auto
+
+[pager]
+  diff = delta
+  blame = delta
+  grep = delta
+  log = delta
+  reflog = delta
+  show = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[help]
+  autocorrect = 1
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[github]
+  user = skippednote
+
+[remote "origin"]
+  prune = true
+
+[delta]
+  features = side-by-side line-numbers decorations
+  side-by-side = true
+  navigate = true
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+  hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+  line-numbers-left-style = cyan
+  line-numbers-right-style = cyan
+  line-numbers-minus-style = 124
+  line-numbers-plus-style = 28
+
+[alias]
+  a   = add
+  co  = checkout
+  cob = checkout -b
+  d   = diff
+  ds  = diff --staged
+  pu  = push
+  puh = push origin HEAD
+  puhf = push origin HEAD --force-with-lease
+  pl  = pull
+  s   = status
+  rv  = remote -v
+  rhh = reset --hard HEAD
+  lp  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  bl  = branch -l
+  br  = branch -r
+  log = log --show-signature
+  cfd = clean -fd
+  cf = clean -f
+  ignore = update-index --assume-unchanged
+  fa = fetch --all
+  fo = fetch origin
+  sl = stash list
+  sp = stash pop
+  sc = stash clear
