@@ -2,6 +2,7 @@ export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export EDITOR="cursor --wait"
 
 export path=(
   $path
