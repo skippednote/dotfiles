@@ -4,10 +4,10 @@
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
 
 [commit]
-	gpgsign = true
+  gpgsign = true
 
 [core]
-  fileMode = true  
+  fileMode = true
   pager = delta
   autocrlf = input
   commitGraph = true
@@ -35,10 +35,10 @@
   autocorrect = 1
 
 [gpg]
-	format = ssh
+  format = ssh
 
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 
 [github]
   user = skippednote
