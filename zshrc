@@ -29,7 +29,8 @@ alias cat="bat"
 alias d="cd ~/code/personal/dotfiles"
 alias g="git"
 alias k="kubectl"
-alias tf=terraform
+alias tf="terraform"
+alias e="cursor"
 
 # functions
 mcd() {
