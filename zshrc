@@ -1,13 +1,12 @@
 export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
-export POETRY_VIRTUALENVS_IN_PROJECT=true
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export EDITOR="cursor --wait"
 
 export path=(
   $path
   /opt/homebrew/bin
   $HOME/.local/bin
+  $HOME/.go/bin
   $HOME/.cargo/bin
 )
 
@@ -29,7 +28,6 @@ alias cat="bat"
 alias d="cd ~/code/personal/dotfiles"
 alias g="git"
 alias k="kubectl"
-alias tf="terraform"
 alias e="cursor"
 
 # functions

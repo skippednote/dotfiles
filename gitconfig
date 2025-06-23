@@ -9,7 +9,7 @@
 [core]
   fileMode = true
   pager = delta
-  autocrlf = input
+  autocrlf = true
   commitGraph = true
   excludesfile = /Users/skippednote/.gitignore
 
@@ -67,6 +67,7 @@
   a   = add
   co  = checkout
   cob = checkout -b
+  cam = commit --amend --no-edit
   d   = diff
   ds  = diff --staged
   pu  = push

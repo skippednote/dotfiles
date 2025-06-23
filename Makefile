@@ -6,11 +6,13 @@ install:
 	ln -sfn $(cwd)/zshrc ~/.zshrc
 	ln -sfn $(cwd)/gitconfig ~/.gitconfig
 	ln -sfn $(cwd)/gitignore ~/.gitignore
+	ln -sfn $(cwd)/scripts/* ~/.local/bin/
 
 clean:
 	rm -rf ~/.zshrc \
 		~/.gitconfig \
 		~/.gitignore \
+		~/.local/bin/fetch-dirs
 
 brewDump:
 	brew bundle dump --force --cask --tap --mas --brew
@@ -19,5 +21,7 @@ rustPackages:
 	cargo-binstall bat \
 		eza \
 		git-delta \
+		jujutsu \
 		tokei \
+		ripgrep \
 		zoxide
