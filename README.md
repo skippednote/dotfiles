@@ -4,11 +4,12 @@ This repository contains my personal dotfiles and development environment config
 
 ## Contents
 
-- Shell configuration (`.zshrc`)
-- Git configuration (`.gitconfig` and `.gitignore`)
+- Shell configuration (`.zshrc`) with Go binary path and aliases
+- Git configuration (`.gitconfig` and `.gitignore`) with delta pager and custom aliases
 - Terminal configuration (`skippednote.terminal`)
 - Homebrew package management (`Brewfile`)
 - Development tools and utilities
+- Custom scripts
 
 ## Prerequisites
 
@@ -33,6 +34,7 @@ This will create symbolic links for the following files:
 - `~/.zshrc`
 - `~/.gitconfig`
 - `~/.gitignore`
+- Scripts to `~/.local/bin/`
 
 ## Available Make Commands
 
@@ -44,20 +46,23 @@ This will create symbolic links for the following files:
 ## Included Software
 
 ### Homebrew Packages
-- Development tools: `go`, `helm`, `hey`, `k9s`
+- Development tools: `go`
 - Shell enhancements: `starship`, `zsh-autosuggestions`
 - Version management: `fnm`
 - Utilities: `atuin`, `cargo-binstall`, `gh`, `uv`
 
 ### Applications
 - Development: `cursor`, `orbstack`
-- Productivity: `1password`, `arc`, `chatgpt`, `notion-calendar`, `raycast`, `rectangle`, `slack`, `zoom`
+- Productivity: `1password`, `granola`, `notion`, `notion-calendar`, `raycast`, `rectangle`, `slack`, `zoom`
+- AI: `chatgpt`, `claude`, `claude-code`
 - Fonts: `font-fira-code-nerd-font`
 
 ### Rust Packages
 - `bat`: Better cat
 - `eza`: Modern ls
 - `git-delta`: Better git diff
+- `jujutsu`: Git-compatible VCS
+- `ripgrep`: Fast text search
 - `tokei`: Code statistics
 - `zoxide`: Smarter cd
 
