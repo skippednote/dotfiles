@@ -43,4 +43,3 @@ cdr() {
 bindkey '^r' atuin-search
 bindkey '^[[A' atuin-up-search
 bindkey '^[OA' atuin-up-search
-

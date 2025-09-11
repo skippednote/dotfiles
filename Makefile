@@ -12,7 +12,6 @@ clean:
 	rm -rf ~/.zshrc \
 		~/.gitconfig \
 		~/.gitignore \
-		~/.local/bin/fetch-dirs
 
 brewDump:
 	brew bundle dump --force --cask --tap --mas --brew
