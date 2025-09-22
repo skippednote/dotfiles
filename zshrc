@@ -1,5 +1,6 @@
 export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
+export PHP_INI_SCAN_DIR="/Users/skippednote/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export EDITOR="cursor --wait"
 
 export path=(
@@ -8,6 +9,7 @@ export path=(
   $HOME/.local/bin
   $HOME/.go/bin
   $HOME/.cargo/bin
+  $HOME/.config/herd-lite/bin
 )
 
 eval "$(starship init zsh)"
