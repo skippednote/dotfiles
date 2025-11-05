@@ -2,6 +2,7 @@ export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
 export PHP_INI_SCAN_DIR="/Users/skippednote/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export EDITOR="cursor --wait"
+export _ZO_DOCTOR=0
 
 export path=(
   $path
@@ -31,6 +32,8 @@ alias d="cd ~/code/personal/dotfiles"
 alias g="git"
 alias k="kubectl"
 alias e="cursor"
+alias ca="cursor-agent"
+alias tor="npx webtorrent-cli"
 
 # functions
 mcd() {
@@ -45,3 +48,4 @@ cdr() {
 bindkey '^r' atuin-search
 bindkey '^[[A' atuin-up-search
 bindkey '^[OA' atuin-up-search
+
