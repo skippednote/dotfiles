@@ -9,9 +9,11 @@ LOCAL_BIN := $(HOME)/.local/bin
 install: backup
 	@echo "Installing dotfiles..."
 	@mkdir -p $(LOCAL_BIN)
+	@mkdir -p ~/.config/mise
 	@ln -sfn $(cwd)/zshrc ~/.zshrc && echo "? Linked .zshrc"
 	@ln -sfn $(cwd)/gitconfig ~/.gitconfig && echo "? Linked .gitconfig"
 	@ln -sfn $(cwd)/gitignore ~/.gitignore && echo "? Linked .gitignore"
+	@ln -sfn $(cwd)/mise.toml ~/.config/mise/config.toml && echo "? Linked mise config"
 	@if [ -d "$(cwd)/scripts" ]; then \
 		ln -sfn $(cwd)/scripts/* $(LOCAL_BIN)/ && echo "? Linked scripts"; \
 	else \
@@ -32,11 +34,14 @@ backup:
 	@if [ -f ~/.gitignore ] && [ ! -L ~/.gitignore ]; then \
 		cp ~/.gitignore $(HOME)/.dotfiles-backup/gitignore.backup && echo "? Backed up .gitignore"; \
 	fi
+	@if [ -f ~/.config/mise/config.toml ] && [ ! -L ~/.config/mise/config.toml ]; then \
+		cp ~/.config/mise/config.toml $(HOME)/.dotfiles-backup/mise.config.backup && echo "? Backed up mise config"; \
+	fi
 
 # Remove symbolic links
 clean:
 	@echo "Removing dotfile symlinks..."
-	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore
+	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml
 	@echo "Clean complete!"
 
 # Verify dotfile installation status
@@ -57,17 +62,13 @@ check:
 	else \
 		echo "? .gitignore is not linked"; \
 	fi
+	@if [ -L ~/.config/mise/config.toml ]; then \
+		echo "? mise config is linked"; \
+	else \
+		echo "? mise config is not linked"; \
+	fi
 
 # Update Brewfile with current Homebrew packages
-brewDump:
+dump:
 	brew bundle dump --force --cask --tap --mas --brew
 
-# Install Rust packages using cargo-binstall
-rustPackages:
-	cargo-binstall bat \
-		eza \
-		git-delta \
-		jujutsu \
-		tokei \
-		ripgrep \
-		zoxide

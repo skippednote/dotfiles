@@ -22,18 +22,12 @@ export path=(
 # ------------------------------------------------------------------------------
 # Tool Initializations
 # ------------------------------------------------------------------------------
+eval "$(mise activate zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
-eval "$(fnm env --use-on-cd --shell zsh)"
-
-# Load zsh-autosuggestions if available
 if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-# Load SDKMAN if available
-if [ -f .sdkman/bin/sdkman-init.sh ]; then  
-  source .sdkman/bin/sdkman-init.sh
 fi
 
 # ------------------------------------------------------------------------------
@@ -51,7 +45,7 @@ alias d="cd ~/code/personal/dotfiles"
 alias g="git"
 alias k="kubectl"
 alias e="cursor"
-alias ca="cursor-agent"
+alias ca="agent"
 alias tor="npx webtorrent-cli"
 
 # ------------------------------------------------------------------------------

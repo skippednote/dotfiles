@@ -9,9 +9,10 @@
 [core]
   fileMode = true
   pager = delta
-  autocrlf = true
+	autocrlf = input
   commitGraph = true
   excludesfile = /Users/skippednote/.gitignore
+	eol = lf
 
 [color]
   branch = auto
