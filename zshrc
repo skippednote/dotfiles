@@ -3,7 +3,6 @@
 # ------------------------------------------------------------------------------
 export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
-export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export EDITOR="cursor --wait"
 export _ZO_DOCTOR=0
 
@@ -16,7 +15,6 @@ export path=(
   $HOME/.local/bin
   $HOME/.go/bin
   $HOME/.cargo/bin
-  $HOME/.config/herd-lite/bin
 )
 
 # ------------------------------------------------------------------------------
@@ -46,11 +44,18 @@ alias g="git"
 alias k="kubectl"
 alias e="cursor"
 alias ca="agent"
-alias tor="npx webtorrent-cli"
 
 # ------------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------------
+tor() {
+  if [[ $# -eq 0 ]]; then
+    npx webtorrent-cli "$(pbpaste)"
+  else
+    npx webtorrent-cli "$@"
+  fi
+}
+
 mcd() {
     mkdir -p "$1" && cd "$1"
 }

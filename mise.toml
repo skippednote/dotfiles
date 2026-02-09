@@ -22,3 +22,6 @@ oha = "latest"
 xh = "latest"
 maven = "latest"
 java = "latest"
+tokei = "latest"
+aws-cli = { version = "latest", symlink_bins = "true" }
+doggo = "latest"
