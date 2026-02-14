@@ -25,3 +25,5 @@ java = "latest"
 tokei = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 doggo = "latest"
+claude = "latest"
+"github:agavra/tuicr" = "latest"
