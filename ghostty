@@ -1,0 +1,5 @@
+# Ghostty terminal config
+# https://ghostty.org/docs/config
+
+theme = TokyoNight Night
+font-size = 15
