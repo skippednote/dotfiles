@@ -16,8 +16,7 @@ install: backup
 	@ln -sfn $(cwd)/mise.toml ~/.config/mise/config.toml && echo "? Linked mise config"
 	@mkdir -p ~/.config
 	@ln -sfn $(cwd)/starship.toml ~/.config/starship.toml && echo "? Linked starship config"
-	@mkdir -p ~/.config/ghostty && ln -sfn $(cwd)/ghostty ~/.config/ghostty/config && echo "? Linked ghostty config (XDG)"
-	@mkdir -p "$(HOME)/Library/Application Support/com.mitchellh.ghostty" && ln -sfn $(cwd)/ghostty "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" && echo "? Linked ghostty config (macOS)"
+	@mkdir -p "$(HOME)/Library/Application Support/com.mitchellh.ghostty" && ln -sfn $(cwd)/ghostty "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" && echo "? Linked ghostty config"
 	@if [ -f "$(cwd)/lazy.lua" ]; then \
 		mkdir -p ~/.config/nvim/lua/config; \
 		ln -sfn $(cwd)/lazy.lua ~/.config/nvim/lua/config/lazy.lua && echo "? Linked lazy.lua (nvim)"; \
@@ -50,11 +49,8 @@ backup:
 	@if [ -f ~/.config/starship.toml ] && [ ! -L ~/.config/starship.toml ]; then \
 		cp ~/.config/starship.toml $(HOME)/.dotfiles-backup/starship.toml.backup && echo "? Backed up starship config"; \
 	fi
-	@if [ -f ~/.config/ghostty/config ] && [ ! -L ~/.config/ghostty/config ]; then \
-		cp ~/.config/ghostty/config $(HOME)/.dotfiles-backup/ghostty.config.backup && echo "? Backed up ghostty config (XDG)"; \
-	fi
 	@if [ -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" ] && [ ! -L "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" ]; then \
-		cp "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" $(HOME)/.dotfiles-backup/ghostty-macos.config.backup && echo "? Backed up ghostty macOS config"; \
+		cp "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" $(HOME)/.dotfiles-backup/ghostty.config.backup && echo "? Backed up ghostty config"; \
 	fi
 	@if [ -f ~/.config/nvim/lua/config/lazy.lua ] && [ ! -L ~/.config/nvim/lua/config/lazy.lua ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/nvim; \
@@ -64,7 +60,7 @@ backup:
 # Remove symbolic links
 clean:
 	@echo "Removing dotfile symlinks..."
-	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml ~/.config/ghostty/config
+	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
 	@rm -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config"
 	@rm -f ~/.config/nvim/lua/config/lazy.lua
 	@echo "Clean complete!"
@@ -97,15 +93,10 @@ check:
 	else \
 		echo "? starship config is not linked"; \
 	fi
-	@if [ -L ~/.config/ghostty/config ]; then \
-		echo "? ghostty config (XDG) is linked"; \
-	else \
-		echo "? ghostty config (XDG) is not linked"; \
-	fi
 	@if [ -L "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" ]; then \
-		echo "? ghostty config (macOS) is linked"; \
+		echo "? ghostty config is linked"; \
 	else \
-		echo "? ghostty config (macOS) is not linked"; \
+		echo "? ghostty config is not linked"; \
 	fi
 	@if [ -L ~/.config/nvim/lua/config/lazy.lua ]; then \
 		echo "? lazy.lua (nvim) is linked"; \
