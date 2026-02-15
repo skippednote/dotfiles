@@ -9,10 +9,10 @@
 [core]
   fileMode = true
   pager = delta
-	autocrlf = input
+  autocrlf = input
   commitGraph = true
   excludesfile = /Users/skippednote/.gitignore
-	eol = lf
+  eol = lf
 
 [color]
   branch = auto
@@ -43,6 +43,24 @@
 
 [github]
   user = skippednote
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = true
+
+[rebase]
+  autoStash = true
+
+[fetch]
+  prune = true
+
+[merge]
+  conflictStyle = diff3
+
+[push]
+  autoSetupRemote = true
 
 [remote "origin"]
   prune = true
@@ -82,7 +100,6 @@
   lp  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   bl  = branch -l
   br  = branch -r
-  log = log --show-signature
   cfd = clean -fd
   cf = clean -f
   ignore = update-index --assume-unchanged
@@ -98,3 +115,10 @@
   ss = stash show
   unstage = reset HEAD --
   lg = log --oneline --decorate --graph --all
+  last = log -1 --stat
+  uncommit = reset --soft HEAD~1
+  undo = reset --soft HEAD~1
+  sync = pull --rebase
+  rbi = rebase -i
+  fixup = commit --fixup
+  root = rev-parse --show-toplevel

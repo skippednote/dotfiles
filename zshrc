@@ -45,6 +45,7 @@ alias k="kubectl"
 alias e="cursor"
 alias ca="agent"
 alias v="nvim"
+alias vim="nvim"
 
 # ------------------------------------------------------------------------------
 # Functions
