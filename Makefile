@@ -14,6 +14,8 @@ install: backup
 	@ln -sfn $(cwd)/gitconfig ~/.gitconfig && echo "? Linked .gitconfig"
 	@ln -sfn $(cwd)/gitignore ~/.gitignore && echo "? Linked .gitignore"
 	@ln -sfn $(cwd)/mise.toml ~/.config/mise/config.toml && echo "? Linked mise config"
+	@mkdir -p ~/.config
+	@ln -sfn $(cwd)/starship.toml ~/.config/starship.toml && echo "? Linked starship config"
 	@if [ -d "$(cwd)/scripts" ]; then \
 		ln -sfn $(cwd)/scripts/* $(LOCAL_BIN)/ && echo "? Linked scripts"; \
 	else \
@@ -37,11 +39,14 @@ backup:
 	@if [ -f ~/.config/mise/config.toml ] && [ ! -L ~/.config/mise/config.toml ]; then \
 		cp ~/.config/mise/config.toml $(HOME)/.dotfiles-backup/mise.config.backup && echo "? Backed up mise config"; \
 	fi
+	@if [ -f ~/.config/starship.toml ] && [ ! -L ~/.config/starship.toml ]; then \
+		cp ~/.config/starship.toml $(HOME)/.dotfiles-backup/starship.toml.backup && echo "? Backed up starship config"; \
+	fi
 
 # Remove symbolic links
 clean:
 	@echo "Removing dotfile symlinks..."
-	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml
+	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
 	@echo "Clean complete!"
 
 # Verify dotfile installation status
@@ -66,6 +71,11 @@ check:
 		echo "? mise config is linked"; \
 	else \
 		echo "? mise config is not linked"; \
+	fi
+	@if [ -L ~/.config/starship.toml ]; then \
+		echo "? starship config is linked"; \
+	else \
+		echo "? starship config is not linked"; \
 	fi
 
 # Update Brewfile with current Homebrew packages

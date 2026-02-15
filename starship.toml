@@ -1,0 +1,6 @@
+# https://starship.rs/config/
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Hide AWS from the prompt
+[aws]
+disabled = true
