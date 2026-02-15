@@ -26,4 +26,6 @@ tokei = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 doggo = "latest"
 claude = "latest"
+neovim = "latest"
+lazygit = "latest"
 "github:agavra/tuicr" = "latest"

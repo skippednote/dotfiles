@@ -44,6 +44,7 @@ alias g="git"
 alias k="kubectl"
 alias e="cursor"
 alias ca="agent"
+alias v="nvim"
 
 # ------------------------------------------------------------------------------
 # Functions
