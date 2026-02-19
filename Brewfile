@@ -1,5 +1,7 @@
+tap "ddev/ddev"
 brew "mise"
 brew "zsh-autosuggestions"
+brew "ddev/ddev/ddev"
 cask "1password"
 cask "chatgpt"
 cask "claude"
