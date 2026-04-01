@@ -25,6 +25,8 @@ install: backup
 	fi
 	@mkdir -p $(HOME)/.ssh && chmod 700 $(HOME)/.ssh
 	@ln -sfn $(cwd)/ssh_config $(HOME)/.ssh/config && echo "? Linked SSH config"
+	@mkdir -p $(HOME)/.config/gh
+	@ln -sfn $(cwd)/gh_config.yml $(HOME)/.config/gh/config.yml && echo "? Linked gh config"
 	@if [ -d "$(cwd)/scripts" ]; then \
 		ln -sfn $(cwd)/scripts/* $(LOCAL_BIN)/ && echo "? Linked scripts"; \
 	else \
@@ -77,6 +79,7 @@ clean:
 	@rm -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config"
 	@rm -f ~/.config/nvim/lua/config/lazy.lua
 	@rm -f ~/.ssh/config
+	@rm -f $(HOME)/.config/gh/config.yml
 	@echo "Clean complete!"
 
 # Verify dotfile installation status
@@ -123,6 +126,11 @@ check:
 		echo "? SSH config is linked"; \
 	else \
 		echo "? SSH config is not linked"; \
+	fi
+	@if [ -L $(HOME)/.config/gh/config.yml ]; then \
+		echo "? gh config is linked"; \
+	else \
+		echo "? gh config is not linked"; \
 	fi
 
 # Install LazyVim (Neovim config) at ~/.config/nvim. Run \`make install\` afterward to symlink lazy.lua from dotfiles.
