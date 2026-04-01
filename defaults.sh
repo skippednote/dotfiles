@@ -93,16 +93,6 @@ sudo scutil --set ComputerName "skippednote"
 sudo scutil --set HostName "skippednote"
 sudo scutil --set LocalHostName "skippednote"
 
-# Wallpaper
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-WALLPAPER_SRC="$SCRIPT_DIR/wallpapers"
-WALLPAPER_DST="$HOME/Pictures/wallpapers"
-if [ -d "$WALLPAPER_SRC" ]; then
-  mkdir -p "$WALLPAPER_DST"
-  cp -n "$WALLPAPER_SRC"/* "$WALLPAPER_DST"/ 2>/dev/null || true
-  osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"$WALLPAPER_DST/The_Artist's_Garden_at_Eragny.jpg\"" 2>/dev/null || echo "  Could not set wallpaper automatically — set it manually from ~/Pictures/wallpapers/"
-fi
-
 # Restart affected apps
 killall Dock
 killall Finder
