@@ -5,6 +5,11 @@ export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
 export EDITOR="nvim"
 export _ZO_DOCTOR=0
+# Ghostty sets TERM=xterm-ghostty which isn't in the default terminfo database
+# on remote hosts or older macOS builds — fall back to xterm-256color.
+if [[ "$TERM" == "xterm-ghostty" ]] && ! infocmp xterm-ghostty &>/dev/null; then
+  export TERM=xterm-256color
+fi
 
 # ------------------------------------------------------------------------------
 # Path
