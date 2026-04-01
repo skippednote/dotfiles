@@ -74,6 +74,9 @@ defaults write NSGlobalDomain NSUserDictionaryReplacementItems -array \
   '{ on = 1; replace = "ws"; with = "Wa-Alaikum-Salaam"; }' \
   '{ on = 1; replace = "isa"; with = "In Sha Allah"; }'
 
+# Keyboard — remap Caps Lock to Control
+hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}' >/dev/null
+
 # Trackpad — tap to click
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1

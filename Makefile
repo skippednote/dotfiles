@@ -27,6 +27,8 @@ install: backup
 	@ln -sfn $(cwd)/ssh_config $(HOME)/.ssh/config && echo "? Linked SSH config"
 	@mkdir -p $(HOME)/.config/gh
 	@ln -sfn $(cwd)/gh_config.yml $(HOME)/.config/gh/config.yml && echo "? Linked gh config"
+	@mkdir -p $(HOME)/Library/LaunchAgents
+	@ln -sfn $(cwd)/com.skippednote.capslock-to-control.plist $(HOME)/Library/LaunchAgents/com.skippednote.capslock-to-control.plist && echo "? Linked Caps Lock → Control launch agent"
 	@if [ -d "$(cwd)/scripts" ]; then \
 		ln -sfn $(cwd)/scripts/* $(LOCAL_BIN)/ && echo "? Linked scripts"; \
 	else \
