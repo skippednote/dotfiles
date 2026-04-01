@@ -24,3 +24,5 @@ __pycache__/
 *.tmp
 *.temp
 *.log
+
+.claude/settings.local.json

@@ -71,6 +71,9 @@ defaults write com.knollsoft.Rectangle alternateDefaultShortcuts -bool true
 defaults write com.knollsoft.Rectangle allowAnyShortcut -bool true
 defaults write com.knollsoft.Rectangle subsequentExecutionMode -int 1
 
+# Raycast — Cmd+Space (replaces Spotlight)
+defaults write com.raycast.macos raycastGlobalHotkey -string "Command-49"
+
 # Computer name
 sudo scutil --set ComputerName "skippednote"
 sudo scutil --set HostName "skippednote"
