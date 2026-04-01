@@ -1,4 +1,4 @@
-.PHONY: install clean brewDump rustPackages backup check lazyvim
+.PHONY: install clean backup check lazyvim dump defaults bootstrap
 
 # Get the current working directory
 cwd := $(shell pwd)
@@ -23,12 +23,22 @@ install: backup
 	else \
 		echo "? lazy.lua not found in dotfiles"; \
 	fi
+	@mkdir -p $(HOME)/.ssh && chmod 700 $(HOME)/.ssh
+	@ln -sfn $(cwd)/ssh_config $(HOME)/.ssh/config && echo "? Linked SSH config"
 	@if [ -d "$(cwd)/scripts" ]; then \
 		ln -sfn $(cwd)/scripts/* $(LOCAL_BIN)/ && echo "? Linked scripts"; \
 	else \
 		echo "? No scripts directory found, skipping..."; \
 	fi
 	@echo "Installation complete!"
+
+# Apply macOS defaults
+defaults:
+	@bash $(cwd)/defaults.sh
+
+# Full bootstrap for a fresh Mac
+bootstrap:
+	@bash $(cwd)/bootstrap.sh
 
 # Create backups of existing dotfiles
 backup:
@@ -52,6 +62,9 @@ backup:
 	@if [ -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" ] && [ ! -L "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" ]; then \
 		cp "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config" $(HOME)/.dotfiles-backup/ghostty.config.backup && echo "? Backed up ghostty config"; \
 	fi
+	@if [ -f $(HOME)/.ssh/config ] && [ ! -L $(HOME)/.ssh/config ]; then \
+		cp $(HOME)/.ssh/config $(HOME)/.dotfiles-backup/ssh_config.backup && echo "? Backed up SSH config"; \
+	fi
 	@if [ -f ~/.config/nvim/lua/config/lazy.lua ] && [ ! -L ~/.config/nvim/lua/config/lazy.lua ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/nvim; \
 		cp ~/.config/nvim/lua/config/lazy.lua $(HOME)/.dotfiles-backup/nvim/lazy.lua.backup && echo "? Backed up nvim lua/config/lazy.lua"; \
@@ -63,6 +76,7 @@ clean:
 	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
 	@rm -f "$(HOME)/Library/Application Support/com.mitchellh.ghostty/config"
 	@rm -f ~/.config/nvim/lua/config/lazy.lua
+	@rm -f ~/.ssh/config
 	@echo "Clean complete!"
 
 # Verify dotfile installation status
@@ -104,6 +118,11 @@ check:
 		echo "? lazy.lua exists but is not linked (run \`make install\` to link)"; \
 	else \
 		echo "? lazy.lua not found (run \`make lazyvim\` then \`make install\`)"; \
+	fi
+	@if [ -L $(HOME)/.ssh/config ]; then \
+		echo "? SSH config is linked"; \
+	else \
+		echo "? SSH config is not linked"; \
 	fi
 
 # Install LazyVim (Neovim config) at ~/.config/nvim. Run \`make install\` afterward to symlink lazy.lua from dotfiles.

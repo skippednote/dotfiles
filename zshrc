@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
-export EDITOR="cursor --wait"
+export EDITOR="nvim"
 export _ZO_DOCTOR=0
 
 # ------------------------------------------------------------------------------
@@ -42,10 +42,12 @@ alias cat="bat"
 alias d="cd ~/code/personal/dotfiles"
 alias g="git"
 alias k="kubectl"
-alias e="cursor"
-alias ca="agent"
+alias e="nvim"
 alias v="nvim"
 alias vim="nvim"
+alias tf="terraform"
+alias cc="claude"
+alias ccc="claude --allow-dangerously-skip-permissions"
 
 # ------------------------------------------------------------------------------
 # Functions
@@ -65,7 +67,6 @@ mcd() {
 cdr() {
     cd $(git rev-parse --show-toplevel 2>/dev/null) || echo "Not in a git repository"
 }
-
 
 # ------------------------------------------------------------------------------
 # Keybindings
