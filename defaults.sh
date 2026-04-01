@@ -19,6 +19,32 @@ defaults write com.apple.dock persistent-apps -array \
 # Finder
 defaults write com.apple.finder ShowPathbar -bool false
 defaults write com.apple.finder ShowStatusBar -bool false
+defaults write com.apple.finder FXPreferredViewStyle -string clmv
+defaults write com.apple.finder NewWindowTarget -string PfHm
+defaults write com.apple.finder FXPreferredGroupBy -string Kind
+
+# Window Management — disable macOS native tiling (Rectangle handles this)
+defaults write com.apple.WindowManager GloballyEnabled -bool false
+defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTilingOptionAccelerator -bool false
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager HideDesktop -bool true
+
+# Mission Control — don't auto-rearrange spaces
+defaults write com.apple.dock mru-spaces -bool false
+
+# Hot Corners — bottom-left: Quick Note, rest disabled
+defaults write com.apple.dock wvous-tl-corner -int 0
+defaults write com.apple.dock wvous-tr-corner -int 0
+defaults write com.apple.dock wvous-bl-corner -int 14
+defaults write com.apple.dock wvous-br-corner -int 0
+
+# Menu bar clock
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
+defaults write com.apple.menuextra.clock ShowAMPM -bool true
+defaults write com.apple.menuextra.clock ShowDate -int 0
+defaults write com.apple.menuextra.clock ShowSeconds -bool false
 
 # Dark mode
 defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
