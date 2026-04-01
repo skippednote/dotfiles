@@ -23,6 +23,10 @@ defaults write com.apple.finder FXPreferredViewStyle -string clmv
 defaults write com.apple.finder NewWindowTarget -string PfHm
 defaults write com.apple.finder FXPreferredGroupBy -string Kind
 
+# Finder — auto-empty trash after 30 days, hide hard drives on desktop
+defaults write com.apple.finder FXRemoveOldTrashItems -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+
 # Window Management — disable macOS native tiling (Rectangle handles this)
 defaults write com.apple.WindowManager GloballyEnabled -bool false
 defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
@@ -66,6 +70,11 @@ defaults write com.knollsoft.Rectangle hideMenubarIcon -bool true
 defaults write com.knollsoft.Rectangle alternateDefaultShortcuts -bool true
 defaults write com.knollsoft.Rectangle allowAnyShortcut -bool true
 defaults write com.knollsoft.Rectangle subsequentExecutionMode -int 1
+
+# Computer name
+sudo scutil --set ComputerName "skippednote"
+sudo scutil --set HostName "skippednote"
+sudo scutil --set LocalHostName "skippednote"
 
 # Restart affected apps
 killall Dock

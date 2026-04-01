@@ -39,6 +39,11 @@ make -C "$(dirname "$0")" install
 echo "==> Applying macOS defaults..."
 bash "$(dirname "$0")/defaults.sh"
 
+echo "==> Setting Docker context to OrbStack..."
+if command -v docker &>/dev/null; then
+  docker context use orbstack 2>/dev/null || echo "    OrbStack context not available yet — set it after opening OrbStack."
+fi
+
 echo ""
 echo "Bootstrap complete! Next steps:"
 echo "  1. Open 1Password and sign in"
