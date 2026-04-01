@@ -60,6 +60,20 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool true
 
+# Text replacements
+defaults write NSGlobalDomain NSUserDictionaryReplacementItems -array \
+  '{ on = 1; replace = "@lin"; with = "https://www.linkedin.com/in/skippednote"; }' \
+  '{ on = 1; replace = "fe"; with = "frontend"; }' \
+  '{ on = 1; replace = "@p"; with = "mail@skippednote.dev"; }' \
+  '{ on = 1; replace = "upi"; with = "skippednote@okhdfcbank"; }' \
+  '{ on = 1; replace = "@c"; with = "bassam@axelerant.com"; }' \
+  '{ on = 1; replace = "@z"; with = "https://axelerant.zoom.us/my/skippednote"; }' \
+  '{ on = 1; replace = "ahd"; with = "Alhamdullialh"; }' \
+  '{ on = 1; replace = "@@"; with = "skippednote@gmail.com"; }' \
+  '{ on = 1; replace = "asa"; with = "Assalamu Alaikum"; }' \
+  '{ on = 1; replace = "ws"; with = "Wa-Alaikum-Salaam"; }' \
+  '{ on = 1; replace = "isa"; with = "In Sha Allah"; }'
+
 # Trackpad — tap to click
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
@@ -78,6 +92,16 @@ defaults write com.raycast.macos raycastGlobalHotkey -string "Command-49"
 sudo scutil --set ComputerName "skippednote"
 sudo scutil --set HostName "skippednote"
 sudo scutil --set LocalHostName "skippednote"
+
+# Wallpaper
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+WALLPAPER_SRC="$SCRIPT_DIR/wallpapers"
+WALLPAPER_DST="$HOME/Pictures/wallpapers"
+if [ -d "$WALLPAPER_SRC" ]; then
+  mkdir -p "$WALLPAPER_DST"
+  cp -n "$WALLPAPER_SRC"/* "$WALLPAPER_DST"/ 2>/dev/null || true
+  osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"$WALLPAPER_DST/The_Artist's_Garden_at_Eragny.jpg\"" 2>/dev/null || echo "  Could not set wallpaper automatically — set it manually from ~/Pictures/wallpapers/"
+fi
 
 # Restart affected apps
 killall Dock
