@@ -20,9 +20,6 @@ fi
 echo "==> Installing Homebrew packages (Brewfile)..."
 brew bundle --file="$(dirname "$0")/Brewfile"
 
-echo "==> Linking dotfiles..."
-make -C "$(dirname "$0")" install
-
 echo "==> Installing CLI tools via mise..."
 mise install
 
@@ -34,6 +31,8 @@ echo "    SSH config linked. Make sure 1Password SSH agent is enabled in 1Passwo
 
 echo "==> Setting up LazyVim..."
 make -C "$(dirname "$0")" lazyvim
+
+echo "==> Linking dotfiles..."
 make -C "$(dirname "$0")" install
 
 echo "==> Applying macOS defaults..."

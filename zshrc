@@ -41,7 +41,6 @@ alias a="eza -lha --git --icons"
 alias ls="eza --git --icons"
 alias tree="ls --tree --icons"
 alias cd='z'
-alias c='clear'
 alias o="open"
 alias cat="bat"
 alias d="cd ~/code/personal/dotfiles"
@@ -51,8 +50,10 @@ alias e="nvim"
 alias v="nvim"
 alias vim="nvim"
 alias tf="terraform"
+alias c='clear'
 alias cc="claude"
 alias ccc="claude --allow-dangerously-skip-permissions"
+alias cccc="claude --allow-dangerously-skip-permissions --continue"
 
 # ------------------------------------------------------------------------------
 # Functions
@@ -78,4 +79,4 @@ cdr() {
 # ------------------------------------------------------------------------------
 bindkey '^r' atuin-search
 bindkey '^[[A' atuin-up-search
-bindkey '^[OA' atuin-up-search
+bindkey '^[OA' atuin-up-searchexport 
