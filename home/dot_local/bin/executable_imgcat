@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Display an image in terminals supporting the Kitty graphics protocol
+# (Ghostty, cmux, Kitty, WezTerm, iTerm2 via kitty protocol)
+#
+# Usage: imgcat <path>
+
+set -euo pipefail
+
+if [ $# -eq 0 ]; then
+  echo "Usage: imgcat <path>" >&2
+  exit 1
+fi
+
+input="$1"
+tmp_file=""
+
+cleanup() {
+  if [ -n "$tmp_file" ]; then
+    rm -f "$tmp_file"
+  fi
+}
+trap cleanup EXIT
+
+if [[ "$input" =~ ^https?:// ]]; then
+  tmp_file=$(mktemp /tmp/imgcat.XXXXXX)
+  curl -sfL -o "$tmp_file" "$input" || { echo "Error: failed to download: $input" >&2; exit 1; }
+  file="$tmp_file"
+else
+  file="$input"
+  if [ ! -f "$file" ]; then
+    basename=${input##*/}
+    for dir in "$PWD" "$HOME/Downloads" "$HOME/Desktop" "$HOME/Pictures" "$HOME/Pictures/wallpapers"; do
+      candidate="$dir/$basename"
+      if [ -f "$candidate" ]; then
+        file="$candidate"
+        break
+      fi
+    done
+
+    if [ ! -f "$file" ]; then
+      echo "Error: file not found: $input" >&2
+      exit 1
+    fi
+  fi
+fi
+
+mime=$(file --brief --mime-type "$file")
+case "$mime" in
+  image/png|image/jpeg|image/gif|image/webp|image/bmp) ;;
+  *)
+    echo "Error: unsupported type: $mime" >&2
+    exit 1
+    ;;
+esac
+
+# Kitty's file transfer mode avoids pushing large image bytes through the shell.
+encoded_path=$(printf '%s' "$(cd "$(dirname "$file")" && pwd)/$(basename "$file")" | base64 | tr -d '\n')
+printf '\e_Ga=T,t=f;%s\e\\' "$encoded_path"
+echo

@@ -5,8 +5,8 @@ export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
 export EDITOR="nvim"
 export _ZO_DOCTOR=0
-# Ghostty sets TERM=xterm-ghostty which isn't in the default terminfo database
-# on remote hosts or older macOS builds — fall back to xterm-256color.
+# cmux is built on Ghostty's terminal stack and may set TERM=xterm-ghostty.
+# Fall back on hosts that do not have that terminfo entry installed.
 if [[ "$TERM" == "xterm-ghostty" ]] && ! infocmp xterm-ghostty &>/dev/null; then
   export TERM=xterm-256color
 fi
@@ -50,6 +50,9 @@ alias e="nvim"
 alias v="nvim"
 alias vim="nvim"
 alias tf="terraform"
+# ------------------------------------------------------------------------------
+# 4Cs
+# ------------------------------------------------------------------------------
 alias c='clear'
 alias cc="claude"
 alias ccc="claude --allow-dangerously-skip-permissions"
@@ -79,4 +82,8 @@ cdr() {
 # ------------------------------------------------------------------------------
 bindkey '^r' atuin-search
 bindkey '^[[A' atuin-up-search
-bindkey '^[OA' atuin-up-searchexport 
+bindkey '^[OA' atuin-up-search
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/skippednote/.lmstudio/bin"
+# End of LM Studio CLI section

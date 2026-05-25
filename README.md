@@ -1,160 +1,163 @@
 # Dotfiles
 
-This repository contains my personal dotfiles and development environment configuration. It includes configurations for various tools and applications I use daily.
+Personal macOS dotfiles and fresh-machine setup.
 
-## Contents
+This repo uses [chezmoi](https://www.chezmoi.io/) for dotfile deployment. The managed home-directory state lives in `home/`; the root-level scripts handle provisioning, macOS defaults, and convenience commands.
 
-- Shell configuration (`.zshrc`) with Go binary path, aliases, and modern shell tools
-- Git configuration (`.gitconfig` and `.gitignore`) with delta pager and custom aliases
-- Terminal configuration (`skippednote.terminal`)
-- Homebrew package management (`Brewfile`)
-- Development tools and utilities
-- Custom scripts (optional `scripts/` directory)
+## Layout
 
-## Prerequisites
+- `home/` - chezmoi source directory for files applied into `$HOME`
+- `Brewfile` - Homebrew formulae, casks, and Mac App Store apps
+- `bootstrap.sh` - fresh Mac bootstrap flow
+- `defaults.sh` - opinionated macOS defaults
+- `Makefile` - local maintenance commands
+- `lazy.lua` - LazyVim override, linked separately after the LazyVim starter repo is installed
 
-- macOS
-- Homebrew
-- Make
+Key managed files include:
 
-## Installation
+- `~/.zshrc`
+- `~/.gitconfig`
+- `~/.gitignore`
+- `~/.config/mise/config.toml`
+- `~/.config/starship.toml`
+- `~/.config/gh/config.yml`
+- `~/.config/cmux/cmux.json`
+- `~/.claude/settings.json`
+- `~/.claude/CLAUDE.md`
+- `~/.claude/RTK.md`
+- `~/.codex/AGENTS.md`
+- `~/.codex/RTK.md`
+- `~/.ssh/config`
+- `~/Library/LaunchAgents/com.skippednote.capslock-to-control.plist`
+- `~/.local/bin/imgcat`
+- `~/.local/bin/rtk-claude-hook`
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/skippednote/dotfiles.git
-   cd dotfiles
-   ```
+## Fresh Install
 
-2. Run the installation:
-   ```bash
-   make install
-   ```
-
-This will:
-- Create backups of existing dotfiles (if any) to `~/.dotfiles-backup/`
-- Create symbolic links for the following files:
-  - `~/.zshrc`
-  - `~/.gitconfig`
-  - `~/.gitignore`
-- Link scripts from `scripts/` directory to `~/.local/bin/` (if the directory exists)
-
-## Terminal Theme
-
-To install the terminal theme, open the `skippednote.terminal` file in Finder. This will open the Terminal app and prompt you to install the profile. Set it as your default profile in Terminal's preferences.
-
-## Available Make Commands
-
-- `make install`: Install dotfiles by creating symbolic links (includes automatic backup)
-- `make clean`: Remove symbolic links
-- `make backup`: Create backups of existing dotfiles
-- `make check`: Verify dotfile installation status
-- `make brewDump`: Update Brewfile with current Homebrew packages
-- `make rustPackages`: Install Rust packages using cargo-binstall
-
-## Included Software
-
-### Homebrew Packages (Formulas)
-- **Development tools**: `go`, `terraform`, `helm`, `k9s`
-- **Testing/Performance tools**: `hey` (HTTP load testing), `k6` (performance testing)
-- **Shell enhancements**: `starship` (prompt), `zsh-autosuggestions` (command suggestions)
-- **Version management**: `fnm` (Node.js version manager)
-- **Utilities**: 
-  - `atuin` (command history search)
-  - `cargo-binstall` (Rust binary installer)
-  - `gh` (GitHub CLI)
-  - `uv` (Python package manager)
-  - `zola` (static site generator)
-
-### Homebrew Packages (Casks)
-- **Development**: `cursor`, `jetbrains-toolbox`, `orbstack`
-- **Productivity**: `1password`, `granola`, `notion`, `notion-calendar`, `raycast`, `rectangle`, `slack`, `zoom`
-- **AI Tools**: `chatgpt`
-- **Media**: `vlc`, `insta360-link-controller`
-- **Browsers**: `google-chrome`
-- **Hardware**: `logi-options+`
-- **Fonts**: `font-fira-code-nerd-font`
-
-### Rust Packages
-- `bat`: Better cat
-- `eza`: Modern ls
-- `git-delta`: Better git diff
-- `jujutsu`: Git-compatible VCS
-- `ripgrep`: Fast text search
-- `tokei`: Code statistics
-- `zoxide`: Smarter cd
-
-## Shell Configuration Features
-
-The `.zshrc` includes:
-
-- **Environment Variables**:
-  - `EDITOR` set to `cursor --wait` for Git and other tools
-  - `GOPATH` configured for Go development
-  - `_ZO_DOCTOR=0` to suppress zoxide warnings
-  - `ATUIN_NOBIND=true` for custom keybindings
-
-- **Tool Initializations**:
-  - **Starship**: Modern, fast prompt
-  - **Zoxide**: Smart directory navigation (`cd` → `z`)
-  - **Atuin**: Enhanced command history search (bound to `^r`)
-  - **FNM**: Fast Node.js version manager (auto-switches on directory change)
-  - **Zsh-autosuggestions**: Type-ahead command suggestions
-  - **SDKMAN**: Java/SDK version manager (if installed)
-
-- **Useful aliases**: 
-  - `l`, `a`, `ls`, `tree` - Enhanced directory listing with `eza`
-  - `cd` - Alias to `z` (zoxide)
-  - `cat` - Alias to `bat`
-  - `g` - Git
-  - `k` - Kubectl
-  - `e` - Cursor editor
-  - `ca` - Cursor agent
-  - `d` - Quick access to dotfiles directory
-  - `c` - Clear screen
-  - `o` - Open files/folders
-  - `tor` - WebTorrent CLI
-
-- **Helper functions**: 
-  - `mcd` - Make directory and cd into it
-  - `cdr` - Change to git repository root
-
-## Git Configuration Features
-
-- **Delta**: Side-by-side diff viewer with syntax highlighting, line numbers, and decorations
-- **SSH signing**: Configured with 1Password SSH agent
-- **Automatic GPG signing**: Enabled for all commits using SSH format
-- **Useful aliases**: 
-  - `a` - add
-  - `co` - checkout
-  - `cob` - checkout -b
-  - `cm` - commit -m
-  - `cam` - commit --amend --no-edit
-  - `d` - diff
-  - `ds` - diff --staged
-  - `s` - status
-  - `lp` - Pretty log with graph
-  - `lg` - One-line log with graph
-  - And many more shortcuts for common operations
-
-## Maintenance
-
-To update the Brewfile with your current Homebrew packages:
 ```bash
-make brewDump
+git clone https://github.com/skippednote/dotfiles.git ~/code/personal/dotfiles
+cd ~/code/personal/dotfiles
+make bootstrap
 ```
 
-To verify your installation:
+The bootstrap flow:
+
+- installs Xcode Command Line Tools if missing
+- installs `chezmoi` and `mise` into `~/.local/bin`
+- installs Homebrew if missing
+- installs packages from `Brewfile`
+- applies dotfiles from `home/` with `chezmoi`
+- installs CLI tools from `~/.config/mise/config.toml`
+- installs or updates LazyVim and links `lazy.lua`
+- applies macOS defaults from `defaults.sh`
+- switches Docker to the OrbStack context when available
+
+## Common Commands
+
+```bash
+make bootstrap-tools
+```
+
+Installs the pre-dotfiles bootstrap tools, `chezmoi` and `mise`, into `~/.local/bin`.
+
+```bash
+make install
+```
+
+Applies the `home/` source state into `$HOME` with `chezmoi`.
+
 ```bash
 make check
 ```
 
-## Troubleshooting
+Checks whether the expected managed files exist.
 
-### Scripts directory not found
-If you see a warning about the scripts directory during installation, this is normal. The `scripts/` directory is optional. Create it and add your custom scripts if needed.
+```bash
+make clean
+```
 
-### Backup location
-Backups are stored in `~/.dotfiles-backup/` and are created automatically during installation if existing dotfiles are found (non-symlinked files only).
+Removes files managed by this repo from `$HOME`.
 
-### zoxide doctor warnings
-The `_ZO_DOCTOR=0` environment variable disables zoxide's doctor warnings. This is intentional to keep the shell startup clean.
+```bash
+make clean-tools
+```
+
+Removes only the standalone bootstrap binaries installed by `make bootstrap-tools`: `~/.local/bin/chezmoi` and `~/.local/bin/mise`.
+
+```bash
+make brew-clean
+```
+
+Shows Homebrew formulae and casks that are not declared in `Brewfile`.
+
+```bash
+make brew-clean-force
+```
+
+Removes Homebrew formulae and casks that are not declared in `Brewfile`. This can uninstall GUI apps, so review `make brew-clean` first.
+
+```bash
+make clean-all
+```
+
+Runs `clean`, `clean-tools`, and `brew-clean-force`. This removes managed dotfiles, removes bootstrap binaries, and uninstalls Homebrew formulae/casks not declared in `Brewfile`.
+
+```bash
+make lazyvim
+```
+
+Installs or updates the LazyVim starter config, then links the repo-managed `lazy.lua` override.
+
+```bash
+make defaults
+```
+
+Applies macOS defaults.
+
+```bash
+make dump
+```
+
+Regenerates the `Brewfile` from the current Homebrew state.
+
+## Chezmoi Notes
+
+The repo intentionally uses `home/` as the chezmoi source directory instead of making the repository root the source. This keeps project files like `README.md`, `Makefile`, `Brewfile`, and bootstrap scripts out of the managed home state.
+
+To inspect what chezmoi would change:
+
+```bash
+chezmoi --source=home --destination="$HOME" diff
+```
+
+To apply directly:
+
+```bash
+chezmoi --source=home --destination="$HOME" apply
+```
+
+## Tooling
+
+`chezmoi` and `mise` are intentionally not installed through Homebrew. They are bootstrap tools, so `bootstrap.sh` installs them directly into `~/.local/bin` before Homebrew or dotfile application runs.
+
+Shell setup is centered on `zsh`, `mise`, `starship`, `zoxide`, `atuin`, `eza`, `bat`, and `zsh-autosuggestions`.
+
+Git is configured with:
+
+- SSH commit signing through the 1Password SSH agent
+- `delta` as the pager
+- rebase-on-pull
+- pruning on fetch
+- a set of short aliases for common Git operations
+
+CLI runtimes and tools are managed by `mise`, including Node, Python, Go, Terraform, Kubernetes tools, Neovim, Claude, Codex, and related development utilities.
+
+Claude Code uses `~/.claude/CLAUDE.md` to import `~/.claude/RTK.md`, and `~/.local/bin/rtk-claude-hook` as a small compatibility wrapper around `rtk hook claude`. The wrapper preserves RTK rewrites and adds Claude's required `permissionDecision: "allow"` when RTK returns `updatedInput`.
+
+Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md`, which contains RTK command guidance for Codex sessions. Codex state, auth, logs, and caches are intentionally not managed.
+
+## Personal Defaults
+
+`defaults.sh` is intentionally personal. It sets Dock/Finder behavior, keyboard preferences, text replacements, Rectangle/Raycast preferences, Caps Lock remapping, and the macOS computer name.
+
+Review it before running on a machine that should not use these exact preferences.

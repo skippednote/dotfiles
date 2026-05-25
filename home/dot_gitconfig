@@ -85,6 +85,7 @@
 [alias]
   a   = add
   co  = checkout
+  cl  = clone
   cob = checkout -b
   cm  = commit -m
   cam = commit --amend --no-edit
@@ -122,3 +123,9 @@
   rbi = rebase -i
   fixup = commit --fixup
   root = rev-parse --show-toplevel
+[credential "https://github.com"]
+	helper = 
+	helper = !/Users/skippednote/.local/share/mise/installs/gh/2.92.0/gh_2.92.0_macOS_arm64/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/Users/skippednote/.local/share/mise/installs/gh/2.92.0/gh_2.92.0_macOS_arm64/bin/gh auth git-credential
