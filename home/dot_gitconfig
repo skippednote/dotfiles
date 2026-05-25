@@ -1,14 +1,18 @@
 [user]
   name = Bassam Ismail
-	email = 2114712+skippednote@users.noreply.github.com
+  email = skippednote@gmail.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
 
+[commit]
+  gpgsign = true
+
 [core]
-  fileMode = true  
+  fileMode = true
   pager = delta
   autocrlf = input
   commitGraph = true
   excludesfile = /Users/skippednote/.gitignore
+  eol = lf
 
 [color]
   branch = auto
@@ -25,31 +29,38 @@
   reflog = delta
   show = delta
 
-[branch]
-	autosetuprebase=always
-
 [interactive]
   diffFilter = delta --color-only
 
 [help]
   autocorrect = 1
 
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[github]
+  user = skippednote
+
 [init]
   defaultBranch = main
 
 [pull]
-  ff = only
   rebase = true
 
+[rebase]
+  autoStash = true
+
 [fetch]
-	prune = true
-	writeCommitGraph = true
+  prune = true
 
-[blame]
-  date = short
+[merge]
+  conflictStyle = diff3
 
-[github]
-  user = skippednote
+[push]
+  autoSetupRemote = true
 
 [remote "origin"]
   prune = true
@@ -71,67 +82,50 @@
   line-numbers-minus-style = 124
   line-numbers-plus-style = 28
 
-[gpg]
-  format = ssh
-
-[gpg "ssh"]
-  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-
-[commit]
-  gpgsign = true
-
 [alias]
   a   = add
-  aa  = add --all
-  cl  = clone
-  c   = commit -v
-  cm  = commit -s -m
-  cam = commit -s -am
   co  = checkout
+  cl  = clone
   cob = checkout -b
+  cm  = commit -m
+  cam = commit --amend --no-edit
   d   = diff
   ds  = diff --staged
   pu  = push
   puh = push origin HEAD
   puhf = push origin HEAD --force-with-lease
   pl  = pull
-  pr  = pull --rebase
   s   = status
-  sb  = status -sb
   rv  = remote -v
   rhh = reset --hard HEAD
-  rhs = reset --soft HEAD
-  rhm = reset --mixed HEAD
   lp  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   bl  = branch -l
   br  = branch -r
-  log = log --show-signature
   cfd = clean -fd
   cf = clean -f
   ignore = update-index --assume-unchanged
+  unignore = update-index --no-assume-unchanged
   fa = fetch --all
   fo = fetch origin
+  st = stash
   sl = stash list
   sp = stash pop
   sc = stash clear
-  b = !git branch -a | grep -v '^[\\*|HEAD]' | sed 's/remotes\\/[^\\/]*.//' | uniq | sk -m | xargs git checkout
-	append = town append
-	compress = town compress
-	contribute = town contribute
-	diff-parent = town diff-parent
-	hack = town hack
-	delete = town delete
-	observe = town observe
-	park = town park
-	prepend = town prepend
-	propose = town propose
-	rename = town rename
-	repo = town repo
-	set-parent = town set-parent
-	ship = town ship
-	sync = town sync
-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  sa = stash apply
+  sd = stash drop
+  ss = stash show
+  unstage = reset HEAD --
+  lg = log --oneline --decorate --graph --all
+  last = log -1 --stat
+  uncommit = reset --soft HEAD~1
+  undo = reset --soft HEAD~1
+  sync = pull --rebase
+  rbi = rebase -i
+  fixup = commit --fixup
+  root = rev-parse --show-toplevel
+[credential "https://github.com"]
+	helper = 
+	helper = !/Users/skippednote/.local/share/mise/installs/gh/2.92.0/gh_2.92.0_macOS_arm64/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/Users/skippednote/.local/share/mise/installs/gh/2.92.0/gh_2.92.0_macOS_arm64/bin/gh auth git-credential

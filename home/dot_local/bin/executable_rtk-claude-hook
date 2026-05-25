@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+output=""
+if ! output="$(rtk hook claude "$@")"; then
+  status=$?
+  printf '%s' "$output"
+  exit "$status"
+fi
+
+if [[ -n "$output" && "$output" == *'"updatedInput"'* && "$output" != *'"permissionDecision"'* ]]; then
+  printf '%s' "$output" | perl -0pe 's/("hookSpecificOutput"\s*:\s*\{)/$1"permissionDecision":"allow",/'
+else
+  printf '%s' "$output"
+fi

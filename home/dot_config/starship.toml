@@ -1,0 +1,10 @@
+# https://starship.rs/config/
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Hide AWS from the prompt
+[aws]
+disabled = true
+
+# Hide Google Cloud account/email from the prompt
+[gcloud]
+disabled = true
