@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "rtk-claude-hook"
+            "command": "/Users/skippednote/.local/bin/rtk-claude-hook"
           }
         ]
       }

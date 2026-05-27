@@ -88,6 +88,10 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/codex; \
 		cp ~/.codex/RTK.md $(HOME)/.dotfiles-backup/codex/RTK.md.backup && echo "? Backed up Codex RTK.md"; \
 	fi
+	@if [ -f ~/.codex/hooks.json ] && [ ! -L ~/.codex/hooks.json ]; then \
+		mkdir -p $(HOME)/.dotfiles-backup/codex; \
+		cp ~/.codex/hooks.json $(HOME)/.dotfiles-backup/codex/hooks.json.backup && echo "? Backed up Codex hooks.json"; \
+	fi
 	@if [ -f $(HOME)/.ssh/config ] && [ ! -L $(HOME)/.ssh/config ]; then \
 		cp $(HOME)/.ssh/config $(HOME)/.dotfiles-backup/ssh_config.backup && echo "? Backed up SSH config"; \
 	fi
@@ -102,7 +106,7 @@ clean:
 	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
 	@rm -f ~/.config/cmux/cmux.json
 	@rm -f ~/.claude/settings.json ~/.claude/CLAUDE.md ~/.claude/RTK.md
-	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md
+	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json
 	@rm -f ~/.config/nvim/lua/config/lazy.lua
 	@rm -f ~/.ssh/config
 	@rm -f $(HOME)/.config/gh/config.yml
@@ -184,6 +188,11 @@ check:
 		echo "OK Codex RTK.md exists"; \
 	else \
 		echo "MISSING Codex RTK.md"; \
+	fi
+	@if [ -f ~/.codex/hooks.json ]; then \
+		echo "OK Codex hooks.json exists"; \
+	else \
+		echo "MISSING Codex hooks.json"; \
 	fi
 	@if [ -L ~/.config/nvim/lua/config/lazy.lua ]; then \
 		echo "OK lazy.lua (nvim) is linked"; \

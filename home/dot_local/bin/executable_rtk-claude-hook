@@ -1,8 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+rtk_bin="${RTK_BIN:-$HOME/.local/share/mise/installs/rtk/latest/rtk}"
+if [[ -x "$rtk_bin" ]]; then
+  rtk_cmd=("$rtk_bin")
+elif command -v rtk >/dev/null 2>&1; then
+  rtk_cmd=("$(command -v rtk)")
+elif [[ -x "$HOME/.local/bin/mise" ]]; then
+  rtk_cmd=("$HOME/.local/bin/mise" "exec" "rtk" "--" "rtk")
+else
+  printf 'rtk-claude-hook: rtk not found\n' >&2
+  exit 127
+fi
+
 output=""
-if ! output="$(rtk hook claude "$@")"; then
+if output="$("${rtk_cmd[@]}" hook claude "$@")"; then
+  :
+else
   status=$?
   printf '%s' "$output"
   exit "$status"

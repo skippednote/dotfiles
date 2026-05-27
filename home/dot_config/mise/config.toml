@@ -49,6 +49,7 @@ cloud-sql-proxy = "latest"
 aws-vault = "latest"
 pi = "latest"
 codex = "latest"
+sops = "latest"
 
 [settings]
 
