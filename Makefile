@@ -68,6 +68,10 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/cmux; \
 		cp ~/.config/cmux/cmux.json $(HOME)/.dotfiles-backup/cmux/cmux.json.backup && echo "? Backed up cmux config"; \
 	fi
+	@if [ -f ~/.config/ai/working-preferences.md ] && [ ! -L ~/.config/ai/working-preferences.md ]; then \
+		mkdir -p $(HOME)/.dotfiles-backup/ai; \
+		cp ~/.config/ai/working-preferences.md $(HOME)/.dotfiles-backup/ai/working-preferences.md.backup && echo "? Backed up working-preferences"; \
+	fi
 	@if [ -f ~/.claude/settings.json ] && [ ! -L ~/.claude/settings.json ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/claude; \
 		cp ~/.claude/settings.json $(HOME)/.dotfiles-backup/claude/settings.json.backup && echo "? Backed up Claude settings"; \
@@ -79,6 +83,10 @@ backup:
 	@if [ -f ~/.claude/RTK.md ] && [ ! -L ~/.claude/RTK.md ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/claude; \
 		cp ~/.claude/RTK.md $(HOME)/.dotfiles-backup/claude/RTK.md.backup && echo "? Backed up Claude RTK.md"; \
+	fi
+	@if [ -f ~/.claude/AGENTS.md ] && [ ! -L ~/.claude/AGENTS.md ]; then \
+		mkdir -p $(HOME)/.dotfiles-backup/claude; \
+		cp ~/.claude/AGENTS.md $(HOME)/.dotfiles-backup/claude/AGENTS.md.backup && echo "? Backed up Claude AGENTS.md"; \
 	fi
 	@if [ -f ~/.codex/AGENTS.md ] && [ ! -L ~/.codex/AGENTS.md ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/codex; \
@@ -104,8 +112,8 @@ backup:
 clean:
 	@echo "Removing managed dotfiles..."
 	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
-	@rm -f ~/.config/cmux/cmux.json
-	@rm -f ~/.claude/settings.json ~/.claude/CLAUDE.md ~/.claude/RTK.md
+	@rm -f ~/.config/cmux/cmux.json ~/.config/ai/working-preferences.md
+	@rm -f ~/.claude/settings.json ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/RTK.md
 	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json
 	@rm -f ~/.config/nvim/lua/config/lazy.lua
 	@rm -f ~/.ssh/config
@@ -164,6 +172,11 @@ check:
 	else \
 		echo "MISSING cmux config"; \
 	fi
+	@if [ -f ~/.config/ai/working-preferences.md ]; then \
+		echo "OK working-preferences exists"; \
+	else \
+		echo "MISSING working-preferences"; \
+	fi
 	@if [ -f ~/.claude/settings.json ]; then \
 		echo "OK Claude settings exist"; \
 	else \
@@ -178,6 +191,11 @@ check:
 		echo "OK Claude RTK.md exists"; \
 	else \
 		echo "MISSING Claude RTK.md"; \
+	fi
+	@if [ -f ~/.claude/AGENTS.md ]; then \
+		echo "OK Claude AGENTS.md exists"; \
+	else \
+		echo "MISSING Claude AGENTS.md"; \
 	fi
 	@if [ -f ~/.codex/AGENTS.md ]; then \
 		echo "OK Codex AGENTS.md exists"; \

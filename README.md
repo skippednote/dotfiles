@@ -22,11 +22,14 @@ Key managed files include:
 - `~/.config/starship.toml`
 - `~/.config/gh/config.yml`
 - `~/.config/cmux/cmux.json`
+- `~/.config/ai/working-preferences.md`
 - `~/.claude/settings.json`
 - `~/.claude/CLAUDE.md`
+- `~/.claude/AGENTS.md`
 - `~/.claude/RTK.md`
 - `~/.codex/AGENTS.md`
 - `~/.codex/RTK.md`
+- `~/.codex/hooks.json`
 - `~/.ssh/config`
 - `~/Library/LaunchAgents/com.skippednote.capslock-to-control.plist`
 - `~/.local/bin/imgcat`
@@ -152,9 +155,11 @@ Git is configured with:
 
 CLI runtimes and tools are managed by `mise`, including Node, Python, Go, Terraform, Kubernetes tools, Neovim, Claude, Codex, and related development utilities.
 
-Claude Code uses `~/.claude/CLAUDE.md` to import `~/.claude/RTK.md`, and `~/.local/bin/rtk-claude-hook` as a small compatibility wrapper around `rtk hook claude`. The wrapper preserves RTK rewrites and adds Claude's required `permissionDecision: "allow"` when RTK returns `updatedInput`.
+Both assistants share one working-preferences file at `~/.config/ai/working-preferences.md`, imported by `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`; assistant-specific overrides stay in those two files.
 
-Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md`, which contains RTK command guidance for Codex sessions. Codex state, auth, logs, and caches are intentionally not managed.
+Claude Code uses `~/.claude/CLAUDE.md` to import `~/.claude/RTK.md` and the shared `~/.config/ai/working-preferences.md`, plus `~/.local/bin/rtk-claude-hook` as a small compatibility wrapper around `rtk hook claude`. The wrapper preserves RTK rewrites and adds Claude's required `permissionDecision: "allow"` when RTK returns `updatedInput`. `~/.claude/AGENTS.md` imports the same shared files for tools that read `AGENTS.md`.
+
+Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md` and the shared working-preferences file, plus its own Codex-specific rules; `~/.codex/hooks.json` configures its RTK hook. Codex state, auth, logs, and caches are intentionally not managed.
 
 ## Personal Defaults
 
