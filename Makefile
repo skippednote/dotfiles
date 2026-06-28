@@ -1,4 +1,4 @@
-.PHONY: install clean clean-tools clean-all brew-clean brew-clean-force backup check lazyvim lazyvim-starter lazyvim-link lazyvim-force dump defaults bootstrap bootstrap-tools require-chezmoi
+.PHONY: install clean clean-tools clean-all brew-clean brew-clean-force backup check lazyvim lazyvim-starter lazyvim-link lazyvim-force dump defaults bootstrap bootstrap-tools require-chezmoi uv-tools
 
 # Get the current working directory
 cwd := $(shell pwd)
@@ -298,3 +298,7 @@ lazyvim: lazyvim-starter lazyvim-link
 # Update Brewfile with current Homebrew packages
 dump:
 	brew bundle dump --force --cask --tap --mas --brew
+
+# Install global uv-managed CLI tools (not tracked by mise).
+uv-tools:
+	@bash $(cwd)/uv-tools.sh

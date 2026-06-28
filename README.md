@@ -12,6 +12,7 @@ This repo uses [chezmoi](https://www.chezmoi.io/) for dotfile deployment. The ma
 - `defaults.sh` - opinionated macOS defaults
 - `Makefile` - local maintenance commands
 - `lazy.lua` - LazyVim override, linked separately after the LazyVim starter repo is installed
+- `uv-tools.sh` - installs global `uv tool` CLIs (not tracked by mise)
 
 Key managed files include:
 
@@ -51,6 +52,7 @@ The bootstrap flow:
 - installs packages from `Brewfile`
 - applies dotfiles from `home/` with `chezmoi`
 - installs CLI tools from `~/.config/mise/config.toml`
+- installs global `uv tool` CLIs from `uv-tools.sh`
 - installs or updates LazyVim and links `lazy.lua`
 - applies macOS defaults from `defaults.sh`
 - switches Docker to the OrbStack context when available
@@ -122,6 +124,12 @@ make dump
 ```
 
 Regenerates the `Brewfile` from the current Homebrew state.
+
+```bash
+make uv-tools
+```
+
+Installs the global `uv tool` CLIs (ansible, poetry, ruff, yt-dlp, …) that live outside mise. Regenerate the list in `uv-tools.sh` from `uv tool list`.
 
 ## Chezmoi Notes
 

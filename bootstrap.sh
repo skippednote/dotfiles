@@ -31,6 +31,9 @@ make -C "$(dirname "$0")" install
 echo "==> Installing CLI tools via mise..."
 mise install
 
+echo "==> Installing global uv tools..."
+bash "$(dirname "$0")/uv-tools.sh"
+
 echo "==> Setting up LazyVim..."
 make -C "$(dirname "$0")" lazyvim
 
