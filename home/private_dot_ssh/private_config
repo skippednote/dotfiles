@@ -1,0 +1,8 @@
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+# BEGIN: Upsun certificate configuration
+Host *.platform.sh *.upsun.com
+  Include /Users/skippednote/.upsun-cli/ssh/*.config
+Host *
+# END: Upsun certificate configuration

@@ -125,7 +125,7 @@
   root = rev-parse --show-toplevel
 [credential "https://github.com"]
 	helper = 
-	helper = !/Users/skippednote/.local/share/mise/installs/gh/2.92.0/gh_2.92.0_macOS_arm64/bin/gh auth git-credential
+	helper = !/Users/skippednote/.local/share/mise/installs/gh/latest/gh_2.95.0_macOS_arm64/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/Users/skippednote/.local/share/mise/installs/gh/2.92.0/gh_2.92.0_macOS_arm64/bin/gh auth git-credential
+	helper = !/Users/skippednote/.local/share/mise/installs/gh/latest/gh_2.95.0_macOS_arm64/bin/gh auth git-credential
