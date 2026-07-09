@@ -1,4 +1,4 @@
-.PHONY: install clean clean-tools clean-all brew-clean brew-clean-force backup check lazyvim lazyvim-starter lazyvim-link lazyvim-force dump defaults bootstrap bootstrap-tools require-chezmoi uv-tools
+.PHONY: install clean clean-tools clean-all brew-clean brew-clean-force brew-trust backup check lazyvim lazyvim-starter lazyvim-link lazyvim-force dump defaults bootstrap bootstrap-tools require-chezmoi uv-tools update mas-update doctor-soft-clean
 
 # Get the current working directory
 cwd := $(shell pwd)
@@ -8,6 +8,8 @@ export PATH := $(LOCAL_BIN):$(PATH)
 NVIM_CONFIG_DIR := $(HOME)/.config/nvim
 LAZYVIM_REPO := https://github.com/LazyVim/starter.git
 CHEZMOI_SOURCE := $(cwd)/home
+MAS_APP_IDS := 682658836 408981434 409183694 409203825 409201541 904280696 497799835
+MAS_INSTALL_IDS := 497799835
 
 # Install dotfiles by applying the chezmoi source state in ./home.
 install: backup require-chezmoi
@@ -132,9 +134,47 @@ clean-tools:
 brew-clean:
 	@brew bundle cleanup --file="$(cwd)/Brewfile"
 
+# Trust third-party Homebrew formulae declared in Brewfile.
+brew-trust:
+	@brew trust hudochenkov/sshpass
+
 # Remove Homebrew packages and casks that are not declared in Brewfile.
 brew-clean-force:
 	@brew bundle cleanup --file="$(cwd)/Brewfile" --force
+
+# Move known unbrewed libraries out of /usr/local/lib so Homebrew builds do not
+# accidentally link against them.
+doctor-soft-clean:
+	@if [ -e /usr/local/lib/libcastle.1.0.0.dylib ] || [ -e /usr/local/lib/libpact_ffi.dylib ]; then \
+		backup_dir="$(HOME)/.dotfiles-backup/usr-local-lib-$$(date +%Y%m%d-%H%M%S)"; \
+		mkdir -p "$$backup_dir"; \
+		for dylib in /usr/local/lib/libcastle.1.0.0.dylib /usr/local/lib/libpact_ffi.dylib; do \
+			if [ -e "$$dylib" ]; then \
+				mv "$$dylib" "$$backup_dir/"; \
+				echo "Moved $$dylib to $$backup_dir/"; \
+			fi; \
+		done; \
+	else \
+		echo "No known unbrewed dylibs found."; \
+	fi
+
+# Bring this machine back in line with the repo's declared tooling.
+update: bootstrap-tools
+	@$(MAKE) --no-print-directory brew-trust
+	@HOMEBREW_BUNDLE_MAS_SKIP="$(MAS_APP_IDS)" brew bundle install --file="$(cwd)/Brewfile"
+	@brew bundle cleanup --file="$(cwd)/Brewfile" --force
+	@mise self-update
+	@mise install
+	@bash "$(cwd)/uv-tools.sh"
+	@$(MAKE) --no-print-directory doctor-soft-clean
+	@$(MAKE) --no-print-directory install
+	@$(MAKE) --no-print-directory mas-update
+
+# Update and install Mac App Store apps. This may require an interactive
+# password prompt, so it intentionally runs after the non-MAS maintenance.
+mas-update:
+	@mas install $(MAS_INSTALL_IDS)
+	@mas update $(MAS_APP_IDS)
 
 # Remove managed dotfiles, standalone bootstrap tools, and undeclared Homebrew packages/casks.
 clean-all: clean clean-tools brew-clean-force

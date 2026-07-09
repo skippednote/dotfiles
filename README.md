@@ -78,6 +78,12 @@ make check
 Checks whether the expected managed files exist.
 
 ```bash
+make update
+```
+
+Trusts declared third-party Homebrew formulae, updates Homebrew apps, prunes packages not declared in `Brewfile`, updates `mise`, installs configured tools, refreshes `uv tool` CLIs, moves known unbrewed dylibs aside, reapplies dotfiles, then updates Mac App Store apps.
+
+```bash
 make clean
 ```
 
