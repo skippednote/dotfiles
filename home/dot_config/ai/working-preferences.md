@@ -19,6 +19,7 @@ overrides live in the respective `~/.claude/CLAUDE.md` / `~/.codex/AGENTS.md`.
 - Read/investigate freely on your own. Gate every write — file edits, infra, commits — on my explicit approval, and show the diff or plan first.
 - Commit, push, and merge only when I explicitly say so.
 - One logical change per commit, on a branch, following the repo's conventions. Split large work into separate PRs and verify each before the next.
+- Do not create branch names with `claude/` or `codex/` prefixes. Use a short task-specific branch name that follows the repository's existing naming conventions.
 - Never attribute commits to any AI assistant — no `Co-Authored-By` trailers, no "Generated with …" footer. Never reference any AI assistant in commit messages or PR descriptions. Write them as if authored by me.
 - Scope cleanup and destructive operations to only what this session created; never touch pre-existing resources.
 

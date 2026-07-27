@@ -8,8 +8,8 @@ export PATH := $(LOCAL_BIN):$(PATH)
 NVIM_CONFIG_DIR := $(HOME)/.config/nvim
 LAZYVIM_REPO := https://github.com/LazyVim/starter.git
 CHEZMOI_SOURCE := $(cwd)/home
-MAS_APP_IDS := 682658836 408981434 409183694 409203825 409201541 904280696 497799835
-MAS_INSTALL_IDS := 497799835
+MAS_APP_IDS := 408981434 409183694 409203825 409201541 904280696 585829637 1451685025 497799835
+MAS_INSTALL_IDS :=
 
 # Install dotfiles by applying the chezmoi source state in ./home.
 install: backup require-chezmoi
@@ -173,7 +173,7 @@ update: bootstrap-tools
 # Update and install Mac App Store apps. This may require an interactive
 # password prompt, so it intentionally runs after the non-MAS maintenance.
 mas-update:
-	@mas install $(MAS_INSTALL_IDS)
+	@if [ -n "$(MAS_INSTALL_IDS)" ]; then mas install $(MAS_INSTALL_IDS); fi
 	@mas update $(MAS_APP_IDS)
 
 # Remove managed dotfiles, standalone bootstrap tools, and undeclared Homebrew packages/casks.
