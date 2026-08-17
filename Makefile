@@ -165,6 +165,7 @@ update: bootstrap-tools
 	@brew bundle cleanup --file="$(cwd)/Brewfile" --force
 	@mise self-update
 	@mise install
+	@mise upgrade --yes
 	@bash "$(cwd)/uv-tools.sh"
 	@$(MAKE) --no-print-directory doctor-soft-clean
 	@$(MAKE) --no-print-directory install
