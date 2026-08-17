@@ -23,5 +23,6 @@ uv tool install ruff
 uv tool install spec-kitty-cli
 uv tool install weasyprint
 uv tool install yt-dlp
+uv tool upgrade --all
 
-echo "uv tools installed."
+echo "uv tools installed and upgraded."
