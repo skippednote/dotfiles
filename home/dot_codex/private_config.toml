@@ -1,0 +1,315 @@
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+
+
+notify = ["/Users/skippednote/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
+[projects."/Users/skippednote"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/newsletter"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/slack-bot"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal/skolaroassignmentbot"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/tsb/platform-tests"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/tsb"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/newsletter/laravel-app"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/axelerant-forgejo"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/deliveryopsbot"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal/expense"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/uv/uvmsp/lens-infra"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/bott"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/padi-blt"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/cloudflare"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi-cf"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Scratch"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/spin"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Scratch/AgentRunPOC/artifacts/agent-fixture-repo"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal/content-engine-bot"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/padi-pe"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/fynn"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/ADOP"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/scuba-diving-acquia-repo"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/.claude"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/uv"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/diviac"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/dj"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/localisation-poc"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/aws-mgmt"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Codex/2026-07-03/go"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/github-mgmt"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Downloads"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Downloads/divejobs.padi.com"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Downloads/divejobs-stack"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/cable"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal/press"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/padi.com"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/personal/skippedmachine"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/axelerant-vpn"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/drupal.padi.com"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Codex/2026-07-25/c"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/varlambda/leddelice/website"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/axelerant-connectors"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Code/work/padi/mobile-poc"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Codex/2026-08-10/c"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Codex/2026-08-12/realtime-voice-chat"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/Documents/Codex/2026-08-20/review-my-github-slack-codex-claude"]
+trust_level = "trusted"
+
+[projects."/Users/skippednote/damrs"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.2-codex" = "gpt-5.4"
+
+[plugins."google-calendar@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."slack@openai-curated"]
+enabled = true
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."google-drive@openai-curated"]
+enabled = true
+
+[plugins."granola@openai-curated"]
+enabled = true
+
+[plugins."teams@openai-curated"]
+enabled = true
+
+[plugins."figma@openai-curated"]
+enabled = true
+
+[plugins."atlassian-rovo@openai-curated"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "model", "context-remaining", "five-hour-limit", "weekly-limit"]
+status_line_use_colors = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[desktop]
+keepRemoteControlAwakeWhilePluggedIn = true
+preventSleepWhileRunning = true
+usePointerCursors = false
+selected-avatar-id = "fireball"
+git-show-sidebar-pr-icons = true
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = true
+followUpQueueMode = "queue"
+dock-icon-preference = "codex-system"
+avatar-overlay-mascot-width-px = 80
+realtimeVoiceScreenContextEnabled = true
+open-link-in-target-preference = "external-browser"
+
+[desktop.open-in-target-preferences]
+global = "zed"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/skippednote/Documents/github-mgmt" = "fileManager"
+"/Users/skippednote/Code/work/bott" = "zed"
+"/Users/skippednote/Documents/Scratch" = "fileManager"
+"/Users/skippednote/Code/work/padi/padi.com" = "zed"
+"/Users/skippednote/Code/work/aws-mgmt" = "fileManager"
+"/Users/skippednote/Code/work/padi/diviac" = "zed"
+"/Users/skippednote/Code/work/cable" = "zed"
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/Users/skippednote/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-08-19T22:37:35Z"
+source_type = "local"
+source = "/Users/skippednote/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[features]
+memories = true
+js_repl = false
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/skippednote/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/skippednote/.codex"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_TINYSKY_ENABLED = "0"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.818.41705"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/skippednote/.codex/plugins/cache/openai-bundled/browser/26.818.41705/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "/Users/skippednote/.codex/computer-use/Codex Computer Use.app"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+
+[mcp_servers.spin]
+url = "https://mcp.spin.axelerant.tech"
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[memories]
+generate_memories = true
+use_memories = true
+
+[shell_environment_policy.set]
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"

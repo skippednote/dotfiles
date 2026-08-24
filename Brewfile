@@ -4,7 +4,6 @@ brew "zsh-autosuggestions"
 brew "eza"
 brew "hudochenkov/sshpass/sshpass"
 cask "1password"
-cask "bitwarden"
 cask "chatgpt"
 cask "claude"
 cask "cleanshot"
@@ -21,16 +20,13 @@ cask "raycast"
 cask "rectangle"
 cask "slack"
 cask "tailscale-app"
-cask "telegram"
 cask "wispr-flow"
 cask "whatsapp"
 cask "zed"
 cask "zoom"
+mas "Developer", id: 640199958
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Things 3", id: 904280696
-mas "Todoist", id: 585829637
-mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835

@@ -8,7 +8,7 @@ export PATH := $(LOCAL_BIN):$(PATH)
 NVIM_CONFIG_DIR := $(HOME)/.config/nvim
 LAZYVIM_REPO := https://github.com/LazyVim/starter.git
 CHEZMOI_SOURCE := $(cwd)/home
-MAS_APP_IDS := 408981434 409183694 409203825 409201541 904280696 585829637 1451685025 497799835
+MAS_APP_IDS := 640199958 408981434 409183694 409203825 409201541 497799835
 MAS_INSTALL_IDS :=
 
 # Install dotfiles by applying the chezmoi source state in ./home.
@@ -78,6 +78,10 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/claude; \
 		cp ~/.claude/settings.json $(HOME)/.dotfiles-backup/claude/settings.json.backup && echo "? Backed up Claude settings"; \
 	fi
+	@if [ -f ~/.claude/settings.local.json ] && [ ! -L ~/.claude/settings.local.json ]; then \
+		mkdir -p $(HOME)/.dotfiles-backup/claude; \
+		cp ~/.claude/settings.local.json $(HOME)/.dotfiles-backup/claude/settings.local.json.backup && echo "? Backed up Claude local settings"; \
+	fi
 	@if [ -f ~/.claude/CLAUDE.md ] && [ ! -L ~/.claude/CLAUDE.md ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/claude; \
 		cp ~/.claude/CLAUDE.md $(HOME)/.dotfiles-backup/claude/CLAUDE.md.backup && echo "? Backed up Claude CLAUDE.md"; \
@@ -102,6 +106,10 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/codex; \
 		cp ~/.codex/hooks.json $(HOME)/.dotfiles-backup/codex/hooks.json.backup && echo "? Backed up Codex hooks.json"; \
 	fi
+	@if [ -f ~/.codex/config.toml ] && [ ! -L ~/.codex/config.toml ]; then \
+		mkdir -p $(HOME)/.dotfiles-backup/codex; \
+		cp ~/.codex/config.toml $(HOME)/.dotfiles-backup/codex/config.toml.backup && echo "? Backed up Codex config.toml"; \
+	fi
 	@if [ -f $(HOME)/.ssh/config ] && [ ! -L $(HOME)/.ssh/config ]; then \
 		cp $(HOME)/.ssh/config $(HOME)/.dotfiles-backup/ssh_config.backup && echo "? Backed up SSH config"; \
 	fi
@@ -109,15 +117,21 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/nvim; \
 		cp ~/.config/nvim/lua/config/lazy.lua $(HOME)/.dotfiles-backup/nvim/lazy.lua.backup && echo "? Backed up nvim lua/config/lazy.lua"; \
 	fi
+	@if [ -d ~/.config/nvim ]; then \
+		mkdir -p $(HOME)/.dotfiles-backup/nvim/config; \
+		cp -R ~/.config/nvim/. $(HOME)/.dotfiles-backup/nvim/config/ 2>/dev/null || true; \
+		echo "? Backed up nvim config"; \
+	fi
 
 # Remove files managed by this repo. This is intentionally explicit.
 clean:
 	@echo "Removing managed dotfiles..."
 	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
 	@rm -f ~/.config/cmux/cmux.json ~/.config/ai/working-preferences.md
-	@rm -f ~/.claude/settings.json ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/RTK.md
-	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json
-	@rm -f ~/.config/nvim/lua/config/lazy.lua
+	@rm -f ~/.claude/settings.json ~/.claude/settings.local.json ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/RTK.md
+	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json ~/.codex/config.toml
+	@rm -f ~/.config/nvim/lua/config/lazy.lua ~/.config/nvim/lua/config/autocmds.lua ~/.config/nvim/lua/config/keymaps.lua ~/.config/nvim/lua/config/options.lua ~/.config/nvim/lua/plugins/example.lua
+	@rm -f ~/.config/nvim/init.lua ~/.config/nvim/lazyvim.json ~/.config/nvim/lazy-lock.json ~/.config/nvim/stylua.toml ~/.config/nvim/.neoconf.json ~/.config/nvim/.gitignore ~/.config/nvim/LICENSE ~/.config/nvim/README.md
 	@rm -f ~/.ssh/config
 	@rm -f $(HOME)/.config/gh/config.yml
 	@rm -f $(HOME)/Library/LaunchAgents/com.skippednote.capslock-to-control.plist
@@ -137,6 +151,7 @@ brew-clean:
 # Trust third-party Homebrew formulae declared in Brewfile.
 brew-trust:
 	@brew trust hudochenkov/sshpass
+	@brew trust --formula hudochenkov/sshpass/sshpass
 
 # Remove Homebrew packages and casks that are not declared in Brewfile.
 brew-clean-force:
@@ -163,7 +178,7 @@ update: bootstrap-tools
 	@$(MAKE) --no-print-directory brew-trust
 	@HOMEBREW_BUNDLE_MAS_SKIP="$(MAS_APP_IDS)" brew bundle install --file="$(cwd)/Brewfile"
 	@brew bundle cleanup --file="$(cwd)/Brewfile" --force
-	@mise self-update
+	@mise self-update -y || curl -fsSL https://mise.run | MISE_INSTALL_PATH="$(LOCAL_BIN)/mise" sh
 	@mise install
 	@mise upgrade --yes
 	@bash "$(cwd)/uv-tools.sh"
@@ -223,6 +238,11 @@ check:
 	else \
 		echo "MISSING Claude settings"; \
 	fi
+	@if [ -f ~/.claude/settings.local.json ]; then \
+		echo "OK Claude local settings exist"; \
+	else \
+		echo "MISSING Claude local settings"; \
+	fi
 	@if [ -f ~/.claude/CLAUDE.md ]; then \
 		echo "OK Claude CLAUDE.md exists"; \
 	else \
@@ -252,6 +272,16 @@ check:
 		echo "OK Codex hooks.json exists"; \
 	else \
 		echo "MISSING Codex hooks.json"; \
+	fi
+	@if [ -f ~/.codex/config.toml ]; then \
+		echo "OK Codex config.toml exists"; \
+	else \
+		echo "MISSING Codex config.toml"; \
+	fi
+	@if [ -f ~/.config/nvim/init.lua ]; then \
+		echo "OK nvim init.lua exists"; \
+	else \
+		echo "MISSING nvim init.lua"; \
 	fi
 	@if [ -L ~/.config/nvim/lua/config/lazy.lua ]; then \
 		echo "OK lazy.lua (nvim) is linked"; \

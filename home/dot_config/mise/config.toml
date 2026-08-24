@@ -49,6 +49,12 @@ aws-vault = "latest"
 sops = "latest"
 "github:googleworkspace/cli" = "latest"
 "github:ddev/ddev" = "latest"
+bottom = "latest"
+pandoc = "latest"
+pnpm = "latest"
+rust = "latest"
+herdr = "latest"
+xcodegen = "latest"
 
 [settings]
 

@@ -11,7 +11,7 @@ This repo uses [chezmoi](https://www.chezmoi.io/) for dotfile deployment. The ma
 - `bootstrap.sh` - fresh Mac bootstrap flow
 - `defaults.sh` - opinionated macOS defaults
 - `Makefile` - local maintenance commands
-- `lazy.lua` - LazyVim override, linked separately after the LazyVim starter repo is installed
+- `lazy.lua` - LazyVim override, symlinked into `~/.config/nvim/lua/config/lazy.lua` by `make lazyvim-link`
 - `uv-tools.sh` - installs global `uv tool` CLIs (not tracked by mise)
 
 Key managed files include:
@@ -28,13 +28,17 @@ Key managed files include:
 - `~/.claude/CLAUDE.md`
 - `~/.claude/AGENTS.md`
 - `~/.claude/RTK.md`
+- `~/.claude/settings.local.json`
 - `~/.codex/AGENTS.md`
 - `~/.codex/RTK.md`
 - `~/.codex/hooks.json`
+- `~/.codex/config.toml`
 - `~/.ssh/config`
 - `~/Library/LaunchAgents/com.skippednote.capslock-to-control.plist`
 - `~/.local/bin/imgcat`
 - `~/.local/bin/rtk-claude-hook`
+- `~/.local/bin/cursor`, `~/.local/bin/gs`, `~/.local/bin/gws-personal`, `~/.local/bin/gws-work`
+- `~/.config/nvim/` (LazyVim config: `init.lua`, `lua/config/*`, `lua/plugins/*`, `lazy-lock.json`)
 
 ## Fresh Install
 
@@ -173,7 +177,22 @@ Both assistants share one working-preferences file at `~/.config/ai/working-pref
 
 Claude Code uses `~/.claude/CLAUDE.md` to import `~/.claude/RTK.md` and the shared `~/.config/ai/working-preferences.md`, plus `~/.local/bin/rtk-claude-hook` as a small compatibility wrapper around `rtk hook claude`. The wrapper preserves RTK rewrites and adds Claude's required `permissionDecision: "allow"` when RTK returns `updatedInput`. `~/.claude/AGENTS.md` imports the same shared files for tools that read `AGENTS.md`.
 
-Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md` and the shared working-preferences file, plus its own Codex-specific rules; `~/.codex/hooks.json` configures its RTK hook. Codex state, auth, logs, and caches are intentionally not managed.
+Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md` and the shared working-preferences file, plus its own Codex-specific rules; `~/.codex/hooks.json` configures its RTK hook and `~/.codex/config.toml` carries its settings. Codex state, auth, logs, and caches are intentionally not managed.
+
+## Not Managed
+
+These are installed by hand and will not come back from this repo. Reinstall them after a fresh setup:
+
+- `~/.local/bin/session-manager-plugin` - AWS Session Manager plugin, from the AWS installer
+- `~/.local/bin/android` - Android platform tool (mise tracks `android-sdk` separately)
+- `~/.local/bin/agent` / `~/.local/bin/cursor-agent` - installed by the Cursor agent installer; only the `cursor` shim is managed here
+- `Fynn.app` - direct download, not in `Brewfile`
+- App-level settings for Raycast, CleanShot, and 1Password
+
+Credentials and keys are deliberately outside this repo. Restore them from 1Password:
+
+- `~/.ssh` private keys (only `~/.ssh/config` is managed)
+- `~/.gnupg`, `~/.aws`, `~/.kube`, `~/.config/gcloud`, `~/.codex/auth.json`
 
 ## Personal Defaults
 
