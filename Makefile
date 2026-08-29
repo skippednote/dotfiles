@@ -78,10 +78,6 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/claude; \
 		cp ~/.claude/settings.json $(HOME)/.dotfiles-backup/claude/settings.json.backup && echo "? Backed up Claude settings"; \
 	fi
-	@if [ -f ~/.claude/settings.local.json ] && [ ! -L ~/.claude/settings.local.json ]; then \
-		mkdir -p $(HOME)/.dotfiles-backup/claude; \
-		cp ~/.claude/settings.local.json $(HOME)/.dotfiles-backup/claude/settings.local.json.backup && echo "? Backed up Claude local settings"; \
-	fi
 	@if [ -f ~/.claude/CLAUDE.md ] && [ ! -L ~/.claude/CLAUDE.md ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/claude; \
 		cp ~/.claude/CLAUDE.md $(HOME)/.dotfiles-backup/claude/CLAUDE.md.backup && echo "? Backed up Claude CLAUDE.md"; \
@@ -128,7 +124,7 @@ clean:
 	@echo "Removing managed dotfiles..."
 	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
 	@rm -f ~/.config/cmux/cmux.json ~/.config/ai/working-preferences.md
-	@rm -f ~/.claude/settings.json ~/.claude/settings.local.json ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/RTK.md
+	@rm -f ~/.claude/settings.json ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/RTK.md
 	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json ~/.codex/config.toml
 	@rm -f ~/.config/nvim/lua/config/lazy.lua ~/.config/nvim/lua/config/autocmds.lua ~/.config/nvim/lua/config/keymaps.lua ~/.config/nvim/lua/config/options.lua ~/.config/nvim/lua/plugins/example.lua
 	@rm -f ~/.config/nvim/init.lua ~/.config/nvim/lazyvim.json ~/.config/nvim/lazy-lock.json ~/.config/nvim/stylua.toml ~/.config/nvim/.neoconf.json ~/.config/nvim/.gitignore ~/.config/nvim/LICENSE ~/.config/nvim/README.md
@@ -237,11 +233,6 @@ check:
 		echo "OK Claude settings exist"; \
 	else \
 		echo "MISSING Claude settings"; \
-	fi
-	@if [ -f ~/.claude/settings.local.json ]; then \
-		echo "OK Claude local settings exist"; \
-	else \
-		echo "MISSING Claude local settings"; \
 	fi
 	@if [ -f ~/.claude/CLAUDE.md ]; then \
 		echo "OK Claude CLAUDE.md exists"; \

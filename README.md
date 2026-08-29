@@ -28,7 +28,6 @@ Key managed files include:
 - `~/.claude/CLAUDE.md`
 - `~/.claude/AGENTS.md`
 - `~/.claude/RTK.md`
-- `~/.claude/settings.local.json`
 - `~/.codex/AGENTS.md`
 - `~/.codex/RTK.md`
 - `~/.codex/hooks.json`
@@ -188,6 +187,7 @@ These are installed by hand and will not come back from this repo. Reinstall the
 - `~/.local/bin/agent` / `~/.local/bin/cursor-agent` - installed by the Cursor agent installer; only the `cursor` shim is managed here
 - `Fynn.app` - direct download, not in `Brewfile`
 - App-level settings for Raycast, CleanShot, and 1Password
+- `~/.claude/settings.local.json` - per-machine Claude permission grants, rewritten constantly by Claude Code
 
 Credentials and keys are deliberately outside this repo. Restore them from 1Password:
 
