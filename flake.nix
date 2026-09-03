@@ -26,6 +26,7 @@
             ./nix/modules/system.nix
             ./nix/modules/homebrew.nix
             ./nix/modules/defaults.nix
+            ./nix/modules/packages.nix
             hostModule
             home-manager.darwinModules.home-manager
             {

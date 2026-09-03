@@ -1,61 +1,22 @@
+# Global tools come from Nix; see nix/modules/packages.nix.
+#
+# What stays here is what nixpkgs cannot serve:
+#   claude, codex, pi-coding-agent  - self-updating, which a read-only
+#                                     /nix/store breaks
+#   android-sdk                     - androidenv is 22.0 and awkward on darwin
+#   github:googleworkspace/cli      - unpackaged (nixpkgs `gam` is a
+#                                     different project)
+#   gcloud, cloud-sql-proxy         - deliberately kept off Nix
+#
+# Per-project mise.toml files are unaffected by this list.
 [tools]
-atuin = "latest"
-cargo-binstall = "latest"
-go = "latest"
-k9s = "latest"
-node = "lts"
-python = "3"
-terraform = "latest"
-uv = "latest"
-k6 = "latest"
-zola = "latest"
-gh = "latest"
-helm = "latest"
-starship = "latest"
-zoxide = "latest"
-bat = "latest"
-delta = "latest"
-ripgrep = "latest"
-xh = "latest"
-maven = "latest"
-java = "latest"
-tokei = "latest"
-aws-cli = { version = "latest", symlink_bins = "true" }
-"github:mr-karan/doggo" = "latest"
 claude = "latest"
-neovim = "latest"
-lazygit = "latest"
-1password-cli = "latest"
-fzf = "latest"
-wrangler = "latest"
-bun = "latest"
-fd = "latest"
-"aqua:cloudflare/cloudflared" = "latest"
-glow = "latest"
-golangci-lint = "latest"
-dust = "latest"
-rtk = "latest"
-ansible-core = "latest"
-dbmate = "latest"
-protoc = "latest"
-gcloud = "latest"
-android-sdk = "latest"
-"github:upsun/cli" = "latest"
-cloud-sql-proxy = "latest"
-"github:tconbeer/harlequin" = "latest"
-aws-vault = "latest"
-"npm:@earendil-works/pi-coding-agent" = "latest"
 "npm:@openai/codex" = "latest"
-sops = "latest"
+"npm:@earendil-works/pi-coding-agent" = "latest"
+android-sdk = "latest"
 "github:googleworkspace/cli" = "latest"
-"github:ddev/ddev" = "latest"
-bottom = "latest"
-pandoc = "latest"
-pnpm = "latest"
-rust = "latest"
-herdr = "latest"
-xcodegen = "latest"
-lsd = "latest"
+gcloud = "latest"
+cloud-sql-proxy = "latest"
 
 [settings]
 

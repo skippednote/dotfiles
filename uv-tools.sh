@@ -1,28 +1,34 @@
 #!/usr/bin/env bash
-# Install global uv-managed CLI tools.
+# Install the global uv-managed CLI tools that nixpkgs cannot provide.
 #
-# These are installed via `uv tool` (uv itself comes from mise), so mise does
-# not track them. Re-run on a fresh machine after `mise install` provides uv.
-# Regenerate this list from the current machine with: uv tool list
+# Everything else that used to be installed here now comes from Nix; see
+# nix/modules/packages.nix. What remains is PyPI-only:
+#
+#   llvd, semble, spec-kitty-cli        not in nixpkgs at all
+#   grip, hypothesis, radon, weasyprint only exist as python3Packages.*, and
+#                                       keeping them here avoids standing up a
+#                                       python env for four CLIs
+#
+# uv itself comes from Nix. Tools that moved to Nix are not uninstalled
+# automatically - clear the stale shims once with:
+#
+#   uv tool uninstall ansible ansible-core aws-sam-cli basedpyright \
+#     markitdown poetry ruff yt-dlp
+#
 set -euo pipefail
 
 if ! command -v uv >/dev/null 2>&1; then
-  echo "uv not found — run 'mise install' first." >&2
+  echo "uv not found - run 'make switch' first." >&2
   exit 1
 fi
 
-uv tool install ansible
-uv tool install ansible-core --with boto3 --with botocore
-uv tool install aws-sam-cli
 uv tool install grip
+uv tool install hypothesis
 uv tool install llvd
-uv tool install 'markitdown[all]'
-uv tool install poetry
 uv tool install radon
-uv tool install ruff
+uv tool install semble
 uv tool install spec-kitty-cli
 uv tool install weasyprint
-uv tool install yt-dlp
 uv tool upgrade --all
 
 echo "uv tools installed and upgraded."
