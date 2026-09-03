@@ -1,5 +1,5 @@
 # System-wide settings shared by every host.
-{ user, ... }:
+{ pkgs, user, ... }:
 
 {
   # Determinate Nix owns the daemon and /etc/nix/nix.conf. Leaving this on
@@ -18,4 +18,7 @@
   nixpkgs.config.allowUnfree = true;
 
   users.users.${user}.home = "/Users/${user}";
+
+  # Replaces the font-fira-code-nerd-font cask.
+  fonts.packages = [ pkgs.nerd-fonts.fira-code ];
 }

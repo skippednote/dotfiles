@@ -24,6 +24,7 @@
           specialArgs = { inherit user hostname; };
           modules = [
             ./nix/modules/system.nix
+            ./nix/modules/homebrew.nix
             hostModule
             home-manager.darwinModules.home-manager
             {
