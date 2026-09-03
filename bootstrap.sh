@@ -8,6 +8,17 @@ set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 HOST="${1:-personal}"
 
+# This script runs under bash and never reads .zshrc, so an already-installed
+# Nix would otherwise be invisible to the checks below.
+NIX_PROFILE_SH=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+if [ -e "$NIX_PROFILE_SH" ]; then
+  # The profile script is not written against `set -u`.
+  set +u
+  # shellcheck disable=SC1090
+  . "$NIX_PROFILE_SH"
+  set -u
+fi
+
 echo "==> 1/4 Xcode Command Line Tools"
 # nix-darwin cannot provide these, and several source builds need them.
 if ! xcode-select -p &>/dev/null; then
@@ -19,13 +30,13 @@ else
 fi
 
 echo "==> 2/4 Determinate Nix"
-if ! command -v nix &>/dev/null; then
+if command -v nix &>/dev/null; then
+  echo "    already installed"
+else
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix \
     | sh -s -- install --no-confirm
-  # shellcheck disable=SC1091
-  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-else
-  echo "    already installed"
+  # shellcheck disable=SC1090
+  . "$NIX_PROFILE_SH"
 fi
 
 echo "==> 3/4 First darwin-rebuild switch"
