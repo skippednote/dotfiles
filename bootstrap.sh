@@ -28,26 +28,35 @@ else
   echo "    already installed"
 fi
 
-echo "==> 3/4 sdkman"
-# Owns JVM version switching. Not in nixpkgs: only fishPlugins.sdkman-for-fish
-# (wrong shell) and sdkmanager (Android, unrelated).
-#
-# rcupdate=false matters: .zshrc is a symlink into this repo, and sdkman would
-# otherwise append its init block to the tracked file. .zshrc sources sdkman
-# itself instead.
-if [ ! -d "$HOME/.sdkman" ]; then
-  curl -s "https://get.sdkman.io?rcupdate=false" | bash
-else
-  echo "    already installed"
-fi
-
-echo "==> 4/4 First darwin-rebuild switch"
+echo "==> 3/4 First darwin-rebuild switch"
 # darwin-rebuild does not exist yet on a fresh machine, so run it straight from
 # the flake this once. sudo resets PATH to a secure default that excludes
 # /nix/..., so resolve nix absolutely first.
 NIX_BIN="$(command -v nix)"
 sudo "$NIX_BIN" run github:nix-darwin/nix-darwin/master#darwin-rebuild -- \
   switch --flake "$DIR#$HOST"
+
+echo "==> 4/4 sdkman"
+# Owns JVM version switching. Not in nixpkgs: only fishPlugins.sdkman-for-fish
+# (wrong shell) and sdkmanager (Android, unrelated).
+#
+# Runs after the switch because its installer needs Bash 4+ and macOS ships
+# 3.2; the bash it needs comes from the switch above.
+#
+# rcupdate=false matters: .zshrc is a symlink into this repo, and sdkman would
+# otherwise append its init block to the tracked file. .zshrc sources sdkman
+# itself instead.
+if [ ! -d "$HOME/.sdkman" ]; then
+  BASH4="/etc/profiles/per-user/$(whoami)/bin/bash"
+  if [ ! -x "$BASH4" ]; then
+    echo "    Expected bash 4+ at $BASH4 but it is missing."
+    echo "    Skipping sdkman; re-run this script once the switch has applied."
+  else
+    curl -s "https://get.sdkman.io?rcupdate=false" | "$BASH4"
+  fi
+else
+  echo "    already installed"
+fi
 
 cat <<EOF
 

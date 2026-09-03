@@ -20,7 +20,9 @@
     pnpm
     uv
 
-    # Shell, prompt and navigation
+    # Shell, prompt and navigation. bash is here because macOS ships 3.2 and
+    # sdkman's installer requires 4+.
+    bash
     starship
     zoxide
     atuin
