@@ -92,3 +92,9 @@ bindkey '^[OA' atuin-up-search
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/skippednote/.lmstudio/bin"
 # End of LM Studio CLI section
+
+# ------------------------------------------------------------------------------
+# sdkman (JVM toolchains; installed by bootstrap.sh, not by Nix)
+# ------------------------------------------------------------------------------
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"

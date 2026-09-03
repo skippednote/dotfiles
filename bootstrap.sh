@@ -1,54 +1,63 @@
 #!/usr/bin/env bash
-# Bootstrap a fresh Mac from scratch.
-# Usage: curl the repo or clone it, then run this script.
+# Bootstrap a fresh Mac. Run this once; use `make switch` for every change
+# afterwards.
+#
+# Usage: ./bootstrap.sh [personal|work]
 set -euo pipefail
 
-export PATH="$HOME/.local/bin:/opt/homebrew/bin:$PATH"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+HOST="${1:-personal}"
 
-echo "==> Installing Xcode Command Line Tools..."
+echo "==> 1/4 Xcode Command Line Tools"
+# nix-darwin cannot provide these, and several source builds need them.
 if ! xcode-select -p &>/dev/null; then
   xcode-select --install
-  echo "    Waiting for Xcode CLI tools to finish installing..."
-  echo "    Press Enter once the installation is complete."
+  echo "    Press Enter once the install has finished."
   read -r
+else
+  echo "    already installed"
 fi
 
-echo "==> Installing bootstrap tools..."
-make -C "$(dirname "$0")" bootstrap-tools
-
-echo "==> Installing Homebrew..."
-if ! command -v brew &>/dev/null; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+echo "==> 2/4 Determinate Nix"
+if ! command -v nix &>/dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix \
+    | sh -s -- install --no-confirm
+  # shellcheck disable=SC1091
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+else
+  echo "    already installed"
 fi
 
-echo "==> Installing Homebrew packages (Brewfile)..."
-brew bundle --file="$(dirname "$0")/Brewfile"
-
-echo "==> Applying dotfiles with chezmoi..."
-make -C "$(dirname "$0")" install
-
-echo "==> Installing CLI tools via mise..."
-mise install
-
-echo "==> Installing global uv tools..."
-bash "$(dirname "$0")/uv-tools.sh"
-
-echo "==> Setting up LazyVim..."
-make -C "$(dirname "$0")" lazyvim
-
-echo "==> Applying macOS defaults..."
-bash "$(dirname "$0")/defaults.sh"
-
-echo "==> Setting Docker context to OrbStack..."
-if command -v docker &>/dev/null; then
-  docker context use orbstack 2>/dev/null || echo "    OrbStack context not available yet — set it after opening OrbStack."
+echo "==> 3/4 sdkman"
+# Owns JVM version switching. Not in nixpkgs: only fishPlugins.sdkman-for-fish
+# (wrong shell) and sdkmanager (Android, unrelated).
+#
+# rcupdate=false matters: .zshrc is a symlink into this repo, and sdkman would
+# otherwise append its init block to the tracked file. .zshrc sources sdkman
+# itself instead.
+if [ ! -d "$HOME/.sdkman" ]; then
+  curl -s "https://get.sdkman.io?rcupdate=false" | bash
+else
+  echo "    already installed"
 fi
 
-echo ""
-echo "Bootstrap complete! Next steps:"
-echo "  1. Open 1Password and sign in"
-echo "  2. Enable SSH agent in 1Password > Settings > Developer"
-echo "  3. Open cmux"
-echo "  4. Run 'nvim' to let LazyVim install plugins"
-echo "  5. Log out and back in for all macOS defaults to take effect"
+echo "==> 4/4 First darwin-rebuild switch"
+# darwin-rebuild does not exist yet on a fresh machine, so run it straight from
+# the flake this once. sudo resets PATH to a secure default that excludes
+# /nix/..., so resolve nix absolutely first.
+NIX_BIN="$(command -v nix)"
+sudo "$NIX_BIN" run github:nix-darwin/nix-darwin/master#darwin-rebuild -- \
+  switch --flake "$DIR#$HOST"
+
+cat <<EOF
+
+Bootstrap complete. Remaining manual steps:
+
+  1. Open 1Password, sign in, and enable the SSH agent
+     (Settings > Developer). Commit signing and SSH depend on it.
+  2. bash "$DIR/uv-tools.sh"     # the 7 PyPI-only CLIs
+  3. mise install                # the 7 tools nixpkgs cannot serve
+  4. Restore from 1Password: ~/.ssh private keys, ~/.aws, ~/.kube,
+     ~/.config/gcloud, ~/.gnupg, ~/.codex/auth.json
+  5. Log out and back in for all macOS defaults to take effect.
+EOF
