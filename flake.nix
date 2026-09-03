@@ -25,6 +25,7 @@
           modules = [
             ./nix/modules/system.nix
             ./nix/modules/homebrew.nix
+            ./nix/modules/defaults.nix
             hostModule
             home-manager.darwinModules.home-manager
             {
