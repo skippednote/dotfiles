@@ -15,6 +15,11 @@ fi
 # Path
 # ------------------------------------------------------------------------------
 export path=(
+  # Nix first, so tool resolution does not depend on Homebrew winning.
+  # home-manager installs user packages under /etc/profiles/per-user.
+  /etc/profiles/per-user/$USER/bin
+  /run/current-system/sw/bin
+  /nix/var/nix/profiles/default/bin
   /opt/homebrew/bin
   $HOME/.local/bin
   $HOME/.go/bin

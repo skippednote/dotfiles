@@ -32,6 +32,11 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit user; };
+              home-manager.users.${user} = import ./nix/modules/home.nix;
+
+              # $HOME currently holds real files copied there by chezmoi.
+              # Without this the first activation refuses to clobber them.
+              home-manager.backupFileExtension = "pre-nix";
             }
           ];
         };
