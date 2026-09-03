@@ -55,6 +55,7 @@ pnpm = "latest"
 rust = "latest"
 herdr = "latest"
 xcodegen = "latest"
+lsd = "latest"
 
 [settings]
 

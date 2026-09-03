@@ -1,3 +1,0 @@
-#!/bin/sh
-# installed by github/gh-stack
-exec gh stack "$@"

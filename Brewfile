@@ -1,9 +1,9 @@
 tap "hudochenkov/sshpass"
 brew "mas"
 brew "zsh-autosuggestions"
-brew "eza"
 brew "hudochenkov/sshpass/sshpass"
 cask "1password"
+cask "blender"
 cask "chatgpt"
 cask "claude"
 cask "cleanshot"
@@ -11,6 +11,7 @@ cask "cmux"
 cask "font-fira-code-nerd-font"
 cask "google-chrome"
 cask "granola"
+cask "grok-bot"
 cask "insta360-link-controller"
 cask "logi-options+"
 cask "microsoft-teams"
@@ -29,4 +30,5 @@ mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835

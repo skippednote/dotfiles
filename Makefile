@@ -8,7 +8,7 @@ export PATH := $(LOCAL_BIN):$(PATH)
 NVIM_CONFIG_DIR := $(HOME)/.config/nvim
 LAZYVIM_REPO := https://github.com/LazyVim/starter.git
 CHEZMOI_SOURCE := $(cwd)/home
-MAS_APP_IDS := 640199958 408981434 409183694 409203825 409201541 497799835
+MAS_APP_IDS := 640199958 408981434 409183694 409203825 409201541 1451685025 497799835
 MAS_INSTALL_IDS :=
 
 # Install dotfiles by applying the chezmoi source state in ./home.
@@ -66,10 +66,6 @@ backup:
 	@if [ -f ~/.config/starship.toml ] && [ ! -L ~/.config/starship.toml ]; then \
 		cp ~/.config/starship.toml $(HOME)/.dotfiles-backup/starship.toml.backup && echo "? Backed up starship config"; \
 	fi
-	@if [ -f ~/.config/cmux/cmux.json ] && [ ! -L ~/.config/cmux/cmux.json ]; then \
-		mkdir -p $(HOME)/.dotfiles-backup/cmux; \
-		cp ~/.config/cmux/cmux.json $(HOME)/.dotfiles-backup/cmux/cmux.json.backup && echo "? Backed up cmux config"; \
-	fi
 	@if [ -f ~/.config/ai/working-preferences.md ] && [ ! -L ~/.config/ai/working-preferences.md ]; then \
 		mkdir -p $(HOME)/.dotfiles-backup/ai; \
 		cp ~/.config/ai/working-preferences.md $(HOME)/.dotfiles-backup/ai/working-preferences.md.backup && echo "? Backed up working-preferences"; \
@@ -102,10 +98,6 @@ backup:
 		mkdir -p $(HOME)/.dotfiles-backup/codex; \
 		cp ~/.codex/hooks.json $(HOME)/.dotfiles-backup/codex/hooks.json.backup && echo "? Backed up Codex hooks.json"; \
 	fi
-	@if [ -f ~/.codex/config.toml ] && [ ! -L ~/.codex/config.toml ]; then \
-		mkdir -p $(HOME)/.dotfiles-backup/codex; \
-		cp ~/.codex/config.toml $(HOME)/.dotfiles-backup/codex/config.toml.backup && echo "? Backed up Codex config.toml"; \
-	fi
 	@if [ -f $(HOME)/.ssh/config ] && [ ! -L $(HOME)/.ssh/config ]; then \
 		cp $(HOME)/.ssh/config $(HOME)/.dotfiles-backup/ssh_config.backup && echo "? Backed up SSH config"; \
 	fi
@@ -123,9 +115,9 @@ backup:
 clean:
 	@echo "Removing managed dotfiles..."
 	@rm -f ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/mise/config.toml ~/.config/starship.toml
-	@rm -f ~/.config/cmux/cmux.json ~/.config/ai/working-preferences.md
+	@rm -f ~/.config/ai/working-preferences.md
 	@rm -f ~/.claude/settings.json ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/RTK.md
-	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json ~/.codex/config.toml
+	@rm -f ~/.codex/AGENTS.md ~/.codex/RTK.md ~/.codex/hooks.json
 	@rm -f ~/.config/nvim/lua/config/lazy.lua ~/.config/nvim/lua/config/autocmds.lua ~/.config/nvim/lua/config/keymaps.lua ~/.config/nvim/lua/config/options.lua ~/.config/nvim/lua/plugins/example.lua
 	@rm -f ~/.config/nvim/init.lua ~/.config/nvim/lazyvim.json ~/.config/nvim/lazy-lock.json ~/.config/nvim/stylua.toml ~/.config/nvim/.neoconf.json ~/.config/nvim/.gitignore ~/.config/nvim/LICENSE ~/.config/nvim/README.md
 	@rm -f ~/.ssh/config
@@ -219,11 +211,6 @@ check:
 	else \
 		echo "MISSING starship config"; \
 	fi
-	@if [ -f ~/.config/cmux/cmux.json ]; then \
-		echo "OK cmux config exists"; \
-	else \
-		echo "MISSING cmux config"; \
-	fi
 	@if [ -f ~/.config/ai/working-preferences.md ]; then \
 		echo "OK working-preferences exists"; \
 	else \
@@ -263,11 +250,6 @@ check:
 		echo "OK Codex hooks.json exists"; \
 	else \
 		echo "MISSING Codex hooks.json"; \
-	fi
-	@if [ -f ~/.codex/config.toml ]; then \
-		echo "OK Codex config.toml exists"; \
-	else \
-		echo "MISSING Codex config.toml"; \
 	fi
 	@if [ -f ~/.config/nvim/init.lua ]; then \
 		echo "OK nvim init.lua exists"; \

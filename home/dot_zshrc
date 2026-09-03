@@ -36,10 +36,10 @@ fi
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
-alias l="eza -lh --git --icons"
-alias a="eza -lha --git --icons"
-alias ls="eza --git --icons"
-alias tree="ls --tree --icons"
+alias l="lsd -lh --git --icon auto"
+alias a="lsd -lha --git --icon auto"
+alias ls="lsd --icon auto"
+alias tree="lsd --tree --icon auto"
 alias cd='z'
 alias o="open"
 alias cat="bat"

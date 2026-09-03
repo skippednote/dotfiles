@@ -22,7 +22,6 @@ Key managed files include:
 - `~/.config/mise/config.toml`
 - `~/.config/starship.toml`
 - `~/.config/gh/config.yml`
-- `~/.config/cmux/cmux.json`
 - `~/.config/ai/working-preferences.md`
 - `~/.claude/settings.json`
 - `~/.claude/CLAUDE.md`
@@ -31,12 +30,10 @@ Key managed files include:
 - `~/.codex/AGENTS.md`
 - `~/.codex/RTK.md`
 - `~/.codex/hooks.json`
-- `~/.codex/config.toml`
 - `~/.ssh/config`
 - `~/Library/LaunchAgents/com.skippednote.capslock-to-control.plist`
 - `~/.local/bin/imgcat`
 - `~/.local/bin/rtk-claude-hook`
-- `~/.local/bin/cursor`, `~/.local/bin/gs`, `~/.local/bin/gws-personal`, `~/.local/bin/gws-work`
 - `~/.config/nvim/` (LazyVim config: `init.lua`, `lua/config/*`, `lua/plugins/*`, `lazy-lock.json`)
 
 ## Fresh Install
@@ -160,7 +157,7 @@ chezmoi --source=home --destination="$HOME" apply
 
 `chezmoi` and `mise` are intentionally not installed through Homebrew. They are bootstrap tools, so `bootstrap.sh` installs them directly into `~/.local/bin` before Homebrew or dotfile application runs.
 
-Shell setup is centered on `zsh`, `mise`, `starship`, `zoxide`, `atuin`, `eza`, `bat`, and `zsh-autosuggestions`.
+Shell setup is centered on `zsh`, `mise`, `starship`, `zoxide`, `atuin`, `lsd`, `bat`, and `zsh-autosuggestions`.
 
 Git is configured with:
 
@@ -176,7 +173,7 @@ Both assistants share one working-preferences file at `~/.config/ai/working-pref
 
 Claude Code uses `~/.claude/CLAUDE.md` to import `~/.claude/RTK.md` and the shared `~/.config/ai/working-preferences.md`, plus `~/.local/bin/rtk-claude-hook` as a small compatibility wrapper around `rtk hook claude`. The wrapper preserves RTK rewrites and adds Claude's required `permissionDecision: "allow"` when RTK returns `updatedInput`. `~/.claude/AGENTS.md` imports the same shared files for tools that read `AGENTS.md`.
 
-Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md` and the shared working-preferences file, plus its own Codex-specific rules; `~/.codex/hooks.json` configures its RTK hook and `~/.codex/config.toml` carries its settings. Codex state, auth, logs, and caches are intentionally not managed.
+Codex uses `~/.codex/AGENTS.md` to import `~/.codex/RTK.md` and the shared working-preferences file, plus its own Codex-specific rules; `~/.codex/hooks.json` configures its RTK hook. Codex state, auth, logs, caches, and `~/.codex/config.toml` are intentionally not managed.
 
 ## Not Managed
 
@@ -184,10 +181,13 @@ These are installed by hand and will not come back from this repo. Reinstall the
 
 - `~/.local/bin/session-manager-plugin` - AWS Session Manager plugin, from the AWS installer
 - `~/.local/bin/android` - Android platform tool (mise tracks `android-sdk` separately)
-- `~/.local/bin/agent` / `~/.local/bin/cursor-agent` - installed by the Cursor agent installer; only the `cursor` shim is managed here
+- `~/.local/bin/agent` / `~/.local/bin/cursor-agent` / `~/.local/bin/cursor` - installed by the Cursor agent installer
+- `~/.local/bin/gs`, `~/.local/bin/gws-personal`, `~/.local/bin/gws-work` - hand-written shims, no longer tracked here
 - `Fynn.app` - direct download, not in `Brewfile`
 - App-level settings for Raycast, CleanShot, and 1Password
 - `~/.claude/settings.local.json` - per-machine Claude permission grants, rewritten constantly by Claude Code
+- `~/.codex/config.toml` - Codex rewrites it on every trust/plugin change
+- `~/.config/cmux/cmux.json` - cmux regenerates this template on launch
 
 Credentials and keys are deliberately outside this repo. Restore them from 1Password:
 
