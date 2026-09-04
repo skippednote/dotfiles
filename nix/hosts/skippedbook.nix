@@ -15,10 +15,10 @@
     # own log on the next tick.
     ../agents/skippedbook/scheduled.nix
 
-    # Batch D2: the keepalive services, including the hermes gateway. Enable
-    # this only once D1 has been observed working - a mistake here is an
-    # outage rather than a missed tick.
-    # ../agents/skippedbook/services.nix
+    # Batch D2: the keepalive services, including the hermes gateway. Unlike
+    # D1, this one really does restart things: the hermes PATHs differ from
+    # the live plists, which is the point - it is what cuts them off mise.
+    ../agents/skippedbook/services.nix
   ];
 
   networking.computerName = "skippedbook";
