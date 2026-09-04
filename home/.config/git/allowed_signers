@@ -1,0 +1,12 @@
+# Maps commit author emails to the SSH public keys allowed to sign for them.
+#
+# git can sign without this file, but cannot verify: `git log --show-signature`
+# and `%G?` report "N" (no signature) for perfectly good signatures until the
+# signer is listed here.
+#
+# The key is the public half of the 1Password-held signing key, matching
+# user.signingkey in .gitconfig. Both author addresses used in this repo are
+# listed; add a line when a new one appears.
+skippednote@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
+2114712+skippednote@users.noreply.github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
+bassam@axelerant.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn

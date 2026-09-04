@@ -14,6 +14,13 @@ fi
 # ------------------------------------------------------------------------------
 # Path
 # ------------------------------------------------------------------------------
+# Do not put the Nix profiles at the front here. `mise activate` inserts its
+# per-project tool directories relative to this array, and hoisting Nix above
+# them silently overrides every pinned version: a project asking for terraform
+# 1.15.8 or node 18 would get the global Nix build instead.
+#
+# Nix still wins over Homebrew without any help, because Homebrew is down to
+# mas and zsh-autosuggestions and no longer overlaps the Nix package set.
 export path=(
   /opt/homebrew/bin
   $HOME/.local/bin
@@ -36,10 +43,10 @@ fi
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
-alias l="eza -lh --git --icons"
-alias a="eza -lha --git --icons"
-alias ls="eza --git --icons"
-alias tree="ls --tree --icons"
+alias l="lsd -lh --git --icon auto"
+alias a="lsd -lha --git --icon auto"
+alias ls="lsd --icon auto"
+alias tree="lsd --tree --icon auto"
 alias cd='z'
 alias o="open"
 alias cat="bat"
@@ -87,3 +94,9 @@ bindkey '^[OA' atuin-up-search
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/skippednote/.lmstudio/bin"
 # End of LM Studio CLI section
+
+# ------------------------------------------------------------------------------
+# sdkman (JVM toolchains; installed by bootstrap.sh, not by Nix)
+# ------------------------------------------------------------------------------
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"

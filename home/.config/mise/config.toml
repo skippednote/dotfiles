@@ -1,0 +1,13 @@
+# No global tools. Everything global comes from Nix; see
+# nix/modules/packages.nix.
+#
+# mise is kept solely for the per-project mise.toml files, which pin exact
+# versions a single nixpkgs revision cannot serve - node 18 is not in
+# nixpkgs at all, and terraform 1.15.8, xcodegen 2.45.4 and rust 1.94.0 all
+# differ from what the locked revision provides.
+[tools]
+
+[settings]
+
+[settings.github]
+credential_command = "gh auth token"
