@@ -1,3 +1,8 @@
+# Deployed to ~/.gitignore (core.excludesfile). Deliberately not named
+# .gitignore: inside home/ that would become an active gitignore governing
+# this whole tree, and these patterns would start hiding tracked files.
+# nix/modules/home.nix maps it to the dotted name.
+
 .DS_Store
 .AppleDouble
 .LSOverride

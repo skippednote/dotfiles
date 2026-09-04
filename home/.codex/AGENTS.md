@@ -1,5 +1,5 @@
-@/Users/skippednote/.codex/RTK.md
-@/Users/skippednote/.config/ai/working-preferences.md
+@~/.codex/RTK.md
+@~/.config/ai/working-preferences.md
 
 ## Codex specifics
 

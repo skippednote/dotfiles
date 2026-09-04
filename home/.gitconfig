@@ -11,7 +11,7 @@
   pager = delta
   autocrlf = input
   commitGraph = true
-  excludesfile = /Users/skippednote/.gitignore
+  excludesfile = ~/.gitignore
   eol = lf
 
 [color]
@@ -40,7 +40,7 @@
 
 [gpg "ssh"]
   program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-  allowedSignersFile = /Users/skippednote/.config/git/allowed_signers
+  allowedSignersFile = ~/.config/git/allowed_signers
 
 [github]
   user = skippednote

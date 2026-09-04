@@ -92,7 +92,7 @@ bindkey '^[[A' atuin-up-search
 bindkey '^[OA' atuin-up-search
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/skippednote/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
 # ------------------------------------------------------------------------------

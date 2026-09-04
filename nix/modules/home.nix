@@ -4,7 +4,7 @@
 # into /nix/store, because six of these files are written by the tools that
 # read them: .zshrc (LM Studio appends a PATH block), .gitconfig (gh auth
 # writes credential helpers), .ssh/config (the Upsun CLI writes a cert
-# block), .config/gh/config.yml (gh rewrites it), nvim's lazy-lock.json
+# block), nvim's lazy-lock.json
 # (lazy.nvim), and .claude/settings.json (Claude Code). Store copies are
 # read-only and would break all six.
 #
@@ -41,7 +41,9 @@ in
     # Lets git verify SSH signatures, not just create them.
     ".config/git/allowed_signers".source = link ".config/git/allowed_signers";
     ".config/mise/config.toml".source = link ".config/mise/config.toml";
-    ".config/gh/config.yml".source = link ".config/gh/config.yml";
+    # .config/gh/config.yml is deliberately not linked: gh rewrites the whole
+    # file on any config change, and the only content that was not a default
+    # was one alias. Recreate it with `gh alias set co 'pr checkout'`.
     ".config/ai/working-preferences.md".source = link ".config/ai/working-preferences.md";
 
     # The whole LazyVim tree, including the lockfile nvim rewrites.
