@@ -1,129 +1,22 @@
-# launchd agents for skippedbook.
+# skippedbook: scheduled launchd jobs.
 #
-# Transcribed mechanically from the 23 plists that were hand-placed in
-# ~/Library/LaunchAgents, so behaviour is unchanged - the generated plists
-# were diffed against the originals before this was applied.
+# The 18 timer-driven and run-at-load agents, transcribed from the plists
+# that were hand-placed in ~/Library/LaunchAgents. Verified equivalent
+# before adoption: 14 were byte-identical and the four daily ones differed
+# only by nix-darwin defaulting unset StartCalendarInterval fields to null,
+# which are filtered when the plist is written.
 #
-# What this file owns and what it does not: nix-darwin declares the schedule
-# and the command. The scripts themselves live in ~/selfhost, which is its
-# own git repo, and they source ~/selfhost/.env. No secret from that machine
-# belongs here, and the EnvironmentVariables blocks below were checked - they
-# carry only PATH, HOME and HERMES_HOME.
+# These are cut over before the long-running services in ./services.nix,
+# because a misfiring timer shows up in its own log on the next tick,
+# whereas a broken keepalive service is down until noticed.
 #
-# Six cruft files were dropped rather than transcribed: three
-# .before-vaultwarden-cutover snapshots of the gateway plist, two .bak
-# copies, and one .disabled.
-#
-# WARNING, and a blocker for the mise cutover on this machine: the two
-# hermes agents bake absolute mise install paths into their PATH -
-# ai.hermes.gateway has ten of them, pinned to exact versions
-# (node/26.1.0/bin, go/1.26.3/bin, gh_2.92.0_macOS_arm64/bin,
-# ripgrep-15.1.0-aarch64-apple-darwin, ...), and ai.hermes.dashboard uses
-# mise/shims. Emptying mise's global [tools] here and running `mise prune`
-# would delete those directories and silently strip node, go, gh, awscli,
-# cloudflared, ripgrep, tmux and claude from the gateway's environment.
-# Rewrite these PATHs to the Nix profiles before that step, not after.
-#
-# homebrew.mxcl.atuin is not here either. It was a Homebrew service, and the
-# formula is gone; the atuin daemon is declared at the bottom against the
-# Nix package instead.
-{ pkgs, ... }:
+# nix-darwin owns the schedule and the command. The scripts live in
+# ~/selfhost, its own git repo, and they source ~/selfhost/.env - no secret
+# from that machine belongs here.
+{ ... }:
 
 {
   launchd.user.agents = {
-
-    # ── Hermes AI services
-    "ai.hermes.gateway".serviceConfig = {
-      EnvironmentVariables = {
-        HERMES_HOME = "/Users/skippednote/.hermes";
-        PATH =
-          # The gateway needs node 26; the user profile carries the 24 LTS,
-          # so it is pinned by store path here rather than added to the
-          # profile, where two nodejs packages would collide.
-          "${pkgs.nodejs_26}/bin:"
-          + "/Users/skippednote/.hermes/hermes-agent/venv/bin:"
-          + "/Users/skippednote/.hermes/hermes-agent/node_modules/.bin:"
-          + "/etc/profiles/per-user/skippednote/bin:"
-          + "/run/current-system/sw/bin:"
-          + "/nix/var/nix/profiles/default/bin:"
-          + "/Users/skippednote/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pkg/env/active/bin:/opt/pmk/env/global/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/skippednote/.orbstack/bin:/Users/skippednote/.lmstudio/bin";
-        VIRTUAL_ENV = "/Users/skippednote/.hermes/hermes-agent/venv";
-      };
-      KeepAlive = true;
-      Label = "ai.hermes.gateway";
-      ProgramArguments = [
-        "/Users/skippednote/.hermes/scripts/run_gateway_with_vaultwarden_env.sh"
-      ];
-      RunAtLoad = true;
-      StandardErrorPath = "/Users/skippednote/.hermes/logs/gateway.error.log";
-      StandardOutPath = "/Users/skippednote/.hermes/logs/gateway.log";
-      ThrottleInterval = 30;
-      WorkingDirectory = "/Users/skippednote/.hermes/hermes-agent";
-    };
-    "ai.hermes.dashboard".serviceConfig = {
-      EnvironmentVariables = {
-        HERMES_HOME = "/Users/skippednote/.hermes";
-        PATH =
-          "/Users/skippednote/.local/bin:"
-          + "/etc/profiles/per-user/skippednote/bin:"
-          + "/run/current-system/sw/bin:"
-          + "/nix/var/nix/profiles/default/bin:"
-          + "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
-      };
-      KeepAlive = true;
-      Label = "ai.hermes.dashboard";
-      ProgramArguments = [
-        "/Users/skippednote/.hermes/scripts/run_hermes_dashboard.sh"
-      ];
-      RunAtLoad = true;
-      StandardErrorPath = "/Users/skippednote/.hermes/logs/hermes-dashboard.error.log";
-      StandardOutPath = "/Users/skippednote/.hermes/logs/hermes-dashboard.log";
-      WorkingDirectory = "/Users/skippednote/.hermes/hermes-agent";
-    };
-
-    # ── Long-running selfhost services
-    "com.skippednote.health-events".serviceConfig = {
-      EnvironmentVariables = {
-        HOME = "/Users/skippednote";
-        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin";
-      };
-      KeepAlive = true;
-      Label = "com.skippednote.health-events";
-      ProgramArguments = [
-        "/bin/bash"
-        "-c"
-        "exec /Users/skippednote/selfhost/health-events/healthd -listen 127.0.0.1:8771 -out /Users/skippednote/selfhost/health-events/health.json -history /Users/skippednote/selfhost/health-events/health-history.jsonl -events /Users/skippednote/selfhost/health-events/health-events.db -archive /Users/skippednote/selfhost/health-events/health-archive.db"
-      ];
-      RunAtLoad = true;
-      StandardErrorPath = "/Users/skippednote/selfhost/logs/health-events.err";
-      StandardOutPath = "/Users/skippednote/selfhost/logs/health-events.log";
-    };
-    "com.skippednote.triggers".serviceConfig = {
-      KeepAlive = true;
-      Label = "com.skippednote.triggers";
-      ProgramArguments = [
-        "/Users/skippednote/selfhost/triggers/triggers"
-      ];
-      RunAtLoad = true;
-      StandardErrorPath = "/Users/skippednote/selfhost/logs/triggers.err";
-      StandardOutPath = "/Users/skippednote/selfhost/logs/triggers.log";
-    };
-    "com.skippednote.zerodha-reauth".serviceConfig = {
-      EnvironmentVariables = {
-        HOME = "/Users/skippednote";
-        PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin";
-      };
-      KeepAlive = true;
-      Label = "com.skippednote.zerodha-reauth";
-      ProgramArguments = [
-        "/bin/bash"
-        "-c"
-        "set -a; source /Users/skippednote/selfhost/.env; set +a; exec /Users/skippednote/selfhost/zerodha-reauth/zerodha-reauth"
-      ];
-      RunAtLoad = true;
-      StandardErrorPath = "/Users/skippednote/selfhost/logs/zerodha-reauth.err";
-      StandardOutPath = "/Users/skippednote/selfhost/logs/zerodha-reauth.log";
-    };
 
     # ── Frequent pollers (60s)
     "com.skippednote.battery".serviceConfig = {
@@ -350,22 +243,6 @@
       RunAtLoad = true;
       StandardErrorPath = "/Users/skippednote/selfhost/logs/launchd-orbstack.err";
       StandardOutPath = "/Users/skippednote/selfhost/logs/launchd-orbstack.out";
-    };
-
-    # Replaces the homebrew.mxcl.atuin service, which disappeared with the
-    # formula. Same daemon, pointed at the Nix binary; logs move out of
-    # /opt/homebrew/var/log.
-    "sh.atuin.daemon".serviceConfig = {
-      Label = "sh.atuin.daemon";
-      ProgramArguments = [
-        "${pkgs.callPackage ../packages/atuin.nix { }}/bin/atuin"
-        "daemon"
-        "start"
-      ];
-      KeepAlive = true;
-      RunAtLoad = true;
-      StandardOutPath = "/Users/skippednote/Library/Logs/atuin.log";
-      StandardErrorPath = "/Users/skippednote/Library/Logs/atuin.log";
     };
   };
 }

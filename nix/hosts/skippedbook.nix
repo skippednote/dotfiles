@@ -10,13 +10,16 @@
 { ... }:
 
 {
-  # Phase D wires this in. It is deliberately left out of the first switch so
-  # that switch changes tools and dotfiles only, and the 23 hand-placed plists
-  # keep running untouched while the rest is verified. Enabling it unloads and
-  # reloads every agent at once, which is not something to combine with a
-  # machine's first ever activation.
-  #
-  # imports = [ ../agents/skippedbook.nix ];
+  imports = [
+    # Batch D1: the 18 timer-driven jobs. A misfiring timer surfaces in its
+    # own log on the next tick.
+    ../agents/skippedbook/scheduled.nix
+
+    # Batch D2: the keepalive services, including the hermes gateway. Enable
+    # this only once D1 has been observed working - a mistake here is an
+    # outage rather than a missed tick.
+    # ../agents/skippedbook/services.nix
+  ];
 
   networking.computerName = "skippedbook";
   networking.hostName = "skippedbook";
