@@ -37,30 +37,54 @@
         inherit system;
         config.allowUnfree = true;
       };
+
+      # `make switch` picks the host from `scutil --get LocalHostName`, which
+      # already returns skippednote / skippedbook on the respective machines,
+      # so no flag can be got wrong.
+      mkHost =
+        { hostname, profiles }:
+        nix-darwin.lib.darwinSystem {
+          specialArgs = { inherit user hostname agentPkgs; };
+          modules = [
+            ./nix/modules/system.nix
+            ./nix/modules/homebrew.nix
+            ./nix/modules/defaults.nix
+            ./nix/hosts/${hostname}.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit user hostname; };
+              home-manager.users.${user} = import ./nix/modules/home.nix;
+
+              # $HOME held real files copied there by chezmoi, which the first
+              # activation would otherwise refuse to clobber.
+              home-manager.backupFileExtension = "pre-nix";
+            }
+          ]
+          ++ profiles;
+        };
     in
     {
       # `nix fmt` / `make fmt`
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
 
-      darwinConfigurations.personal = nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit user agentPkgs; };
-        modules = [
-          ./nix/modules/system.nix
-          ./nix/modules/homebrew.nix
-          ./nix/modules/defaults.nix
-          ./nix/modules/packages.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit user; };
-            home-manager.users.${user} = import ./nix/modules/home.nix;
+      darwinConfigurations = {
+        skippednote = mkHost {
+          hostname = "skippednote";
+          profiles = [
+            ./nix/profiles/common.nix
+            ./nix/profiles/dev.nix
+          ];
+        };
 
-            # $HOME held real files copied there by chezmoi, which the first
-            # activation would otherwise refuse to clobber.
-            home-manager.backupFileExtension = "pre-nix";
-          }
-        ];
+        skippedbook = mkHost {
+          hostname = "skippedbook";
+          profiles = [
+            ./nix/profiles/common.nix
+            ./nix/profiles/ops.nix
+          ];
+        };
       };
     };
 }

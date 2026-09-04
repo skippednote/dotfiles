@@ -11,7 +11,12 @@
 # by file, because the directories involved hold state this repo must not
 # own: ~/.ssh has private keys, ~/.claude has daemon logs and caches,
 # ~/.codex has auth and state, ~/.local/bin has hand-installed binaries.
-{ config, user, ... }:
+{
+  config,
+  user,
+  hostname,
+  ...
+}:
 
 let
   repo = "${config.home.homeDirectory}/Code/personal/dotfiles/home";
@@ -39,6 +44,10 @@ in
 
     # Lets git verify SSH signatures, not just create them.
     ".config/git/allowed_signers".source = link ".config/git/allowed_signers";
+
+    # The machine-specific half of .gitconfig, which includes this path.
+    # Signing needs 1Password and it is only installed on skippednote.
+    ".config/git/host.conf".source = link ".config/git/host-${hostname}.conf";
 
     # Application configs that are hand-authored text. Tracked as single
     # files, never whole directories: ~/.config/herdr also holds session

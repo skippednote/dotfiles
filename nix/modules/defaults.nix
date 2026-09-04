@@ -1,4 +1,8 @@
-# macOS preferences, ported from the old defaults.sh.
+# macOS preferences shared by every host, ported from the old defaults.sh.
+#
+# Settings that depend on an app being installed live in the host files
+# instead: Rectangle and Raycast are on skippednote only, and writing their
+# preference domains on a machine without them is pointless.
 #
 # Everything nix-darwin models as a real option is set that way. The rest
 # goes through CustomUserPreferences, which writes arbitrary domain/key
@@ -44,16 +48,6 @@
       ShowHardDrivesOnDesktop = false;
     };
 
-    # Native tiling off; Rectangle handles window management.
-    WindowManager = {
-      GloballyEnabled = false;
-      EnableTiledWindowMargins = false;
-      EnableTilingByEdgeDrag = false;
-      EnableTilingOptionAccelerator = false;
-      EnableTopTilingByEdgeDrag = false;
-      HideDesktop = true;
-    };
-
     # The com.apple.menuextra.clock domain.
     menuExtraClock = {
       ShowDayOfWeek = true;
@@ -90,17 +84,6 @@
         wvous-tr-corner = 0;
         wvous-br-corner = 0;
       };
-
-      "com.knollsoft.Rectangle" = {
-        launchOnLogin = true;
-        hideMenubarIcon = true;
-        alternateDefaultShortcuts = true;
-        allowAnyShortcut = true;
-        subsequentExecutionMode = 1;
-      };
-
-      # Cmd+Space, replacing Spotlight.
-      "com.raycast.macos".raycastGlobalHotkey = "Command-49";
 
       # `with` is a Nix keyword, hence the quoting.
       NSGlobalDomain.NSUserDictionaryReplacementItems = [

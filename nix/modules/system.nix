@@ -1,5 +1,5 @@
 # System-wide settings shared by every host.
-{ pkgs, user, ... }:
+{ user, ... }:
 
 {
   # Determinate Nix owns the daemon and /etc/nix/nix.conf. Leaving this on
@@ -19,10 +19,6 @@
 
   users.users.${user}.home = "/Users/${user}";
 
-  networking.computerName = "skippednote";
-  networking.hostName = "skippednote";
-  networking.localHostName = "skippednote";
-
   # Puts the Nix profiles on PATH via /etc/zshenv, which runs before the
   # user's .zshrc. Without this nothing adds them, and doing it by hand in
   # .zshrc hoists Nix above mise's per-project tool directories, silently
@@ -30,6 +26,4 @@
   # .zshrc stays hand-written and home-manager-linked.
   programs.zsh.enable = true;
 
-  # Replaces the font-fira-code-nerd-font cask.
-  fonts.packages = [ pkgs.nerd-fonts.fira-code ];
 }

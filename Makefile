@@ -1,7 +1,9 @@
 .PHONY: switch check update mas-update test fmt
 
-# The single darwinConfiguration in flake.nix.
-HOST := personal
+
+# Picked from the machine itself, so `make switch` needs no flag and cannot
+# be pointed at the wrong host by accident.
+HOST := $(shell scutil --get LocalHostName)
 FLAKE := $(shell pwd)
 
 # Apply the configuration. This is the only command needed day to day.

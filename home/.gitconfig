@@ -1,10 +1,7 @@
 [user]
   name = Bassam Ismail
   email = skippednote@gmail.com
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPp2WBMPkT8zg/qItrQimbNZzySb3Kz1fgmX6RQ9vcn
 
-[commit]
-  gpgsign = true
 
 [core]
   fileMode = true
@@ -35,12 +32,7 @@
 [help]
   autocorrect = 1
 
-[gpg]
-  format = ssh
 
-[gpg "ssh"]
-  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-  allowedSignersFile = ~/.config/git/allowed_signers
 
 [github]
   user = skippednote
@@ -130,3 +122,9 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !gh auth git-credential
+
+# Machine-specific half: commit signing needs 1Password, which is installed
+# on skippednote and not on skippedbook. home-manager links the right file
+# per host, so identity stays shared and only signing diverges.
+[include]
+  path = ~/.config/git/host.conf
