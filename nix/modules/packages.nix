@@ -27,8 +27,9 @@
     zoxide
     fzf
     lsd
-    # atuin is deliberately absent: nixpkgs is behind upstream and its
-    # history database will not downgrade. See ~/.config/mise/config.toml.
+    # Upstream's prebuilt 18.21.0, because nixpkgs cannot build it yet and
+    # its history database will not downgrade. See nix/packages/atuin.nix.
+    (callPackage ../packages/atuin.nix { })
 
     # Files and text
     bat

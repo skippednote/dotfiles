@@ -4,8 +4,8 @@
 # Everything else that used to be installed here now comes from Nix; see
 # nix/modules/packages.nix. What remains is PyPI-only:
 #
-#   llvd, semble, spec-kitty-cli        not in nixpkgs at all
-#   grip, hypothesis, radon, weasyprint only exist as python3Packages.*, and
+#   llvd, semble                        not in nixpkgs at all
+#   grip, radon                         only exist as python3Packages.*, and
 #                                       keeping them here avoids standing up a
 #                                       python env for four CLIs
 #
@@ -23,12 +23,9 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 uv tool install grip
-uv tool install hypothesis
 uv tool install llvd
 uv tool install radon
 uv tool install semble
-uv tool install spec-kitty-cli
-uv tool install weasyprint
 uv tool upgrade --all
 
 echo "uv tools installed and upgraded."

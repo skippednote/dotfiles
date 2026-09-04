@@ -14,10 +14,11 @@ generation you can roll back.
 - `nix/modules/defaults.nix` — macOS preferences and the Caps Lock remap
 - `nix/modules/homebrew.nix` — casks, Mac App Store apps, 2 formulae
 - `nix/modules/packages.nix` — the 62 global CLI tools
+- `nix/packages/atuin.nix` — upstream atuin binary; nixpkgs cannot build 18.21
 - `nix/modules/home.nix` — dotfile placement
 - `home/` — the real dotfiles, symlinked into `$HOME`
 - `bootstrap.sh` — fresh-machine setup
-- `uv-tools.sh` — the 7 PyPI-only CLIs Nix cannot provide
+- `uv-tools.sh` — the 4 PyPI-only CLIs Nix cannot provide
 
 ## Fresh install
 
@@ -96,8 +97,8 @@ Not from Nix, and why:
   and `rust 1.94.0` differ from the locked revision. On mise, per project.
 - `java` — sdkman owns JVM switching. `maven` stays in Nix; its wrapper uses
   `--set-default JAVA_HOME`, so it defers to sdkman.
-- `llvd`, `semble`, `spec-kitty-cli`, `grip`, `hypothesis`, `radon`,
-  `weasyprint` — PyPI-only or `python3Packages`-only. On `uv tool`.
+- `llvd`, `semble`, `grip`, `radon` — PyPI-only or `python3Packages`-only.
+  On `uv tool`.
 - 21 casks and 3 Mac App Store apps — Homebrew handles macOS bundles,
   updates, and quarantine properly.
 
