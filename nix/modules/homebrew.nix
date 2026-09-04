@@ -55,12 +55,14 @@
 
     # masApps installs but does not upgrade; `mas upgrade` stays in the
     # Makefile for that.
+    #
+    # Note that cleanup = "zap" DOES uninstall undeclared App Store apps.
+    # Dropping iWork from this list removed Keynote (409183694), Numbers
+    # (409203825) and Pages (409201541) from the machine. iMovie (408981434)
+    # was also dropped but survived, because it is not indexed in Spotlight
+    # and mas therefore cannot see it - do not rely on that.
     masApps = {
       "Developer" = 640199958;
-      "iMovie" = 408981434;
-      "Keynote" = 409183694;
-      "Numbers" = 409203825;
-      "Pages" = 409201541;
       "WireGuard" = 1451685025;
       "Xcode" = 497799835;
     };
