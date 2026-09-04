@@ -47,6 +47,7 @@
     golangci-lint
     gopls # was an undeclared Homebrew formula; declared here before zap
     cargo-binstall
+    cargo-deny # was an undeclared mise install
     basedpyright
     ruff
     protobuf # provides protoc
@@ -76,6 +77,13 @@
     harlequin
     dbmate
     sshpass
+
+    # Were undeclared conda installs under mise, adopted here. postgresql_17
+    # rather than the default 18.6: mise had 17.11, and a major bump cannot
+    # read an existing v17 data directory without pg_upgrade.
+    ffmpeg
+    vips
+    postgresql_17
 
     # Docs, media and automation. Top-level `ansible` is ansible-core
     # (2.21.3) rather than the 14.3.1 collection bundle, which is the
