@@ -52,25 +52,25 @@
       "zoom"
     ];
 
-    # Mac App Store apps are deliberately NOT declared here. Managing them
-    # through brew bundle failed three separate ways on this machine:
+    # mas enumerates App Store apps through Spotlight, and this machine's
+    # Spotlight index was read-only on both / and /System/Volumes/Data, so
+    # nothing could ever be added to it. That is what made mas unreliable
+    # here: during activation it saw a frozen index, reported everything as
+    # uninstalled, and brew bundle queued every declared app - which would
+    # have re-downloaded Xcode over an identical copy. It also kept listing
+    # apps that had already been deleted.
     #
-    #   1. During activation mas could not enumerate installed apps, so the
-    #      install phase queued all seven - which would have re-downloaded
-    #      Xcode over an identical copy.
-    #   2. The cleanup phase silently removed nothing for the same reason,
-    #      so undeclared apps were never actually uninstalled by zap.
-    #   3. Once Keynote, Numbers and Pages were deleted by hand, mas kept
-    #      reporting them as installed, so every switch printed
-    #      "Uninstalled 3 Mac App Store apps" and did nothing.
+    # Fixed with `sudo mdutil -i on -a && sudo mdutil -E -a`. mas now agrees
+    # with what is on disk, so these are declared again.
     #
-    # The pre-migration Makefile set HOMEBREW_BUNDLE_MAS_SKIP for exactly
-    # this reason; dropping that was a mistake.
+    # masApps installs but never upgrades; `make mas-update` does that.
     #
-    # So this stays empty on purpose - it is not an unfinished list. The apps
-    # in use are installed by hand from the App Store and upgraded with
-    # `make mas-update`; for reference when rebuilding a machine, they are
-    # Developer (640199958), WireGuard (1451685025) and Xcode (497799835).
-    masApps = { };
+    # Xcode (497799835) is deliberately absent - it was uninstalled, and
+    # declaring it would pull ~10 GB back down on the next switch. Add it
+    # here if a full Xcode toolchain is needed again.
+    masApps = {
+      "Developer" = 640199958;
+      "WireGuard" = 1451685025;
+    };
   };
 }
