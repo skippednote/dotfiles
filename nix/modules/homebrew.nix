@@ -65,12 +65,12 @@
     #      "Uninstalled 3 Mac App Store apps" and did nothing.
     #
     # The pre-migration Makefile set HOMEBREW_BUNDLE_MAS_SKIP for exactly
-    # this reason; dropping that was a mistake. Installed by hand from the
-    # App Store, upgraded with `make mas-update`:
+    # this reason; dropping that was a mistake.
     #
-    #   Developer  640199958
-    #   WireGuard  1451685025
-    #   Xcode      497799835
+    # So this stays empty on purpose - it is not an unfinished list. The apps
+    # in use are installed by hand from the App Store and upgraded with
+    # `make mas-update`; for reference when rebuilding a machine, they are
+    # Developer (640199958), WireGuard (1451685025) and Xcode (497799835).
     masApps = { };
   };
 }
