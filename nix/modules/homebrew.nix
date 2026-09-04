@@ -30,7 +30,6 @@
 
     casks = [
       "1password"
-      "blender"
       "chatgpt"
       "claude"
       "cleanshot"
