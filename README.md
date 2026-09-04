@@ -13,7 +13,7 @@ generation you can roll back.
 - `nix/modules/system.nix` — platform, unfree, fonts, state version
 - `nix/modules/defaults.nix` — macOS preferences and the Caps Lock remap
 - `nix/modules/homebrew.nix` — casks, Mac App Store apps, 2 formulae
-- `nix/modules/packages.nix` — the 62 global CLI tools
+- `nix/modules/packages.nix` — global CLI tools
 - `nix/packages/atuin.nix` — upstream atuin binary; nixpkgs cannot build 18.21
 - `nix/modules/home.nix` — dotfile placement
 - `home/` — the real dotfiles, symlinked into `$HOME`
@@ -82,7 +82,7 @@ has auth and state, `~/.local/bin` has hand-installed binaries.
 
 ## Tooling
 
-62 CLI tools come from nixpkgs, tracking `nixpkgs-unstable`. The stable
+CLI tools come from nixpkgs, tracking `nixpkgs-unstable`. The stable
 `26.05-darwin` channel was rejected: it is a major version behind on `helm` and
 does not carry `herdr` or `markitdown` at all.
 
@@ -96,7 +96,7 @@ Not from Nix, and why:
   and `rust 1.94.0` differ from the locked revision. On mise, per project.
 - `java` — sdkman owns JVM switching. `maven` stays in Nix; its wrapper uses
   `--set-default JAVA_HOME`, so it defers to sdkman.
-- 21 casks and 3 Mac App Store apps — Homebrew handles macOS bundles,
+- GUI apps and Mac App Store apps — Homebrew handles macOS bundles,
   updates, and quarantine properly.
 
 `ansible` is ansible-core 2.21.3 from Nix, deliberately outside a python env,

@@ -20,7 +20,13 @@
   };
 
   outputs =
-    { nixpkgs-agents, nix-darwin, home-manager, ... }:
+    {
+      nixpkgs,
+      nixpkgs-agents,
+      nix-darwin,
+      home-manager,
+      ...
+    }:
     let
       user = "skippednote";
       system = "aarch64-darwin";
@@ -33,6 +39,9 @@
       };
     in
     {
+      # `nix fmt` / `make fmt`
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+
       darwinConfigurations.personal = nix-darwin.lib.darwinSystem {
         specialArgs = { inherit user agentPkgs; };
         modules = [

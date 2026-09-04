@@ -104,17 +104,61 @@
 
       # `with` is a Nix keyword, hence the quoting.
       NSGlobalDomain.NSUserDictionaryReplacementItems = [
-        { on = 1; replace = "@lin"; "with" = "https://www.linkedin.com/in/skippednote"; }
-        { on = 1; replace = "fe"; "with" = "frontend"; }
-        { on = 1; replace = "@p"; "with" = "mail@skippednote.dev"; }
-        { on = 1; replace = "upi"; "with" = "skippednote@okhdfcbank"; }
-        { on = 1; replace = "@c"; "with" = "bassam@axelerant.com"; }
-        { on = 1; replace = "@z"; "with" = "https://axelerant.zoom.us/my/skippednote"; }
-        { on = 1; replace = "ahd"; "with" = "Alhamdullialh"; }
-        { on = 1; replace = "@@"; "with" = "skippednote@gmail.com"; }
-        { on = 1; replace = "asa"; "with" = "Assalamu Alaikum"; }
-        { on = 1; replace = "ws"; "with" = "Wa-Alaikum-Salaam"; }
-        { on = 1; replace = "isa"; "with" = "In Sha Allah"; }
+        {
+          on = 1;
+          replace = "@lin";
+          "with" = "https://www.linkedin.com/in/skippednote";
+        }
+        {
+          on = 1;
+          replace = "fe";
+          "with" = "frontend";
+        }
+        {
+          on = 1;
+          replace = "@p";
+          "with" = "mail@skippednote.dev";
+        }
+        {
+          on = 1;
+          replace = "upi";
+          "with" = "skippednote@okhdfcbank";
+        }
+        {
+          on = 1;
+          replace = "@c";
+          "with" = "bassam@axelerant.com";
+        }
+        {
+          on = 1;
+          replace = "@z";
+          "with" = "https://axelerant.zoom.us/my/skippednote";
+        }
+        {
+          on = 1;
+          replace = "ahd";
+          "with" = "Alhamdullialh";
+        }
+        {
+          on = 1;
+          replace = "@@";
+          "with" = "skippednote@gmail.com";
+        }
+        {
+          on = 1;
+          replace = "asa";
+          "with" = "Assalamu Alaikum";
+        }
+        {
+          on = 1;
+          replace = "ws";
+          "with" = "Wa-Alaikum-Salaam";
+        }
+        {
+          on = 1;
+          replace = "isa";
+          "with" = "In Sha Allah";
+        }
       ];
     };
   };

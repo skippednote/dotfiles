@@ -33,6 +33,24 @@ export path=(
 # Tool Initializations
 # ------------------------------------------------------------------------------
 eval "$(mise activate zsh)"
+
+# Slot the Nix profiles ahead of the system directories but behind whatever
+# mise has just put in front for this project.
+#
+# Order matters in both directions. Listing the Nix profiles in the `path`
+# array above puts them ahead of mise's per-project tool directories, which
+# silently overrides every pinned version (terraform 1.15.8 becomes 1.16.0,
+# rust 1.94.0 becomes 1.97.1). Leaving them out entirely drops them behind
+# /usr/local/bin and ~/.local/bin, so a system python or a stray installer
+# shim wins instead - which is how ansible ended up unable to import boto3.
+# ~/.cargo/bin belongs in the front group: mise's rust "install" is just a
+# symlink to it, so the toolchain a project pins is whatever rustup has
+# active, and Nix's rustc would otherwise shadow it.
+_nix_profiles=(/etc/profiles/per-user/$USER/bin /run/current-system/sw/bin)
+_front=(${(M)path:#*/mise/installs/*} $HOME/.cargo/bin)
+path=(${_front} ${_nix_profiles} ${path:|_front})
+typeset -U path
+unset _nix_profiles _front
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"

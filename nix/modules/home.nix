@@ -1,12 +1,11 @@
 # Dotfile placement.
 #
 # Every link is an out-of-store symlink into the worktree rather than a copy
-# into /nix/store, because six of these files are written by the tools that
-# read them: .zshrc (LM Studio appends a PATH block), .gitconfig (gh auth
-# writes credential helpers), .ssh/config (the Upsun CLI writes a cert
-# block), nvim's lazy-lock.json
-# (lazy.nvim), and .claude/settings.json (Claude Code). Store copies are
-# read-only and would break all six.
+# into /nix/store, because several of these files are written by the tools
+# that read them: .zshrc (LM Studio appends a PATH block), .gitconfig (gh
+# auth writes credential helpers), .ssh/config (the Upsun CLI writes a cert
+# block) and nvim's lazy-lock.json (lazy.nvim). Store copies are read-only
+# and would break them.
 #
 # Only .config/nvim is linked as a directory. Everything else is linked file
 # by file, because the directories involved hold state this repo must not
@@ -40,6 +39,13 @@ in
 
     # Lets git verify SSH signatures, not just create them.
     ".config/git/allowed_signers".source = link ".config/git/allowed_signers";
+
+    # Application configs that are hand-authored text. Tracked as single
+    # files, never whole directories: ~/.config/herdr also holds session
+    # state and logs, and ~/.config/zed/prompts is an LMDB database.
+    ".config/zed/settings.json".source = link ".config/zed/settings.json";
+    ".config/atuin/config.toml".source = link ".config/atuin/config.toml";
+    ".config/herdr/config.toml".source = link ".config/herdr/config.toml";
     ".config/mise/config.toml".source = link ".config/mise/config.toml";
     # .config/gh/config.yml is deliberately not linked: gh rewrites the whole
     # file on any config change, and the only content that was not a default
@@ -50,7 +56,8 @@ in
     ".config/nvim".source = link ".config/nvim";
 
     # Agents. settings.local.json, config.toml, auth and state stay unmanaged.
-    ".claude/settings.json".source = link ".claude/settings.json";
+    # .claude/settings.json is not linked: Claude Code rewrites it, and it
+    # carries machine-specific state (enabled plugins, auto-mode environment).
     ".claude/CLAUDE.md".source = link ".claude/CLAUDE.md";
     ".claude/AGENTS.md".source = link ".claude/AGENTS.md";
     ".claude/RTK.md".source = link ".claude/RTK.md";

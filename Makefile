@@ -1,4 +1,4 @@
-.PHONY: switch check update mas-update
+.PHONY: switch check update mas-update test fmt
 
 # The single darwinConfiguration in flake.nix.
 HOST := personal
@@ -26,3 +26,11 @@ update:
 mas-update:
 	@mas upgrade
 
+
+# Stubbed harness for bootstrap.sh; proves control flow, not behaviour.
+test:
+	@bash tests/bootstrap.sh
+
+# Format the nix files.
+fmt:
+	@nix fmt
