@@ -38,7 +38,6 @@
     bottom
     tokei
     glow
-    pandoc
 
     # Git, editor and code
     gh
@@ -52,7 +51,7 @@
     protobuf # provides protoc
     xcodegen
 
-    # Cloud and infrastructure. gcloud and cloud-sql-proxy stay on mise.
+    # Cloud and infrastructure.
     terraform # unfree: BSL
     awscli2
     aws-vault

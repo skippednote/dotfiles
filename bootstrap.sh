@@ -83,7 +83,7 @@ Bootstrap complete. Remaining manual steps:
   1. Open 1Password, sign in, and enable the SSH agent
      (Settings > Developer). Commit signing and SSH depend on it.
   2. bash "$DIR/uv-tools.sh"     # the 7 PyPI-only CLIs
-  3. mise install                # the 7 tools nixpkgs cannot serve
+  3. mise install                # the 3 tools nixpkgs cannot serve
   4. Restore from 1Password: ~/.ssh private keys, ~/.aws, ~/.kube,
      ~/.config/gcloud, ~/.gnupg, ~/.codex/auth.json
   5. Log out and back in for all macOS defaults to take effect.

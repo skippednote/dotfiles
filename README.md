@@ -86,9 +86,9 @@ has auth and state, `~/.local/bin` has hand-installed binaries.
 `26.05-darwin` channel was rejected: it is a major version behind on `helm` and
 does not carry `herdr` or `markitdown` at all.
 
-`mise` is still installed, but its global `[tools]` list is down to 7 — the
-tools nixpkgs cannot serve. Its real job now is the per-project `mise.toml`
-files, three of which pin versions unstable cannot provide.
+`mise` is still installed, but its global `[tools]` list is down to 3. Its
+real job now is the per-project `mise.toml` files, which pin versions
+unstable cannot provide.
 
 Not from Nix, and why:
 
@@ -96,12 +96,9 @@ Not from Nix, and why:
   breaks their updaters. On mise.
 - `java` — sdkman owns JVM switching. `maven` stays in Nix; its wrapper uses
   `--set-default JAVA_HOME`, so it defers to sdkman.
-- `gcloud`, `cloud-sql-proxy` — kept on mise by choice.
-- `android-sdk`, `github:googleworkspace/cli` — unpackaged, or packaged as a
-  different project. On mise.
 - `llvd`, `semble`, `spec-kitty-cli`, `grip`, `hypothesis`, `radon`,
   `weasyprint` — PyPI-only or `python3Packages`-only. On `uv tool`.
-- 22 casks and 7 Mac App Store apps — Homebrew handles macOS bundles,
+- 21 casks and 3 Mac App Store apps — Homebrew handles macOS bundles,
   updates, and quarantine properly.
 
 `ansible` is ansible-core 2.21.3 from Nix, deliberately outside a python env.
