@@ -19,6 +19,7 @@
       # Shell, prompt and navigation
       starship
       zoxide
+      zsh-autosuggestions
       fzf
       lsd
       bat

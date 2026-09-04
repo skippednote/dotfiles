@@ -37,7 +37,6 @@
   homebrew = {
     brews = [
       "mas" # for `make mas-update`
-      "zsh-autosuggestions" # .zshrc sources this from /opt/homebrew/share
     ];
 
     casks = [

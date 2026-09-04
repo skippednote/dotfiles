@@ -54,9 +54,14 @@ unset _nix_profiles _front
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
-if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+# From the Nix per-user profile rather than Homebrew. The profile path is
+# stable across updates, unlike a /nix/store path. Sourced via the profile
+# because this used to point at /opt/homebrew/share, which does not exist on
+# skippedbook - the guard meant that machine silently had no autosuggestions
+# at all.
+_zsh_autosuggestions=/etc/profiles/per-user/$USER/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f "$_zsh_autosuggestions" ] && source "$_zsh_autosuggestions"
+unset _zsh_autosuggestions
 
 # ------------------------------------------------------------------------------
 # Aliases
