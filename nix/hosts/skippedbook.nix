@@ -10,7 +10,13 @@
 { ... }:
 
 {
-  imports = [ ../agents/skippedbook.nix ];
+  # Phase D wires this in. It is deliberately left out of the first switch so
+  # that switch changes tools and dotfiles only, and the 23 hand-placed plists
+  # keep running untouched while the rest is verified. Enabling it unloads and
+  # reloads every agent at once, which is not something to combine with a
+  # machine's first ever activation.
+  #
+  # imports = [ ../agents/skippedbook.nix ];
 
   networking.computerName = "skippedbook";
   networking.hostName = "skippedbook";
