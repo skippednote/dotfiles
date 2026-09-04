@@ -1,4 +1,4 @@
-.PHONY: switch check update mas-update test fmt
+.PHONY: switch check update mas-update test fmt drift
 
 
 # Picked from the machine itself, so `make switch` needs no flag and cannot
@@ -36,3 +36,7 @@ test:
 # Format the nix files.
 fmt:
 	@nix fmt
+
+# Report where this machine has drifted from the repo.
+drift:
+	@bash scripts/drift-check.sh
