@@ -13,7 +13,7 @@ generation you can roll back.
 - `nix/modules/system.nix` — platform, unfree, fonts, state version
 - `nix/modules/defaults.nix` — macOS preferences and the Caps Lock remap
 - `nix/modules/homebrew.nix` — casks, Mac App Store apps, 2 formulae
-- `nix/modules/packages.nix` — the 58 global CLI tools
+- `nix/modules/packages.nix` — the 62 global CLI tools
 - `nix/modules/home.nix` — dotfile placement
 - `home/` — the real dotfiles, symlinked into `$HOME`
 - `bootstrap.sh` — fresh-machine setup
@@ -55,7 +55,7 @@ darwin-rebuild --rollback
 ```
 
 Two things generations do not undo: Homebrew removals (`homebrew.onActivation.cleanup`
-is deliberately `none`) and `system.defaults` writes.
+is `zap`, so anything undeclared is uninstalled) and `system.defaults` writes.
 
 ## How dotfiles are linked
 
@@ -82,18 +82,18 @@ has auth and state, `~/.local/bin` has hand-installed binaries.
 
 ## Tooling
 
-58 CLI tools come from nixpkgs, tracking `nixpkgs-unstable`. The stable
+62 CLI tools come from nixpkgs, tracking `nixpkgs-unstable`. The stable
 `26.05-darwin` channel was rejected: it is a major version behind on `helm` and
 does not carry `herdr` or `markitdown` at all.
 
-`mise` is still installed, but its global `[tools]` list is down to 3. Its
+`mise` is still installed, but its global `[tools]` list is empty. Its
 real job now is the per-project `mise.toml` files, which pin versions
 unstable cannot provide.
 
 Not from Nix, and why:
 
-- `claude`, `codex`, `pi-coding-agent` — self-updating; a read-only store
-  breaks their updaters. On mise.
+- `node 18` — not in nixpkgs at all, and `terraform 1.15.8`, `xcodegen 2.45.4`
+  and `rust 1.94.0` differ from the locked revision. On mise, per project.
 - `java` — sdkman owns JVM switching. `maven` stays in Nix; its wrapper uses
   `--set-default JAVA_HOME`, so it defers to sdkman.
 - `llvd`, `semble`, `spec-kitty-cli`, `grip`, `hypothesis`, `radon`,
@@ -101,9 +101,10 @@ Not from Nix, and why:
 - 21 casks and 3 Mac App Store apps — Homebrew handles macOS bundles,
   updates, and quarantine properly.
 
-`ansible` is ansible-core 2.21.3 from Nix, deliberately outside a python env.
-The consequence: `boto3`/`botocore` are no longer injected, so `amazon.aws`
-modules will not work until that is revisited.
+`ansible` is ansible-core 2.21.3 from Nix, deliberately outside a python env,
+with `boto3`/`botocore` injected via `overridePythonAttrs`. Note that ansible
+modules run under a separately-discovered interpreter, so `amazon.aws` still
+fails to import them — unresolved.
 
 ## Not managed
 

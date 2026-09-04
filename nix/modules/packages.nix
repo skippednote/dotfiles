@@ -3,7 +3,7 @@
 # These used to come from mise (57 entries) and `uv tool` (15). mise stays
 # installed, but only to serve the per-project mise.toml files in ~/Code;
 # its global [tools] list is trimmed to what nixpkgs cannot provide.
-{ pkgs, user, ... }:
+{ pkgs, agentPkgs, user, ... }:
 
 {
   home-manager.users.${user}.home.packages = with pkgs; [
@@ -94,10 +94,19 @@
       ];
     }))
 
-    # Agents and tooling. claude, codex and pi-coding-agent are absent on
-    # purpose: they self-update, which a read-only store breaks.
+    # Agents and tooling. mise stays installed, but only to serve the
+    # per-project mise.toml files; its global [tools] list is now empty.
     rtk
     herdr
     mise
+  ]
+  ++ [
+    # From the separate nixpkgs-agents input so these can be updated on
+    # their own cadence. Their in-place self-updaters cannot write to the
+    # read-only store, so they report being unable to update and defer to
+    # the package manager - which is now this file.
+    agentPkgs.claude-code # provides `claude`
+    agentPkgs.codex
+    agentPkgs.pi-coding-agent # provides `pi`
   ];
 }

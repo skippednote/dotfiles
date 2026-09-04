@@ -1,13 +1,12 @@
-# Global tools come from Nix; see nix/modules/packages.nix.
+# No global tools. Everything global comes from Nix; see
+# nix/modules/packages.nix, including claude, codex and pi-coding-agent,
+# which are pinned through the separate nixpkgs-agents flake input.
 #
-# What stays here is only what nixpkgs cannot serve: claude, codex and
-# pi-coding-agent self-update, which a read-only /nix/store breaks.
-#
-# Per-project mise.toml files are unaffected by this list.
+# mise is kept solely for the per-project mise.toml files, which pin exact
+# versions a single nixpkgs revision cannot serve - node 18 is not in
+# nixpkgs at all, and terraform 1.15.8, xcodegen 2.45.4 and rust 1.94.0 all
+# differ from what the locked revision provides.
 [tools]
-claude = "latest"
-"npm:@openai/codex" = "latest"
-"npm:@earendil-works/pi-coding-agent" = "latest"
 
 [settings]
 
