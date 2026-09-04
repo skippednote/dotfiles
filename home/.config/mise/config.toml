@@ -1,12 +1,17 @@
-# No global tools. Everything global comes from Nix; see
-# nix/modules/packages.nix, including claude, codex and pi-coding-agent,
-# which are pinned through the separate nixpkgs-agents flake input.
+# Almost everything global comes from Nix; see nix/modules/packages.nix.
 #
-# mise is kept solely for the per-project mise.toml files, which pin exact
+# mise is kept mainly for the per-project mise.toml files, which pin exact
 # versions a single nixpkgs revision cannot serve - node 18 is not in
 # nixpkgs at all, and terraform 1.15.8, xcodegen 2.45.4 and rust 1.94.0 all
 # differ from what the locked revision provides.
 [tools]
+# atuin is the one global exception. Upstream ships ahead of nixpkgs (18.21.0
+# against 18.19.0 on both unstable and master), and its history database
+# migrations are one-way: once 18.21 has applied migration 20260818000000,
+# 18.19 refuses to open the database at all. Taking the Nix version means
+# discarding the entire shell history, so atuin stays here until nixpkgs
+# catches up.
+atuin = "latest"
 
 [settings]
 

@@ -25,9 +25,10 @@
     bash
     starship
     zoxide
-    atuin
     fzf
     lsd
+    # atuin is deliberately absent: nixpkgs is behind upstream and its
+    # history database will not downgrade. See ~/.config/mise/config.toml.
 
     # Files and text
     bat
