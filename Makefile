@@ -1,4 +1,4 @@
-.PHONY: switch check update mas-update uv-tools
+.PHONY: switch check update mas-update
 
 # The single darwinConfiguration in flake.nix.
 HOST := personal
@@ -20,12 +20,9 @@ update:
 	@$(MAKE) --no-print-directory switch
 	@brew upgrade
 	@mise upgrade --yes
-	@bash "$(FLAKE)/uv-tools.sh"
 	@$(MAKE) --no-print-directory mas-update
 
 # homebrew.masApps installs but does not upgrade.
 mas-update:
 	@mas upgrade
 
-uv-tools:
-	@bash "$(FLAKE)/uv-tools.sh"

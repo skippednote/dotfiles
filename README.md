@@ -18,7 +18,6 @@ generation you can roll back.
 - `nix/modules/home.nix` — dotfile placement
 - `home/` — the real dotfiles, symlinked into `$HOME`
 - `bootstrap.sh` — fresh-machine setup
-- `uv-tools.sh` — the 4 PyPI-only CLIs Nix cannot provide
 
 ## Fresh install
 
@@ -30,7 +29,7 @@ cd ~/Code/personal/dotfiles
 
 That installs the Xcode CLI tools, Determinate Nix, and sdkman, then runs the
 first `darwin-rebuild switch`. It prints the remaining manual steps: signing
-into 1Password, the two non-Nix tool scripts, and restoring credentials.
+into 1Password, per-project mise tools, and restoring credentials.
 
 The clone path matters. `nix/modules/home.nix` links dotfiles out of the
 worktree at `~/Code/personal/dotfiles`, so cloning elsewhere means editing
@@ -41,7 +40,7 @@ the `repo` path in that file.
 ```bash
 make switch      # apply the configuration
 make check       # evaluate and dry-build, changing nothing
-make update      # flake inputs, system, brew, mise, uv, App Store
+make update      # flake inputs, system, brew, mise, App Store
 ```
 
 Files under `home/` are the live config — they are symlinked into `$HOME`, not
@@ -97,8 +96,6 @@ Not from Nix, and why:
   and `rust 1.94.0` differ from the locked revision. On mise, per project.
 - `java` — sdkman owns JVM switching. `maven` stays in Nix; its wrapper uses
   `--set-default JAVA_HOME`, so it defers to sdkman.
-- `llvd`, `semble`, `grip`, `radon` — PyPI-only or `python3Packages`-only.
-  On `uv tool`.
 - 21 casks and 3 Mac App Store apps — Homebrew handles macOS bundles,
   updates, and quarantine properly.
 
