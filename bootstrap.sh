@@ -2,11 +2,13 @@
 # Bootstrap a fresh Mac. Run this once; use `make switch` for every change
 # afterwards.
 #
-# Usage: ./bootstrap.sh
+# Usage: ./bootstrap.sh [host]   (host defaults to this machine's name)
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-HOST=personal
+# Same detection the Makefile uses, so this works unchanged on either
+# machine. Override with `./bootstrap.sh <host>` if ever needed.
+HOST="${1:-$(scutil --get LocalHostName)}"
 
 # This script runs under bash and never reads .zshrc, so an already-installed
 # Nix would otherwise be invisible to the checks below.
@@ -64,7 +66,9 @@ echo "==> 4/4 sdkman"
 # rcupdate=false matters: .zshrc is a symlink into this repo, and sdkman would
 # otherwise append its init block to the tracked file. .zshrc sources sdkman
 # itself instead.
-if [ ! -d "$HOME/.sdkman" ]; then
+if [ "$HOST" != "skippednote" ]; then
+  echo "    skipped: $HOST does not use JVM toolchains"
+elif [ ! -d "$HOME/.sdkman" ]; then
   BASH4="/etc/profiles/per-user/$(whoami)/bin/bash"
   if [ ! -x "$BASH4" ]; then
     echo "    Expected bash 4+ at $BASH4 but it is missing."

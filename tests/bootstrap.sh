@@ -23,6 +23,10 @@ make_stubs() {
     printf '#!/bin/bash\necho "CALL: %s $*" >> "$CALLLOG"\nexit 0\n' "$c" > "$d/$c"
     chmod +x "$d/$c"
   done
+  # bootstrap.sh derives the host from scutil, so the stub decides which host
+  # each scenario is pretending to be.
+  printf '#!/bin/bash\necho "%s"\n' "${FAKE_HOST:-skippednote}" > "$d/scutil"
+  chmod +x "$d/scutil"
   if [ "${XCODE_PRESENT:-1}" = "0" ]; then
     printf '#!/bin/bash\necho "CALL: xcode-select $*" >> "$CALLLOG"\n[ "$1" = "-p" ] && exit 1\nexit 0\n' > "$d/xcode-select"
   else
@@ -79,7 +83,7 @@ D=$BASE/fresh
 assert "xcode install attempted"  present "xcode-select --install" "$D/calls.log"
 assert "nix installer run"        present "install.determinate.systems" "$D/calls.log"
 assert "darwin-rebuild switch"    present "darwin-rebuild -- switch --flake" "$D/calls.log"
-assert "switch targets #personal" present "#personal" "$D/calls.log"
+assert "switch targets #skippednote" present "#skippednote" "$D/calls.log"
 assert "sdkman fetched"           present "get.sdkman.io" "$D/calls.log"
 assert "no uv-tools step"         absent  "uv-tools" "$D/out.log"
 assert "exit 0"                   present "^0$" "$D/exit"
@@ -101,6 +105,14 @@ assert "no reinstall of nix" absent  "install.determinate.systems" "$D/calls.log
 assert "sdkman skipped"      absent  "get.sdkman.io" "$D/calls.log"
 assert "still switches"      present "darwin-rebuild -- switch" "$D/calls.log"
 assert "exit 0"              present "^0$" "$D/exit"
+
+echo "SCENARIO 5: host is skippedbook - sdkman must be skipped"
+XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=0 FAKE_HOST=skippedbook run_case book
+D=$BASE/book
+assert "switch targets #skippedbook" present "#skippedbook" "$D/calls.log"
+assert "sdkman skipped"              present "does not use JVM"  "$D/out.log"
+assert "sdkman not fetched"          absent  "get.sdkman.io"     "$D/calls.log"
+assert "exit 0"                      present "^0$"               "$D/exit"
 
 echo "SCENARIO 4: nix present, sdkman missing, no bash 4+ available"
 XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=0 run_case nobash
