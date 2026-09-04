@@ -1,7 +1,7 @@
 .PHONY: switch check update mas-update uv-tools
 
-# Which darwinConfiguration to build. `make switch HOST=work` on the work Mac.
-HOST ?= personal
+# The single darwinConfiguration in flake.nix.
+HOST := personal
 FLAKE := $(shell pwd)
 
 # Apply the configuration. This is the only command needed day to day.

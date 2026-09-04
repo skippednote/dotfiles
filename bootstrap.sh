@@ -2,11 +2,11 @@
 # Bootstrap a fresh Mac. Run this once; use `make switch` for every change
 # afterwards.
 #
-# Usage: ./bootstrap.sh [personal|work]
+# Usage: ./bootstrap.sh
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-HOST="${1:-personal}"
+HOST=personal
 
 # This script runs under bash and never reads .zshrc, so an already-installed
 # Nix would otherwise be invisible to the checks below.

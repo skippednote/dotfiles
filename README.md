@@ -9,13 +9,12 @@ generation you can roll back.
 
 ## Layout
 
-- `flake.nix` — entry point; declares the `personal` and `work` hosts
+- `flake.nix` — entry point; declares the `personal` host
 - `nix/modules/system.nix` — platform, unfree, fonts, state version
 - `nix/modules/defaults.nix` — macOS preferences and the Caps Lock remap
 - `nix/modules/homebrew.nix` — casks, Mac App Store apps, 2 formulae
 - `nix/modules/packages.nix` — the 58 global CLI tools
 - `nix/modules/home.nix` — dotfile placement
-- `nix/hosts/` — per-machine settings
 - `home/` — the real dotfiles, symlinked into `$HOME`
 - `bootstrap.sh` — fresh-machine setup
 - `uv-tools.sh` — the 7 PyPI-only CLIs Nix cannot provide
@@ -25,7 +24,7 @@ generation you can roll back.
 ```bash
 git clone https://github.com/skippednote/dotfiles.git ~/Code/personal/dotfiles
 cd ~/Code/personal/dotfiles
-./bootstrap.sh            # or ./bootstrap.sh work
+./bootstrap.sh
 ```
 
 That installs the Xcode CLI tools, Determinate Nix, and sdkman, then runs the

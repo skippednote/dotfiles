@@ -19,6 +19,10 @@
 
   users.users.${user}.home = "/Users/${user}";
 
+  networking.computerName = "skippednote";
+  networking.hostName = "skippednote";
+  networking.localHostName = "skippednote";
+
   # Puts the Nix profiles on PATH via /etc/zshenv, which runs before the
   # user's .zshrc. Without this nothing adds them, and doing it by hand in
   # .zshrc hoists Nix above mise's per-project tool directories, silently
