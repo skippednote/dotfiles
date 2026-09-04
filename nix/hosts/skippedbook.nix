@@ -28,6 +28,13 @@
     brews = [ "batt" ];
 
     casks = [
+      # Installing the app does not by itself enable commit signing or the
+      # ssh agent here: both need signing in and turning the agent on in
+      # Settings > Developer. Until that is done, host-skippedbook.conf
+      # keeps signing off and the ssh config keeps its own IdentityFile -
+      # pointing either at an absent op socket is what broke outbound ssh
+      # on this machine once already.
+      "1password"
       "lm-studio"
       "orbstack" # the k8s cluster and every container depend on this
       "tailscale-app"

@@ -36,7 +36,17 @@
     "ai.hermes.gateway".serviceConfig = {
       EnvironmentVariables = {
         HERMES_HOME = "/Users/skippednote/.hermes";
-        PATH = "/Users/skippednote/.hermes/hermes-agent/venv/bin:/Users/skippednote/.hermes/hermes-agent/node_modules/.bin:/Users/skippednote/.local/share/mise/installs/node/26.1.0/bin:/Users/skippednote/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pkg/env/active/bin:/opt/pmk/env/global/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/skippednote/.local/share/mise/installs/claude/latest:/Users/skippednote/.local/share/mise/installs/github-zeroclaw-labs-zeroclaw/latest:/Users/skippednote/.local/share/mise/installs/go/1.26.3/bin:/Users/skippednote/.local/share/mise/installs/node/latest/bin:/Users/skippednote/.local/share/mise/installs/awscli/latest/.mise-bins:/Users/skippednote/.local/share/mise/installs/gh/latest/gh_2.92.0_macOS_arm64/bin:/Users/skippednote/.local/share/mise/installs/cloudflared/latest:/Users/skippednote/.local/share/mise/installs/ripgrep/latest/ripgrep-15.1.0-aarch64-apple-darwin:/Users/skippednote/.local/share/mise/installs/tmux/latest:/Users/skippednote/.orbstack/bin:/Users/skippednote/.lmstudio/bin";
+        PATH =
+          # The gateway needs node 26; the user profile carries the 24 LTS,
+          # so it is pinned by store path here rather than added to the
+          # profile, where two nodejs packages would collide.
+          "${pkgs.nodejs_26}/bin:"
+          + "/Users/skippednote/.hermes/hermes-agent/venv/bin:"
+          + "/Users/skippednote/.hermes/hermes-agent/node_modules/.bin:"
+          + "/etc/profiles/per-user/skippednote/bin:"
+          + "/run/current-system/sw/bin:"
+          + "/nix/var/nix/profiles/default/bin:"
+          + "/Users/skippednote/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pkg/env/active/bin:/opt/pmk/env/global/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/skippednote/.orbstack/bin:/Users/skippednote/.lmstudio/bin";
         VIRTUAL_ENV = "/Users/skippednote/.hermes/hermes-agent/venv";
       };
       KeepAlive = true;
@@ -53,7 +63,12 @@
     "ai.hermes.dashboard".serviceConfig = {
       EnvironmentVariables = {
         HERMES_HOME = "/Users/skippednote/.hermes";
-        PATH = "/Users/skippednote/.local/bin:/Users/skippednote/.local/share/mise/shims:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+        PATH =
+          "/Users/skippednote/.local/bin:"
+          + "/etc/profiles/per-user/skippednote/bin:"
+          + "/run/current-system/sw/bin:"
+          + "/nix/var/nix/profiles/default/bin:"
+          + "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
       };
       KeepAlive = true;
       Label = "ai.hermes.dashboard";
