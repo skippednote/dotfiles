@@ -45,6 +45,7 @@
     lazygit
     neovim
     golangci-lint
+    gopls # was an undeclared Homebrew formula; declared here before zap
     cargo-binstall
     basedpyright
     ruff
@@ -83,7 +84,16 @@
     yt-dlp
     zola
     poetry
-    ansible
+
+    # boto3/botocore are injected into ansible's own interpreter rather than
+    # through python3.withPackages, so ansible stays a normal top-level
+    # package. Without them amazon.aws modules fail at import.
+    (ansible.overridePythonAttrs (old: {
+      dependencies = (old.dependencies or [ ]) ++ [
+        python3Packages.boto3
+        python3Packages.botocore
+      ];
+    }))
 
     # Agents and tooling. claude, codex and pi-coding-agent are absent on
     # purpose: they self-update, which a read-only store breaks.

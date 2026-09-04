@@ -37,6 +37,9 @@ in
 
     # XDG config
     ".config/starship.toml".source = link ".config/starship.toml";
+
+    # Lets git verify SSH signatures, not just create them.
+    ".config/git/allowed_signers".source = link ".config/git/allowed_signers";
     ".config/mise/config.toml".source = link ".config/mise/config.toml";
     ".config/gh/config.yml".source = link ".config/gh/config.yml";
     ".config/ai/working-preferences.md".source = link ".config/ai/working-preferences.md";

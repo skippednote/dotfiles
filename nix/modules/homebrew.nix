@@ -10,11 +10,13 @@
   homebrew = {
     enable = true;
 
-    # Cleanup stays off until the lists below are proven complete against a
-    # real machine. "zap" is the equivalent of the old `make brew-clean-force`,
-    # but it fires on every activation rather than on demand, and it removes
-    # application support and preference files alongside the app itself.
-    onActivation.cleanup = "none";
+    # Removes anything not declared here, on every activation, including
+    # application support and preference files. Enabled only after auditing
+    # exactly what it would delete: the font cask (nixpkgs provides it now),
+    # the sshpass formula and its tap (likewise), the stale oven-sh/bun tap,
+    # and nvm, which has no ~/.nvm and is unused. gopls was also undeclared
+    # and moved into nix/modules/packages.nix rather than being lost.
+    onActivation.cleanup = "zap";
 
     # Keep activation fast and deterministic. Upgrading is a deliberate act
     # and belongs in `make update`, not in every switch.
