@@ -10,6 +10,8 @@
 { ... }:
 
 {
+  imports = [ ../agents/skippedbook.nix ];
+
   networking.computerName = "skippedbook";
   networking.hostName = "skippedbook";
   networking.localHostName = "skippedbook";
