@@ -52,18 +52,25 @@
       "zoom"
     ];
 
-    # masApps installs but does not upgrade; `mas upgrade` stays in the
-    # Makefile for that.
+    # Mac App Store apps are deliberately NOT declared here. Managing them
+    # through brew bundle failed three separate ways on this machine:
     #
-    # Note that cleanup = "zap" DOES uninstall undeclared App Store apps.
-    # Dropping iWork from this list removed Keynote (409183694), Numbers
-    # (409203825) and Pages (409201541) from the machine. iMovie (408981434)
-    # was also dropped but survived, because it is not indexed in Spotlight
-    # and mas therefore cannot see it - do not rely on that.
-    masApps = {
-      "Developer" = 640199958;
-      "WireGuard" = 1451685025;
-      "Xcode" = 497799835;
-    };
+    #   1. During activation mas could not enumerate installed apps, so the
+    #      install phase queued all seven - which would have re-downloaded
+    #      Xcode over an identical copy.
+    #   2. The cleanup phase silently removed nothing for the same reason,
+    #      so undeclared apps were never actually uninstalled by zap.
+    #   3. Once Keynote, Numbers and Pages were deleted by hand, mas kept
+    #      reporting them as installed, so every switch printed
+    #      "Uninstalled 3 Mac App Store apps" and did nothing.
+    #
+    # The pre-migration Makefile set HOMEBREW_BUNDLE_MAS_SKIP for exactly
+    # this reason; dropping that was a mistake. Installed by hand from the
+    # App Store, upgraded with `make mas-update`:
+    #
+    #   Developer  640199958
+    #   WireGuard  1451685025
+    #   Xcode      497799835
+    masApps = { };
   };
 }

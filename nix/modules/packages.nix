@@ -7,12 +7,22 @@
 
 {
   home-manager.users.${user}.home.packages = with pkgs; [
+    # python3 carries boto3/botocore because ansible does not run modules in
+    # its own environment - it discovers an interpreter and runs them there,
+    # which is the python3 on PATH. Putting the libraries in ansible's own
+    # closure looked correct and changed nothing; amazon.aws still failed to
+    # import them. This is not a general-purpose python install; it exists so
+    # the discovered interpreter has what the AWS modules need.
+    (python3.withPackages (ps: [
+      ps.boto3
+      ps.botocore
+    ]))
+
     # Languages and runtimes. java is deliberately absent: sdkman owns JVM
     # version switching. nixpkgs' maven wrapper sets JAVA_HOME with
     # --set-default, so it defers to sdkman's export rather than overriding.
     go
     nodejs
-    python3
     rustc
     cargo
     maven
@@ -86,15 +96,7 @@
     zola
     poetry
 
-    # boto3/botocore are injected into ansible's own interpreter rather than
-    # through python3.withPackages, so ansible stays a normal top-level
-    # package. Without them amazon.aws modules fail at import.
-    (ansible.overridePythonAttrs (old: {
-      dependencies = (old.dependencies or [ ]) ++ [
-        python3Packages.boto3
-        python3Packages.botocore
-      ];
-    }))
+    ansible
 
     # Agents and tooling. mise stays installed, but only to serve the
     # per-project mise.toml files; its global [tools] list is now empty.
