@@ -19,6 +19,13 @@
 
   users.users.${user}.home = "/Users/${user}";
 
+  # Puts the Nix profiles on PATH via /etc/zshenv, which runs before the
+  # user's .zshrc. Without this nothing adds them, and doing it by hand in
+  # .zshrc hoists Nix above mise's per-project tool directories, silently
+  # overriding every pinned version. This is only the shell integration;
+  # .zshrc stays hand-written and home-manager-linked.
+  programs.zsh.enable = true;
+
   # Replaces the font-fira-code-nerd-font cask.
   fonts.packages = [ pkgs.nerd-fonts.fira-code ];
 }
