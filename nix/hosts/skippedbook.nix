@@ -31,12 +31,11 @@
     brews = [ "batt" ];
 
     casks = [
-      # Installing the app does not by itself enable commit signing or the
-      # ssh agent here: both need signing in and turning the agent on in
-      # Settings > Developer. Until that is done, host-skippedbook.conf
-      # keeps signing off and the ssh config keeps its own IdentityFile -
-      # pointing either at an absent op socket is what broke outbound ssh
-      # on this machine once already.
+      # Installed and signed in, with the ssh agent enabled. Commit signing
+      # is still off and the ssh config still uses its own IdentityFile,
+      # because the agent prompts for approval on this machine's display
+      # and this machine is driven over SSH. See
+      # home/.config/git/host-skippedbook.conf.
       "1password"
       "lm-studio"
       "orbstack" # the k8s cluster and every container depend on this
