@@ -74,8 +74,12 @@ in
     ".codex/RTK.md".source = link ".codex/RTK.md";
     ".codex/hooks.json".source = link ".codex/hooks.json";
 
-    # Only the config; private keys are never managed here.
-    ".ssh/config".source = link ".ssh/config";
+    # Only the config; private keys are never managed here. Per host, because
+    # skippednote routes identities through the 1Password agent and
+    # skippedbook has no 1Password - pointing IdentityAgent at its absent
+    # socket broke every outbound ssh there - while skippedbook needs
+    # OrbStack's Include first in the file.
+    ".ssh/config".source = link ".ssh/config-${hostname}";
 
     # Executable bits come from the worktree, which is why rtk-claude-hook
     # is tracked 755.
