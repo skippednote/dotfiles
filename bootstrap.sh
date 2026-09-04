@@ -35,8 +35,15 @@ if command -v nix &>/dev/null; then
 else
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix \
     | sh -s -- install --no-confirm
+  if [ ! -e "$NIX_PROFILE_SH" ]; then
+    echo "    Nix installed but $NIX_PROFILE_SH is missing."
+    echo "    Open a new terminal and re-run this script."
+    exit 1
+  fi
+  set +u
   # shellcheck disable=SC1090
   . "$NIX_PROFILE_SH"
+  set -u
 fi
 
 echo "==> 3/4 First darwin-rebuild switch"
