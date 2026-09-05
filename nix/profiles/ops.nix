@@ -32,11 +32,5 @@
     # Jellyfin transcoding (app-configs/jellyfin/config/encoding.xml) and
     # Home Assistant camera streams.
     ffmpeg
-
-    # Proxies an RTSP camera stream for Home Assistant. Note its only
-    # consumer, dev.skippednote.cpplus-rtsp-proxy, is currently disabled - so
-    # this may be dormant. Kept because the agent is disabled rather than
-    # deleted, which reads as temporary.
-    socat
   ];
 }
