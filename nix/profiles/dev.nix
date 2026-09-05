@@ -39,7 +39,6 @@
       lazygit
       neovim
       golangci-lint
-      gopls
       cargo-binstall
       xcodegen
 
