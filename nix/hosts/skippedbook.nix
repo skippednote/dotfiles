@@ -19,6 +19,9 @@
     # D1, this one really does restart things: the hermes PATHs differ from
     # the live plists, which is the point - it is what cuts them off mise.
     ../agents/skippedbook/services.nix
+
+    # Not transcribed from anything - new, and the reason is in the file.
+    ../agents/skippedbook/drift.nix
   ];
 
   networking.computerName = "skippedbook";
