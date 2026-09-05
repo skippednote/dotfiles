@@ -28,6 +28,7 @@
       # --set-default, so it defers to sdkman's export rather than overriding.
       cargo
       maven
+      bun
       uv
 
       # Files and text
@@ -40,12 +41,17 @@
       neovim
       golangci-lint
       cargo-binstall
+      ruff
+      protobuf # provides protoc
       xcodegen
 
       # Cloud and infrastructure
       terraform # unfree: BSL
+      aws-vault
+      aws-sam-cli
       kubernetes-helm # the `helm` binary; nixpkgs' `helm` is a different tool
       k9s
+      k6
       wrangler
       upsun
       ddev
@@ -55,12 +61,19 @@
 
       # Network and data. sshpass leaves Homebrew here, which is what retires
       # the hudochenkov/sshpass tap and the brew-trust target.
+      xh
       doggo
+      harlequin
+      dbmate
+      sshpass
 
       # Docs, media and automation. Top-level `ansible` is ansible-core
       # (2.21.3) rather than the 14.3.1 collection bundle, which is the
       # deliberate trade for keeping it out of a python env.
+      markitdown
       yt-dlp
+      zola
+      poetry
       ansible
 
       # Agents and tooling
