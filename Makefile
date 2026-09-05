@@ -17,11 +17,13 @@ check:
 
 # Move everything forward. Homebrew upgrades are deliberate rather than part
 # of every activation, so they happen here instead of in onActivation.
+#
+# There is no global `mise upgrade`: [tools] is empty on both machines, so it
+# would be a no-op. Project tools upgrade inside their own directories.
 update:
 	@nix flake update
 	@$(MAKE) --no-print-directory switch
 	@brew upgrade
-	@mise upgrade --yes
 	@$(MAKE) --no-print-directory mas-update
 
 # homebrew.masApps installs but does not upgrade.

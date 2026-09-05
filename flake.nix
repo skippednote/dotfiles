@@ -47,6 +47,7 @@
           specialArgs = { inherit user hostname agentPkgs; };
           modules = [
             ./nix/modules/system.nix
+            ./nix/modules/gc.nix
             ./nix/modules/homebrew.nix
             ./nix/modules/defaults.nix
             ./nix/hosts/${hostname}.nix

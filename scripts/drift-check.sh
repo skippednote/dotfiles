@@ -89,4 +89,18 @@ done < <(find -L "$HOME" -maxdepth 4 -type l \
   done)
 [ "$broken" -eq 0 ] && note "no dangling nix-store links"
 
+# 5. nix/packages/atuin.nix exists only because nixpkgs cannot build 18.21
+#    yet (it needs rustc 1.98). Nothing otherwise notices when that stops
+#    being true, and a hand-pinned hash is a maintenance cost worth dropping
+#    the moment it is unnecessary.
+if command -v nix >/dev/null 2>&1; then
+  ours=$(sed -n 's/.*version = "\(.*\)";/\1/p' "$REPO/nix/packages/atuin.nix" | head -1)
+  theirs=$(nix eval --raw "nixpkgs#atuin.version" 2>/dev/null)
+  if [ -n "$theirs" ] && [ "$theirs" = "$ours" ]; then
+    fail "nixpkgs now has atuin $theirs - delete nix/packages/atuin.nix and use pkgs.atuin"
+  else
+    note "atuin still pinned ($ours; nixpkgs has ${theirs:-?})"
+  fi
+fi
+
 exit "$FAIL"

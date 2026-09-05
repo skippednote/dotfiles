@@ -1,0 +1,40 @@
+# Validates every push and pull request.
+#
+# Without this, a change that breaks evaluation for one host only surfaces
+# when that host is switched - and skippedbook is reached over SSH, so it is
+# the one least likely to be switched promptly.
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      # Evaluates both darwinConfigurations. Catches a bad option name, a
+      # missing package, or a module that only one host imports.
+      - name: nix flake check
+        run: nix flake check --no-build
+
+      # The formatter is declared in the flake; this asserts it was run.
+      - name: formatting
+        run: |
+          nix fmt
+          git diff --exit-code || {
+            echo "::error::nix fmt produced changes - run 'make fmt' and commit"
+            exit 1
+          }
+
+      # 22 assertions across five simulated machine states.
+      - name: bootstrap harness
+        run: make test
+
+      - name: shellcheck
+        run: nix run nixpkgs#shellcheck -- bootstrap.sh scripts/drift-check.sh tests/bootstrap.sh
