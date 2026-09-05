@@ -1,4 +1,4 @@
-.PHONY: switch check update mas-update test fmt drift
+.PHONY: switch check update mas-update test fmt drift packages
 
 
 # Picked from the machine itself, so `make switch` needs no flag and cannot
@@ -40,3 +40,13 @@ fmt:
 # Report where this machine has drifted from the repo.
 drift:
 	@bash scripts/drift-check.sh
+
+# List the Nix packages actually installed in this machine's user profile.
+# Reads the live profile rather than the flake, so it shows what is there
+# rather than what should be.
+packages:
+	@nix-store -q --references /etc/profiles/per-user/$(USER) \
+	  | xargs -n1 nix-store -q --references \
+	  | sed 's|/nix/store/[a-z0-9]*-||' \
+	  | grep -vE -- '-(man|doc|info|dev|debug)$$' \
+	  | sort -u
