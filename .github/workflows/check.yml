@@ -32,6 +32,17 @@ jobs:
             exit 1
           }
 
+      # The package set is part of the diff. A commit once dropped thirteen
+      # packages as a side effect and every other check still passed, because
+      # a smaller configuration is still a valid one.
+      - name: package set unchanged
+        run: |
+          make packages-lock
+          git diff --exit-code packages.lock || {
+            echo "::error::the package set changed - run 'make packages-lock' and commit"
+            exit 1
+          }
+
       # 22 assertions across five simulated machine states.
       - name: bootstrap harness
         run: make test

@@ -1,4 +1,4 @@
-.PHONY: switch check update mas-update test fmt drift packages
+.PHONY: switch check update mas-update test fmt drift packages packages-lock
 
 
 # Picked from the machine itself, so `make switch` needs no flag and cannot
@@ -52,3 +52,8 @@ packages:
 	  | sed 's|/nix/store/[a-z0-9]*-||' \
 	  | grep -vE -- '-(man|doc|info|dev|debug)$$' \
 	  | sort -u
+
+# Regenerate packages.lock. Run this whenever the package set changes, and
+# commit the result alongside the change.
+packages-lock:
+	@bash scripts/packages-lock.sh
