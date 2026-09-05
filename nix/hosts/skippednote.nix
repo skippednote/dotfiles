@@ -2,6 +2,8 @@
 { pkgs, ... }:
 
 {
+  imports = [ ../agents/skippednote/press-backup.nix ];
+
   networking.computerName = "skippednote";
   networking.hostName = "skippednote";
   networking.localHostName = "skippednote";
