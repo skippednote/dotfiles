@@ -42,7 +42,6 @@
       golangci-lint
       gopls # was an undeclared Homebrew formula; declared here before zap
       cargo-binstall
-      basedpyright
       ruff
       protobuf # provides protoc
       xcodegen

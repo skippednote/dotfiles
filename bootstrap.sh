@@ -60,8 +60,9 @@ echo "==> 4/4 sdkman"
 # Owns JVM version switching. Not in nixpkgs: only fishPlugins.sdkman-for-fish
 # (wrong shell) and sdkmanager (Android, unrelated).
 #
-# Runs after the switch because its installer needs Bash 4+ and macOS ships
-# 3.2; the bash it needs comes from the switch above.
+# Runs after the switch because it needs nix on PATH: its installer refuses
+# the bash 3.2 macOS ships, and a modern one is fetched with `nix run` rather
+# than kept in the package set.
 #
 # rcupdate=false matters: .zshrc is a symlink into this repo, and sdkman would
 # otherwise append its init block to the tracked file. .zshrc sources sdkman
@@ -69,12 +70,12 @@ echo "==> 4/4 sdkman"
 if [ "$HOST" != "skippednote" ]; then
   echo "    skipped: $HOST does not use JVM toolchains"
 elif [ ! -d "$HOME/.sdkman" ]; then
-  BASH4="/etc/profiles/per-user/$(whoami)/bin/bash"
-  if [ ! -x "$BASH4" ]; then
-    echo "    Expected bash 4+ at $BASH4 but it is missing."
-    echo "    Skipping sdkman; re-run this script once the switch has applied."
-  else
-    curl -s "https://get.sdkman.io?rcupdate=false" | "$BASH4"
+  # sdkman's installer refuses to run on the bash 3.2 macOS ships, so it is
+  # fed a modern one from nixpkgs on demand. Fetched rather than kept in the
+  # package set: nothing else here needs bash 4+, and installing a shell
+  # permanently to satisfy one line of one-time setup is the wrong trade.
+  if ! curl -s "https://get.sdkman.io?rcupdate=false" | nix run nixpkgs#bash; then
+    echo "    sdkman install failed; re-run this script to retry."
   fi
 else
   echo "    already installed"

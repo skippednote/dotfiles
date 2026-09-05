@@ -7,9 +7,9 @@
 # darwin-rebuild or sdkman behave as assumed. Both bugs it has caught so far
 # were introduced by edits, which is when it earns its keep.
 #
-# Known gap: the sdkman bash-4 guard reads a hardcoded
-# /etc/profiles/per-user/$(whoami)/bin/bash, which exists on a configured
-# machine, so that branch cannot be reached from a stub PATH.
+# The sdkman step now pipes the installer into `nix run nixpkgs#bash`, so the
+# stub nix records the call rather than a hardcoded interpreter path being
+# probed - one fewer branch this harness cannot reach.
 set -uo pipefail
 
 REPO=$(cd "$(dirname "$0")/.." && pwd -P)
@@ -114,7 +114,7 @@ assert "sdkman skipped"              present "does not use JVM"  "$D/out.log"
 assert "sdkman not fetched"          absent  "get.sdkman.io"     "$D/calls.log"
 assert "exit 0"                      present "^0$"               "$D/exit"
 
-echo "SCENARIO 4: nix present, sdkman missing, no bash 4+ available"
+echo "SCENARIO 4: nix present, sdkman missing - installer is fetched via nix run"
 XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=0 run_case nobash
 D=$BASE/nobash
 assert "switch still ran" present "darwin-rebuild -- switch" "$D/calls.log"

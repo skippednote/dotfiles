@@ -35,9 +35,6 @@
       ripgrep
       bottom
 
-      # bash because macOS ships 3.2 and several installers need 4+.
-      bash
-
       # Runtimes both machines use
       go
       nodejs
