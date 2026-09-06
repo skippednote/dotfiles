@@ -13,10 +13,42 @@
 # nix-darwin owns the schedule and the command. The scripts live in
 # ~/selfhost, its own git repo, and they source ~/selfhost/.env - no secret
 # from that machine belongs here.
-{ ... }:
+#
+# Every agent below gets a PATH. They were transcribed byte-for-byte from
+# plists written when Homebrew and mise supplied the tools, so none carried
+# one - launchd handed them a bare /usr/bin:/bin and the scripts relied on
+# ~/.local/share/mise/shims to fill the gap. Removing Homebrew's mise left
+# 24 of those 31 shims dangling, and selfhost-backup died silently for two
+# nights with "missing required command: restic".
+#
+# So this is not decoration. A launchd job that resolves tools through a
+# package manager the machine no longer has is a job that stops working the
+# moment that manager moves, and says nothing.
+{ lib, ... }:
+
+let
+  # The Nix profiles first, then the paths these scripts were written
+  # against. mise shims are deliberately absent.
+  agentPath =
+    "/etc/profiles/per-user/skippednote/bin:"
+    + "/run/current-system/sw/bin:"
+    + "/nix/var/nix/profiles/default/bin:"
+    + "/Applications/OrbStack.app/Contents/MacOS/xbin:"
+    + "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+
+  # Merge the PATH in without clobbering anything an agent sets itself.
+  withPath =
+    _: agent:
+    lib.recursiveUpdate {
+      serviceConfig.EnvironmentVariables = {
+        PATH = agentPath;
+        HOME = "/Users/skippednote";
+      };
+    } agent;
+in
 
 {
-  launchd.user.agents = {
+  launchd.user.agents = lib.mapAttrs withPath {
 
     # ── Frequent pollers (60s)
     "com.skippednote.battery".serviceConfig = {

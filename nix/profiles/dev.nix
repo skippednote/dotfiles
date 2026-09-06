@@ -43,6 +43,7 @@
       cargo-binstall
       ruff
       protobuf # provides protoc
+      grpcurl # was installed by hand via brew and undeclared
       xcodegen
 
       # Cloud and infrastructure

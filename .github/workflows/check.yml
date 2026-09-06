@@ -5,6 +5,11 @@
 # the one least likely to be switched promptly.
 name: check
 
+# The job needs to read the repo and nothing else; without this block the
+# token gets write-all, including contents and actions.
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main]
@@ -16,7 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      # Pinned to a SHA: @main is a moving target with write access to this job.
+      - uses: DeterminateSystems/nix-installer-action@b67ad2f0e8376a0bc947db191e4484285b6f5b56
 
       # Evaluates both darwinConfigurations. Catches a bad option name, a
       # missing package, or a module that only one host imports.
@@ -48,4 +54,4 @@ jobs:
         run: make test
 
       - name: shellcheck
-        run: nix run nixpkgs#shellcheck -- bootstrap.sh scripts/drift-check.sh tests/bootstrap.sh
+        run: nix run nixpkgs#shellcheck -- bootstrap.sh scripts/*.sh tests/bootstrap.sh

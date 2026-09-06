@@ -26,4 +26,9 @@
   # .zshrc stays hand-written and home-manager-linked.
   programs.zsh.enable = true;
 
+  # Every configuration change here is `sudo darwin-rebuild switch`. Additive:
+  # nix-darwin already manages /etc/pam.d/sudo_local, and password auth still
+  # works if the sensor fails.
+  security.pam.services.sudo_local.touchIdAuth = true;
+
 }

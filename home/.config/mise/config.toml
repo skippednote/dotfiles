@@ -1,5 +1,5 @@
 # No global tools. Everything global comes from Nix; see
-# nix/modules/packages.nix.
+# nix/profiles/{common,dev,ops}.nix.
 #
 # mise is kept solely for the per-project mise.toml files, which pin exact
 # versions a single nixpkgs revision cannot serve - node 18 is not in

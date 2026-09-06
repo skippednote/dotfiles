@@ -24,11 +24,15 @@ update:
 	@nix flake update
 	@$(MAKE) --no-print-directory switch
 	@brew upgrade
+	@$(MAKE) --no-print-directory packages-lock
 	@$(MAKE) --no-print-directory mas-update
 
 # homebrew.masApps installs but does not upgrade.
+# mas is declared on skippednote only, and cleanup = "zap" actively removes
+# it from skippedbook - so an unguarded `mas upgrade` made `make update` fail
+# there on its last line, after the switch had already run.
 mas-update:
-	@mas upgrade
+	@command -v mas >/dev/null 2>&1 && mas upgrade || echo "  mas not installed on $(HOST); skipped"
 
 
 # Stubbed harness for bootstrap.sh; proves control flow, not behaviour.

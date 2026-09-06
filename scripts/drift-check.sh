@@ -82,8 +82,16 @@ fi
 broken=0
 while IFS= read -r link; do
   [ -e "$link" ] || { fail "dangling link: ${link/#$HOME/~}"; broken=$((broken + 1)); }
-done < <(find -L "$HOME" -maxdepth 4 -type l \
-  \( -path "$HOME/Library" -prune -o -print \) 2>/dev/null |
+# The prune must precede -type l. Written the other way round the type test
+# is evaluated first, is false for a directory, and short-circuits before
+# -prune is ever reached - so the exclusion silently did nothing and this
+# walked ~6,800 entries to answer a question about ~24 links. On skippedbook
+# that included an 85 GiB OrbStack mount and the check wedged for 2h19m at
+# zero CPU, having never once completed.
+done < <(find -L "$HOME" -maxdepth 4 \
+  \( -path "$HOME/Library" -o -path "$HOME/.local/state" -o -path "$HOME/OrbStack" \
+     -o -path "$HOME/Movies" -o -path "$HOME/Music" -o -path "$HOME/Pictures" \) -prune \
+  -o -type l -print 2>/dev/null |
   while read -r l; do
     case "$(readlink "$l" 2>/dev/null)" in /nix/store/*) echo "$l" ;; esac
   done)
@@ -95,8 +103,14 @@ done < <(find -L "$HOME" -maxdepth 4 -type l \
 #    the moment it is unnecessary.
 if command -v nix >/dev/null 2>&1; then
   ours=$(sed -n 's/.*version = "\(.*\)";/\1/p' "$REPO/nix/packages/atuin.nix" | head -1)
-  theirs=$(nix eval --raw "nixpkgs#atuin.version" 2>/dev/null)
-  if [ -n "$theirs" ] && [ "$theirs" = "$ours" ]; then
+  # Evaluate the flake's own locked nixpkgs. `nixpkgs#` resolves to whatever
+  # the registry points at - on Determinate that is a weekly channel this
+  # config does not use - so the old form asked about the wrong tree.
+  theirs=$(nix eval --raw ".#darwinConfigurations.$HOST.pkgs.atuin.version" 2>/dev/null)
+  # >= rather than =, or a bump straight to 18.22 would read "still pinned"
+  # forever and the file would never be retired.
+  if [ -n "$theirs" ] &&
+    [ "$(printf '%s\n%s\n' "$ours" "$theirs" | sort -V | tail -1)" = "$theirs" ]; then
     fail "nixpkgs now has atuin $theirs - delete nix/packages/atuin.nix and use pkgs.atuin"
   else
     note "atuin still pinned ($ours; nixpkgs has ${theirs:-?})"

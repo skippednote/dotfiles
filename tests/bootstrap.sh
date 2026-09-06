@@ -17,9 +17,12 @@ BASE=$(/usr/bin/mktemp -d)/bs
 rm -rf "$BASE"; mkdir -p "$BASE"
 PASS=0; FAIL=0
 
+# The printf calls below emit stub scripts, so $* and $CALLLOG must survive
+# into the generated file rather than expanding here.
+# shellcheck disable=SC2016
 make_stubs() {
   local d="$1"; mkdir -p "$d"
-  for c in curl sudo launchctl defaults; do
+  for c in curl sudo launchctl defaults brew; do
     printf '#!/bin/bash\necho "CALL: %s $*" >> "$CALLLOG"\nexit 0\n' "$c" > "$d/$c"
     chmod +x "$d/$c"
   done
@@ -66,12 +69,21 @@ run_case() {
   mkdir -p "$dir/bin" "$dir/home"
   export CALLLOG="$dir/calls.log"; : > "$CALLLOG"
   CASEDIR="$dir" make_stubs "$dir/bin"
-  sed "s|^NIX_PROFILE_SH=.*|NIX_PROFILE_SH=$dir/nixprofile.sh|" \
+  sed -e "s|^NIX_PROFILE_SH=.*|NIX_PROFILE_SH=$dir/nixprofile.sh|" \
+      -e "s|^BREW_BIN=.*|BREW_BIN=$dir/brew|" \
     "$REPO/bootstrap.sh" > "$dir/bootstrap.sh"
+  [ "${BREW_PRESENT:-0}" = "1" ] && { printf '#!/bin/bash\nexit 0\n' > "$dir/brew"; chmod +x "$dir/brew"; }
+  # If that substitution ever stops matching - the assignment gets indented or
+  # renamed - the harness silently starts testing against the real
+  # /nix/var/nix/profiles path, which exists here and on the CI runner, and
+  # every scenario becomes meaningless while still passing.
+  grep -q "NIX_PROFILE_SH=$dir/nixprofile.sh" "$dir/bootstrap.sh" &&
+    grep -q "BREW_BIN=$dir/brew" "$dir/bootstrap.sh" ||
+    { echo "    FAIL harness: NIX_PROFILE_SH substitution did not match"; FAIL=$((FAIL + 1)); }
   chmod +x "$dir/bootstrap.sh"
   [ "${NIX_PROFILE:-0}" = "1" ] && printf '#!/bin/bash\n' > "$dir/nixprofile.sh"
   [ "${SDKMAN_PRESENT:-0}" = "1" ] && mkdir -p "$dir/home/.sdkman"
-  ( export PATH="$dir/bin:/usr/bin:/bin"; export HOME="$dir/home"; cd "$dir"
+  ( export PATH="$dir/bin:/usr/bin:/bin"; export HOME="$dir/home"; cd "$dir" || exit 1
     echo "" | ./bootstrap.sh > "$dir/out.log" 2>&1; echo "$?" > "$dir/exit" )
   echo "  exit=$(/bin/cat "$dir/exit")"
 }
@@ -85,6 +97,7 @@ assert "nix installer run"        present "install.determinate.systems" "$D/call
 assert "darwin-rebuild switch"    present "darwin-rebuild -- switch --flake" "$D/calls.log"
 assert "switch targets #skippednote" present "#skippednote" "$D/calls.log"
 assert "sdkman fetched"           present "get.sdkman.io" "$D/calls.log"
+assert "homebrew installed"       present "Homebrew/install" "$D/calls.log"
 assert "no uv-tools step"         absent  "uv-tools" "$D/out.log"
 assert "exit 0"                   present "^0$" "$D/exit"
 
@@ -98,9 +111,10 @@ assert "does not switch"      absent  "darwin-rebuild" "$D/calls.log"
 assert "exit 1"               present "^1$" "$D/exit"
 
 echo "SCENARIO 3: already configured"
-XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=1 run_case configured
+XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=1 BREW_PRESENT=1 run_case configured
 D=$BASE/configured
 assert "xcode skipped"       present "already installed" "$D/out.log"
+assert "brew not reinstalled" absent  "Homebrew/install"  "$D/calls.log"
 assert "no reinstall of nix" absent  "install.determinate.systems" "$D/calls.log"
 assert "sdkman skipped"      absent  "get.sdkman.io" "$D/calls.log"
 assert "still switches"      present "darwin-rebuild -- switch" "$D/calls.log"
@@ -117,8 +131,9 @@ assert "exit 0"                      present "^0$"               "$D/exit"
 echo "SCENARIO 4: nix present, sdkman missing - installer is fetched via nix run"
 XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=0 run_case nobash
 D=$BASE/nobash
-assert "switch still ran" present "darwin-rebuild -- switch" "$D/calls.log"
-assert "exit 0 regardless" present "^0$" "$D/exit"
+assert "switch still ran"          present "darwin-rebuild -- switch" "$D/calls.log"
+assert "sdkman fetched via nix run" present "nix run nixpkgs#bash"    "$D/calls.log"
+assert "exit 0 regardless"          present "^0$"                     "$D/exit"
 
 echo ""
 echo "════ $PASS passed, $FAIL failed ════"

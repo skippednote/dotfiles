@@ -34,8 +34,8 @@
     # is what makes their closures collectable; running gc alone would free
     # almost nothing while 16 generations still root everything.
     #
-    # 30 days keeps a month of rollback, which is far more than the "did the
-    # last switch break something" window generations actually get used for.
+    # Keeps the last 5 generations - far more than the "did the last switch
+    # break something" window generations actually get used for.
     script = ''
       set -eu
       export PATH=${pkgs.nix}/bin:$PATH

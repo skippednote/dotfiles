@@ -21,7 +21,16 @@ mkdir -p "$(dirname "$STATE")"
 out=$(bash "$REPO/scripts/drift-check.sh" 2>&1)
 rc=$?
 prev=$(cat "$STATE" 2>/dev/null || echo clean)
-cur=$([ "$rc" -eq 0 ] && echo clean || echo drifted)
+# Hash the actual DRIFT lines rather than a clean/drifted flag. With a flag,
+# one long-lived problem - an expected writeback like lazy-lock.json - latches
+# the state and a genuinely new failure arriving later produces no alert at
+# all, because the flag never changes.
+drifts=$(printf '%s\n' "$out" | grep '^  DRIFT:' || true)
+if [ -z "$drifts" ]; then
+  cur=clean
+else
+  cur=$(printf '%s' "$drifts" | shasum | cut -d" " -f1)
+fi
 
 printf '%s\n' "$out"
 printf '%s' "$cur" >"$STATE"
@@ -29,7 +38,7 @@ printf '%s' "$cur" >"$STATE"
 [ "$cur" = "$prev" ] && exit "$rc"
 
 if [ -x "$NOTIFY" ] || [ -f "$NOTIFY" ]; then
-  if [ "$cur" = "drifted" ]; then
+  if [ "$cur" != "clean" ]; then
     bash "$NOTIFY" "dotfiles drifted on $HOST" "$out" 2>/dev/null || true
   else
     bash "$NOTIFY" "dotfiles clean on $HOST" "Back in sync with the repo." 2>/dev/null || true

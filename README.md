@@ -24,8 +24,14 @@ nix/profiles/ops.nix             skippedbook only
 nix/agents/skippedbook/          launchd agents, split by risk
 nix/packages/atuin.nix           upstream binary; nixpkgs cannot build 18.21
 home/                            the real dotfiles, symlinked into $HOME
+nix/modules/gc.nix               weekly store garbage collection
+nix/agents/skippednote/          the press backup agent
 scripts/drift-check.sh           repo-vs-machine divergence
+scripts/drift-notify.sh          launchd wrapper; alerts on change only
+scripts/packages-lock.sh         regenerates packages.lock
+packages.lock                    committed package + Homebrew set, both hosts
 tests/bootstrap.sh               stubbed harness for bootstrap.sh
+.github/workflows/check.yml      CI
 ```
 
 ## Daily use
@@ -34,7 +40,8 @@ tests/bootstrap.sh               stubbed harness for bootstrap.sh
 make switch      # apply the configuration
 make check       # evaluate and dry-build, changing nothing
 make drift       # has this machine diverged from the repo?
-make update      # flake inputs, system, brew, mise, App Store
+make packages-lock  # regenerate packages.lock after changing the package set
+make update      # flake inputs, system, brew, package lock, App Store
 make test        # bootstrap.sh harness
 make fmt         # nix fmt
 ```
@@ -67,8 +74,8 @@ cd ~/Code/personal/dotfiles
 ./bootstrap.sh
 ```
 
-Four steps: Xcode CLI tools, Determinate Nix, first switch, then sdkman —
-skipped on any host but `skippednote`, since nothing else here uses a JVM.
+Five steps: Xcode CLI tools, Determinate Nix, Homebrew, first switch, then
+sdkman — skipped on any host but `skippednote`, since nothing else uses a JVM.
 The clone path matters: `home.nix` links dotfiles out of the worktree at
 `~/Code/personal/dotfiles`.
 
@@ -152,7 +159,7 @@ environment — it discovers an interpreter and runs them there.
 
 ## skippedbook's launchd agents
 
-24 agents, declared in `nix/agents/skippedbook/`, split by what a mistake
+25 agents, declared in `nix/agents/skippedbook/`, split by what a mistake
 costs:
 
 - **`scheduled.nix`** — 18 timer-driven and run-at-load jobs. A misfiring

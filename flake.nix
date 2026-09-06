@@ -21,6 +21,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       nixpkgs-agents,
       nix-darwin,
@@ -69,6 +70,26 @@
     {
       # `nix fmt` / `make fmt`
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+
+      # `nix flake check` does not force home.file.<name>.source, and neither
+      # does building system.build.toplevel - verified by renaming a tracked
+      # file in a scratch copy and watching every check still pass. So the
+      # existence assert in nix/modules/home.nix only fires if something
+      # forces those values. This does, for every host.
+      checks.${system}.home-file-targets =
+        let
+          sourcesOf =
+            host:
+            builtins.attrValues (
+              builtins.mapAttrs (
+                _: f: f.source
+              ) self.darwinConfigurations.${host}.config.home-manager.users.${user}.home.file
+            );
+          all = builtins.concatMap sourcesOf (builtins.attrNames self.darwinConfigurations);
+        in
+        nixpkgs.legacyPackages.${system}.runCommandLocal "home-file-targets" {
+          inherit all;
+        } "echo ok > $out";
 
       darwinConfigurations = {
         skippednote = mkHost {

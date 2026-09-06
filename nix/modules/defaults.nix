@@ -17,6 +17,12 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
+  # On and enabled on both machines today, but only because someone clicked
+  # once - nothing declared it, so a rebuilt machine would come up without
+  # either. Asserting what is already true.
+  networking.applicationFirewall.enable = true;
+  networking.applicationFirewall.enableStealthMode = true;
+
   system.defaults = {
     dock = {
       autohide = true;

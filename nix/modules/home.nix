@@ -13,6 +13,7 @@
 # ~/.codex has auth and state, ~/.local/bin has hand-installed binaries.
 {
   config,
+  lib,
   user,
   hostname,
   ...
@@ -20,7 +21,15 @@
 
 let
   repo = "${config.home.homeDirectory}/Code/personal/dotfiles/home";
-  link = path: config.lib.file.mkOutOfStoreSymlink "${repo}/${path}";
+  # mkOutOfStoreSymlink takes a string; nix never looks at it. Renaming a
+  # file under home/ therefore produced a dangling link that flake check, the
+  # package lock and the test harness all passed - which is exactly how the
+  # gh config, the ssh config and commit signing each broke silently. The
+  # assert turns that into an eval-time failure, so CI catches it.
+  link =
+    path:
+    assert lib.pathExists (../../home + "/${path}") || throw "home/${path} does not exist";
+    config.lib.file.mkOutOfStoreSymlink "${repo}/${path}";
 in
 
 {

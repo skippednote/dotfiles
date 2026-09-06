@@ -7,10 +7,31 @@
 # paths pinned to exact versions in the gateway, and mise/shims in the
 # dashboard. Those are replaced with the Nix profiles here, which is what
 # makes it safe to empty mise's global tools on this machine afterwards.
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+
+let
+  # Same reasoning as ./scheduled.nix: these were transcribed from plists
+  # that relied on mise shims, and those shims now dangle. recursiveUpdate
+  # means an agent setting its own PATH - the two hermes ones do - keeps it.
+  agentPath =
+    "/etc/profiles/per-user/skippednote/bin:"
+    + "/run/current-system/sw/bin:"
+    + "/nix/var/nix/profiles/default/bin:"
+    + "/Applications/OrbStack.app/Contents/MacOS/xbin:"
+    + "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+
+  withPath =
+    _: agent:
+    lib.recursiveUpdate {
+      serviceConfig.EnvironmentVariables = {
+        PATH = agentPath;
+        HOME = "/Users/skippednote";
+      };
+    } agent;
+in
 
 {
-  launchd.user.agents = {
+  launchd.user.agents = lib.mapAttrs withPath {
     # ── Hermes AI
     "ai.hermes.gateway".serviceConfig = {
       EnvironmentVariables = {
