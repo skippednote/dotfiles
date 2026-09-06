@@ -77,9 +77,14 @@ run_case() {
   # renamed - the harness silently starts testing against the real
   # /nix/var/nix/profiles path, which exists here and on the CI runner, and
   # every scenario becomes meaningless while still passing.
-  grep -q "NIX_PROFILE_SH=$dir/nixprofile.sh" "$dir/bootstrap.sh" &&
-    grep -q "BREW_BIN=$dir/brew" "$dir/bootstrap.sh" ||
-    { echo "    FAIL harness: NIX_PROFILE_SH substitution did not match"; FAIL=$((FAIL + 1)); }
+  if ! grep -q "NIX_PROFILE_SH=$dir/nixprofile.sh" "$dir/bootstrap.sh"; then
+    echo "    FAIL harness: NIX_PROFILE_SH substitution did not match"
+    FAIL=$((FAIL + 1))
+  fi
+  if ! grep -q "BREW_BIN=$dir/brew" "$dir/bootstrap.sh"; then
+    echo "    FAIL harness: BREW_BIN substitution did not match"
+    FAIL=$((FAIL + 1))
+  fi
   chmod +x "$dir/bootstrap.sh"
   [ "${NIX_PROFILE:-0}" = "1" ] && printf '#!/bin/bash\n' > "$dir/nixprofile.sh"
   [ "${SDKMAN_PRESENT:-0}" = "1" ] && mkdir -p "$dir/home/.sdkman"
