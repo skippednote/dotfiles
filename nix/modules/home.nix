@@ -65,6 +65,7 @@ in
     ".config/atuin/config.toml".source = link ".config/atuin/config.toml";
     ".config/herdr/config.toml".source = link ".config/herdr/config.toml";
     ".config/mise/config.toml".source = link ".config/mise/config.toml";
+    ".config/ghostty/config".source = link ".config/ghostty/config";
     # .config/gh/config.yml is deliberately not linked: gh rewrites the whole
     # file on any config change, and the only content that was not a default
     # was one alias. Recreate it with `gh alias set co 'pr checkout'`.

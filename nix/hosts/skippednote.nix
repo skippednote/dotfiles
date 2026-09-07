@@ -46,7 +46,7 @@
       "chatgpt"
       "claude"
       "cleanshot"
-      "cmux"
+      "ghostty"
       "google-chrome"
       "granola"
       "grok-bot"
