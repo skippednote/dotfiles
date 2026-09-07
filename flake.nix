@@ -59,9 +59,17 @@
               home-manager.extraSpecialArgs = { inherit user hostname; };
               home-manager.users.${user} = import ./nix/modules/home.nix;
 
-              # $HOME held real files copied there by chezmoi, which the first
-              # activation would otherwise refuse to clobber.
-              home-manager.backupFileExtension = "pre-nix";
+              # No backupFileExtension. It was needed once, for the chezmoi
+              # adoption, and left armed afterwards - which is the wrong
+              # default now: it silently moves a colliding file aside instead
+              # of failing, and that is how ~/.claude/settings.json lost its
+              # rtk hook, permissions, env and model keys for three days
+              # without a word. A collision should now stop the switch.
+              #
+              # It also had a latent failure of its own: with the 22 stale
+              # .pre-nix files still in place, any new collision would abort
+              # activation outright, because home-manager refuses to
+              # overwrite an existing backup.
             }
           ]
           ++ profiles;
