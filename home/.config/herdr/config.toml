@@ -2,3 +2,12 @@ onboarding = false
 
 [ui.toast]
 delivery = "terminal"
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
+
+[ui]
+agent_panel_sort = "spaces"
+status_indicators = "dots"
+show_agent_labels_on_pane_borders = true
