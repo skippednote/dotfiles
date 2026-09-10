@@ -6,6 +6,7 @@
 # nixpkgs at all, and terraform 1.15.8, xcodegen 2.45.4 and rust 1.94.0 all
 # differ from what the locked revision provides.
 [tools]
+shellcheck = "latest"
 
 [settings]
 
