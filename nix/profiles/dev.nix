@@ -4,6 +4,7 @@
 {
   pkgs,
   agentPkgs,
+  openspecPkg,
   user,
   ...
 }:
@@ -82,6 +83,7 @@
       herdr
     ]
     ++ [
+      openspecPkg # provides `openspec`
       agentPkgs.codex
       agentPkgs.pi-coding-agent # provides `pi`
     ];
