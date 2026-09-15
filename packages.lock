@@ -42,6 +42,7 @@ tailscale-app
 
 [skippednote packages]
 1password-cli
+acli
 ansible-core
 atuin
 aws-sam-cli

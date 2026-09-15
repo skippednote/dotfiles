@@ -58,6 +58,11 @@
       upsun
       ddev
 
+      # acli is not in nixpkgs - upstream ships only a phar. Pinned to the same
+      # version the PADI backend's deploy buildspec uses, so a local database
+      # pull and a CI deploy run the same binary. See nix/packages/acli.nix.
+      (callPackage ../packages/acli.nix { })
+
       # Secrets
       _1password-cli # unfree
 
