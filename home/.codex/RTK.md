@@ -6,6 +6,9 @@
 
 Always prefix shell commands with `rtk`.
 
+Exception: when exact output matters (`ls -la`, `find`, symlink targets), use
+`rtk proxy <cmd>` — the filter truncates columns and drops lines.
+
 Examples:
 
 ```bash
