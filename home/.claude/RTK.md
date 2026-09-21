@@ -26,4 +26,8 @@ which rtk             # Verify correct binary
 All other commands are automatically rewritten by the Claude Code hook.
 Example: `git status` -> `rtk git status` (transparent, 0 tokens overhead)
 
+The hook filters output to save tokens, which truncates columns and drops
+lines. When fidelity matters — `ls -la`, `find`, symlink targets, a file you
+are about to edit — use `rtk proxy <cmd>` first, not after a mangled result.
+
 Refer to CLAUDE.md for full command reference.
