@@ -3,8 +3,10 @@
 #
 # mise is kept solely for the per-project mise.toml files, which pin exact
 # versions a single nixpkgs revision cannot serve - node 18 is not in
-# nixpkgs at all, and terraform 1.15.8, xcodegen 2.45.4 and rust 1.94.0 all
-# differ from what the locked revision provides.
+# nixpkgs at all, and terraform 1.15.8 and xcodegen 2.45.4 differ from what
+# the locked revision provides. A project pin that nixpkgs already serves at
+# the same or a newer version is redundant and belongs in a profile instead,
+# not here.
 [tools]
 shellcheck = "latest"
 

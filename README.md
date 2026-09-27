@@ -123,13 +123,16 @@ Both extremes are wrong, and both were tried:
 
 - Listing the Nix profiles in the `path` array puts them ahead of mise's
   per-project tool directories, silently overriding every pin — terraform
-  1.15.8 becomes 1.16.0, rust 1.94.0 becomes 1.97.1.
+  1.15.8 becomes 1.16.0, node 18 becomes 24.
 - Leaving them out drops Nix behind `/usr/local/bin` and `~/.local/bin`, so a
   system python or a stray installer shim wins — which is how ansible ended
   up unable to import boto3 and `claude` ran months behind.
 
-`~/.cargo/bin` joins the front group because mise's rust "install" is a
-symlink to it: the pinned toolchain is whatever rustup has active.
+`~/.cargo/bin` used to join the front group, because mise's rust "install"
+is a symlink into it and the pinned toolchain was whatever rustup had active.
+rustup is gone and Nix owns the Rust toolchain, so that directory now sits
+behind the Nix profiles — it holds only what `cargo install` puts there, and a
+stray binary can no longer win.
 
 ## Tooling
 
@@ -143,9 +146,10 @@ everything else.
 Not from Nix, and why:
 
 - **Per-project versions** — `node 18` is not in nixpkgs at all, and
-  `terraform 1.15.8`, `xcodegen 2.45.4` and `rust 1.94.0` differ from the
-  locked revision. mise handles these; its global `[tools]` list is empty on
-  both machines.
+  `terraform 1.15.8` and `xcodegen 2.45.4` differ from the locked revision.
+  mise handles these; its global `[tools]` list is empty on both machines. A
+  pin nixpkgs already serves at the same or a newer version is redundant and
+  belongs in a profile instead.
 - **`java`** — sdkman owns JVM switching. `maven` stays in Nix: its wrapper
   sets `JAVA_HOME` with `--set-default`, so it defers to sdkman's export.
 - **`batt`** — the only tool on `skippedbook` nixpkgs does not carry.

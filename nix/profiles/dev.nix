@@ -27,7 +27,21 @@
       # Languages and runtimes. java is deliberately absent: sdkman owns JVM
       # version switching. nixpkgs' maven wrapper sets JAVA_HOME with
       # --set-default, so it defers to sdkman's export rather than overriding.
+      #
+      # The Rust toolchain is the whole toolchain, not just cargo. rustup
+      # used to own this: it was curl-installed, sat ahead of Nix on PATH,
+      # and decided which rustc every project got. Nothing in the flake could
+      # see it, and ~/damrs pinned 1.94.0 through it while Nix carried a
+      # different rustc entirely. One source now - rustc from common.nix,
+      # these alongside it, all 1.98.1 from the same revision.
+      #
+      # rustfmt and clippy are not optional extras here: `cargo fmt` and
+      # `cargo clippy` are separate binaries, and without them both damrs
+      # gates fail with "no such subcommand" rather than with a lint.
       cargo
+      clippy
+      rustfmt
+      rust-analyzer
       maven
       bun
       uv

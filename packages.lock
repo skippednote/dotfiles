@@ -54,6 +54,7 @@ bun
 cargo
 cargo-binstall
 claude-code
+clippy
 cloudflared
 codex
 dbmate
@@ -89,7 +90,9 @@ python3
 ripgrep
 rtk
 ruff
+rust-analyzer
 rustc
+rustfmt
 sops
 sshpass
 starship
