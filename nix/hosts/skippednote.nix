@@ -70,6 +70,7 @@
     masApps = {
       "Developer" = 640199958;
       "WireGuard" = 1451685025;
+      "Xcode" = 497799835; # keep: onActivation.cleanup = "zap" uninstalls unlisted App Store apps
     };
   };
 }
