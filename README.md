@@ -186,8 +186,8 @@ change — so a byte-equivalent change produces no visible difference in
 
 Installed by hand; reinstall after a fresh setup:
 
-- `~/.local/bin/session-manager-plugin`, `android`, `agent`, `cursor-agent`,
-  `cursor`, `gs`, `gws-personal`, `gws-work`
+- `~/.local/bin/android`, `agent`, `cursor-agent`, `cursor`, `gs`,
+  `gws-personal`, `gws-work`
 - `Fynn.app` — direct download
 - App-level settings for Raycast, CleanShot and 1Password
 - `~/.claude/settings.json` and `settings.local.json` — Claude Code rewrites

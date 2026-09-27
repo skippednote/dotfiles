@@ -82,6 +82,10 @@
       upsun
       ddev
 
+      # `aws ssm start-session`. Was a hand-unzipped bundle in ~/.local/bin,
+      # which is where the AWS installer puts it and where nothing tracks it.
+      ssm-session-manager-plugin
+
       # acli is not in nixpkgs - upstream ships only a phar. Pinned to the same
       # version the PADI backend's deploy buildspec uses, so a local database
       # pull and a CI deploy run the same binary. See nix/packages/acli.nix.

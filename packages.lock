@@ -95,6 +95,7 @@ rustc
 rustfmt
 sops
 sshpass
+ssm-session-manager-plugin
 starship
 temurin-bin
 terraform
