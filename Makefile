@@ -23,7 +23,7 @@ check:
 update:
 	@nix flake update
 	@$(MAKE) --no-print-directory switch
-	@brew upgrade
+	@brew upgrade --greedy
 	@$(MAKE) --no-print-directory packages-lock
 	@$(MAKE) --no-print-directory mas-update
 
