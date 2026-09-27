@@ -3,13 +3,9 @@
 # asserts what the script actually does. Run with `make test`.
 #
 # Every external command is stubbed, so this proves control flow - which
-# branch runs under which machine state - not that the real installer,
-# darwin-rebuild or sdkman behave as assumed. Both bugs it has caught so far
-# were introduced by edits, which is when it earns its keep.
-#
-# The sdkman step now pipes the installer into `nix run nixpkgs#bash`, so the
-# stub nix records the call rather than a hardcoded interpreter path being
-# probed - one fewer branch this harness cannot reach.
+# branch runs under which machine state - not that the real installer or
+# darwin-rebuild behave as assumed. Both bugs it has caught so far were
+# introduced by edits, which is when it earns its keep.
 set -uo pipefail
 
 REPO=$(cd "$(dirname "$0")/.." && pwd -P)
@@ -87,27 +83,25 @@ run_case() {
   fi
   chmod +x "$dir/bootstrap.sh"
   [ "${NIX_PROFILE:-0}" = "1" ] && printf '#!/bin/bash\n' > "$dir/nixprofile.sh"
-  [ "${SDKMAN_PRESENT:-0}" = "1" ] && mkdir -p "$dir/home/.sdkman"
   ( export PATH="$dir/bin:/usr/bin:/bin"; export HOME="$dir/home"; cd "$dir" || exit 1
     echo "" | ./bootstrap.sh > "$dir/out.log" 2>&1; echo "$?" > "$dir/exit" )
   echo "  exit=$(/bin/cat "$dir/exit")"
 }
 
 echo "SCENARIO 1: fresh machine, installer behaves"
-XCODE_PRESENT=0 NIX_PRESENT=0 NIX_PROFILE=0 SDKMAN_PRESENT=0 \
+XCODE_PRESENT=0 NIX_PRESENT=0 NIX_PROFILE=0 \
   INSTALLER_CREATES_PROFILE=1 run_case fresh
 D=$BASE/fresh
 assert "xcode install attempted"  present "xcode-select --install" "$D/calls.log"
 assert "nix installer run"        present "install.determinate.systems" "$D/calls.log"
 assert "darwin-rebuild switch"    present "darwin-rebuild -- switch --flake" "$D/calls.log"
 assert "switch targets #skippednote" present "#skippednote" "$D/calls.log"
-assert "sdkman fetched"           present "get.sdkman.io" "$D/calls.log"
 assert "homebrew installed"       present "Homebrew/install" "$D/calls.log"
 assert "no uv-tools step"         absent  "uv-tools" "$D/out.log"
 assert "exit 0"                   present "^0$" "$D/exit"
 
 echo "SCENARIO 2: fresh machine, installer leaves no profile script"
-XCODE_PRESENT=0 NIX_PRESENT=0 NIX_PROFILE=0 SDKMAN_PRESENT=0 \
+XCODE_PRESENT=0 NIX_PRESENT=0 NIX_PROFILE=0 \
   INSTALLER_CREATES_PROFILE=0 run_case broken
 D=$BASE/broken
 assert "explains the failure" present "is missing" "$D/out.log"
@@ -116,29 +110,23 @@ assert "does not switch"      absent  "darwin-rebuild" "$D/calls.log"
 assert "exit 1"               present "^1$" "$D/exit"
 
 echo "SCENARIO 3: already configured"
-XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=1 BREW_PRESENT=1 run_case configured
+XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 BREW_PRESENT=1 run_case configured
 D=$BASE/configured
 assert "xcode skipped"       present "already installed" "$D/out.log"
 assert "brew not reinstalled" absent  "Homebrew/install"  "$D/calls.log"
 assert "no reinstall of nix" absent  "install.determinate.systems" "$D/calls.log"
-assert "sdkman skipped"      absent  "get.sdkman.io" "$D/calls.log"
 assert "still switches"      present "darwin-rebuild -- switch" "$D/calls.log"
 assert "exit 0"              present "^0$" "$D/exit"
 
-echo "SCENARIO 5: host is skippedbook - sdkman must be skipped"
-XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=0 FAKE_HOST=skippedbook run_case book
+# The host is no longer a branch inside the script - the only per-host step
+# was sdkman, and the JDK is now a package in the skippednote profile. What
+# is still worth asserting is that the detected host reaches the flake, since
+# that is what decides which configuration a virgin machine builds.
+echo "SCENARIO 4: host is skippedbook - the switch follows the detected host"
+XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 FAKE_HOST=skippedbook run_case book
 D=$BASE/book
 assert "switch targets #skippedbook" present "#skippedbook" "$D/calls.log"
-assert "sdkman skipped"              present "does not use JVM"  "$D/out.log"
-assert "sdkman not fetched"          absent  "get.sdkman.io"     "$D/calls.log"
 assert "exit 0"                      present "^0$"               "$D/exit"
-
-echo "SCENARIO 4: nix present, sdkman missing - installer is fetched via nix run"
-XCODE_PRESENT=1 NIX_PRESENT=1 NIX_PROFILE=1 SDKMAN_PRESENT=0 run_case nobash
-D=$BASE/nobash
-assert "switch still ran"          present "darwin-rebuild -- switch" "$D/calls.log"
-assert "sdkman fetched via nix run" present "nix run nixpkgs#bash"    "$D/calls.log"
-assert "exit 0 regardless"          present "^0$"                     "$D/exit"
 
 echo ""
 echo "════ $PASS passed, $FAIL failed ════"

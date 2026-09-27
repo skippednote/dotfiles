@@ -24,9 +24,7 @@
         ps.botocore
       ]))
 
-      # Languages and runtimes. java is deliberately absent: sdkman owns JVM
-      # version switching. nixpkgs' maven wrapper sets JAVA_HOME with
-      # --set-default, so it defers to sdkman's export rather than overriding.
+      # Languages and runtimes.
       #
       # The Rust toolchain is the whole toolchain, not just cargo. rustup
       # used to own this: it was curl-installed, sat ahead of Nix on PATH,
@@ -42,7 +40,19 @@
       clippy
       rustfmt
       rust-analyzer
+
+      # JVM. This was sdkman's job - a curl-installed version manager, its
+      # own init block in .zshrc, and its own step in bootstrap.sh, all to
+      # hold exactly one JDK. temurin-bin-25 is 25.0.4, the same build
+      # sdkman had installed as 25.0.4-tem, so adopting it changed the source
+      # and nothing else.
+      #
+      # nixpkgs' maven wrapper sets JAVA_HOME with --set-default, which only
+      # applies when it is unset; .zshrc exports it from whichever java is on
+      # PATH, so maven follows this JDK rather than its own closure's.
+      temurin-bin-25
       maven
+
       bun
       uv
 

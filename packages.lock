@@ -96,6 +96,7 @@ rustfmt
 sops
 sshpass
 starship
+temurin-bin
 terraform
 tokei
 upsun

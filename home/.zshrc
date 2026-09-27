@@ -55,6 +55,15 @@ _front=(${(M)path:#*/mise/installs/*})
 path=(${_front} ${_nix_profiles} ${path:|_front})
 typeset -U path
 unset _nix_profiles _front
+
+# Maven's Nix wrapper sets JAVA_HOME with --set-default, which only applies
+# when it is unset - so exporting it here is what makes maven use the JDK on
+# PATH rather than the one in its own closure. Derived from `java` rather
+# than written out, because the answer is a /nix/store path that changes on
+# every update.
+_java=$(command -v java 2>/dev/null) && export JAVA_HOME="${${_java:A}:h:h}"
+unset _java
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
@@ -121,9 +130,3 @@ bindkey '^[OA' atuin-up-search
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
-
-# ------------------------------------------------------------------------------
-# sdkman (JVM toolchains; installed by bootstrap.sh, not by Nix)
-# ------------------------------------------------------------------------------
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
