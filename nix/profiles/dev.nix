@@ -91,6 +91,12 @@
       # pull and a CI deploy run the same binary. See nix/packages/acli.nix.
       (callPackage ../packages/acli.nix { })
 
+      # Disk-usage treemap. Not in nixpkgs; built from source. Upstream is
+      # Linux-only but it builds and runs here - except "Move to trash", which
+      # lands in ~/.local/share/Trash, not the Finder Trash. See
+      # nix/packages/disktree.nix.
+      (callPackage ../packages/disktree.nix { })
+
       # Secrets
       _1password-cli # unfree
 
