@@ -97,6 +97,10 @@
       # nix/packages/disktree.nix.
       (callPackage ../packages/disktree.nix { })
 
+      # Game-server latency TUI. My own tool; built from the tagged release.
+      # See nix/packages/gameping.nix.
+      (callPackage ../packages/gameping.nix { })
+
       # Secrets
       _1password-cli # unfree
 
