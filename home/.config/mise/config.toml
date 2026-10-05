@@ -9,6 +9,7 @@
 # and belongs in a profile instead, not here.
 [tools]
 actionlint = "latest"
+ffmpeg = "latest"
 shellcheck = "latest"
 
 [settings]
