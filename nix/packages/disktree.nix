@@ -42,16 +42,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "disktree";
-  version = "0.9.1";
+  version = "0.10.1";
 
   src = fetchFromGitHub {
     owner = "tobi";
     repo = "disktree";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B5gMkZ0LlcOGb0P1uYGaALD+QXmnfbrRZWwqbU2NrVk=";
+    hash = "sha256-HoJjSLQeLEK20SpEd40DakAwV6WTdtcWM779YCjI3Jk=";
   };
 
-  cargoHash = "sha256-op6c26/F+m7dUCCaPEIBrU21P6muW8gU6sHt8LDG4f8=";
+  cargoHash = "sha256-+IG75eHRo1+4Sg5dq+b77UWYLKQlqPH30WtAnND/Cbk=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -76,6 +76,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoTestFlags = [
     "-p"
     "disktree-core"
+  ];
+
+  # Asserts the real home directory sits on the root volume, which the build
+  # sandbox's HOME does not.
+  checkFlags = [
+    "--skip=space::tests::the_home_disk_on_macos_is_the_root_and_has_a_device"
   ];
 
   # The same three files upstream's `make install` / install.sh put in place:
