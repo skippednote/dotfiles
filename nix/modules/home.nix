@@ -33,6 +33,8 @@ let
 in
 
 {
+  imports = [ ./skills.nix ];
+
   home.username = user;
   home.homeDirectory = "/Users/${user}";
 
@@ -87,13 +89,8 @@ in
     ".codex/RTK.md".source = link ".codex/RTK.md";
     ".codex/hooks.json".source = link ".codex/hooks.json";
 
-    # Skills both agents read. The body is tool-neutral and lives once under
-    # .config/ai, beside working-preferences.md; each agent gets a link into
-    # the skills directory it scans. Linked per file, not as a directory,
-    # because both ~/.claude/skills and ~/.codex/skills also hold skills
-    # installed by the tools themselves.
-    ".claude/skills/retro/SKILL.md".source = link ".config/ai/skills/retro/SKILL.md";
-    ".codex/skills/retro/SKILL.md".source = link ".config/ai/skills/retro/SKILL.md";
+    # Skills, including my own, are linked by ./skills.nix from the repos
+    # listed in nix/skills.nix.
 
     # Only the config; private keys are never managed here. Per host, because
     # skippednote routes identities through the 1Password agent and

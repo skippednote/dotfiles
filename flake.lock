@@ -100,7 +100,60 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "nixpkgs-agents": "nixpkgs-agents",
-        "openspec": "openspec"
+        "openspec": "openspec",
+        "skills-herdr": "skills-herdr",
+        "skills-mattpocock": "skills-mattpocock",
+        "skills-skippednote": "skills-skippednote"
+      }
+    },
+    "skills-herdr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789583424,
+        "narHash": "sha256-N6+kprfWRyh0AkAiopkGsNXUGGORyPVFHEaDHCpGQs8=",
+        "owner": "herdrdev",
+        "repo": "herdr",
+        "rev": "065ef9d6a531c49fb8bee7e818ef837065b21ee9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "herdrdev",
+        "ref": "v0.9.1",
+        "repo": "herdr",
+        "type": "github"
+      }
+    },
+    "skills-mattpocock": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791118085,
+        "narHash": "sha256-/mAmj7QFdyOWhLmy3Rt2/Hfsh5qwirTRax7hmQffFdo=",
+        "owner": "mattpocock",
+        "repo": "skills",
+        "rev": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattpocock",
+        "ref": "v1.3.1",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
+    "skills-skippednote": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791437269,
+        "narHash": "sha256-RSnO0ra1VUGk8+zWTLIFEcFrjcDBkO/mILGydO7ibSc=",
+        "owner": "skippednote",
+        "repo": "skills",
+        "rev": "4d09b16603005fa6be7240ab5bd767c5914c8396",
+        "type": "github"
+      },
+      "original": {
+        "owner": "skippednote",
+        "repo": "skills",
+        "type": "github"
       }
     }
   },

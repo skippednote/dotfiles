@@ -23,10 +23,28 @@
     # was installed from by hand before it was declared here.
     openspec.url = "github:Fission-AI/OpenSpec";
     openspec.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Repos that agent skills are pulled from; nix/skills.nix picks which.
+    # Pinned to the release matching the installed herdr, not main, which
+    # documents unreleased flags. Move the tag when herdr is upgraded.
+    skills-herdr = {
+      url = "github:herdrdev/herdr/v0.9.1";
+      flake = false;
+    };
+    # My own skills. Tracks main: edits land by pushing there and running
+    # `nix flake update skills-skippednote`.
+    skills-skippednote = {
+      url = "github:skippednote/skills";
+      flake = false;
+    };
+    skills-mattpocock = {
+      url = "github:mattpocock/skills/v1.3.1";
+      flake = false;
+    };
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       nixpkgs-agents,
@@ -66,7 +84,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit user hostname; };
+              home-manager.extraSpecialArgs = { inherit user hostname inputs; };
               home-manager.users.${user} = import ./nix/modules/home.nix;
 
               # No backupFileExtension. It was needed once, for the chezmoi
