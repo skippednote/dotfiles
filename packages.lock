@@ -54,15 +54,18 @@ bun
 cargo
 cargo-binstall
 claude-code
+clippy
 cloudflared
 codex
 dbmate
 ddev
 delta
+disktree
 doggo
 du-dust
 fd
 fzf
+gameping
 gh
 glow
 go
@@ -89,10 +92,14 @@ python3
 ripgrep
 rtk
 ruff
+rust-analyzer
 rustc
+rustfmt
 sops
 sshpass
+ssm-session-manager-plugin
 starship
+temurin-bin
 terraform
 tokei
 upsun
@@ -134,4 +141,5 @@ zoom
 [skippednote masApps]
 Developer
 WireGuard
+Xcode
 

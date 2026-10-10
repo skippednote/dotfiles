@@ -40,17 +40,30 @@ eval "$(mise activate zsh)"
 # Order matters in both directions. Listing the Nix profiles in the `path`
 # array above puts them ahead of mise's per-project tool directories, which
 # silently overrides every pinned version (terraform 1.15.8 becomes 1.16.0,
-# rust 1.94.0 becomes 1.97.1). Leaving them out entirely drops them behind
+# node 18 becomes 24). Leaving them out entirely drops them behind
 # /usr/local/bin and ~/.local/bin, so a system python or a stray installer
 # shim wins instead - which is how ansible ended up unable to import boto3.
-# ~/.cargo/bin belongs in the front group: mise's rust "install" is just a
-# symlink to it, so the toolchain a project pins is whatever rustup has
-# active, and Nix's rustc would otherwise shadow it.
+#
+# ~/.cargo/bin is deliberately NOT in the front group any more. It was, for
+# rustup: mise's rust "install" is a symlink into it, so a project's pinned
+# toolchain was whatever rustup had active, and hoisting it kept Nix's rustc
+# from shadowing that. rustup is gone and Nix owns the toolchain, so the
+# directory stays on PATH only for what `cargo install` puts there - behind
+# the Nix profiles, where a stray binary can no longer win.
 _nix_profiles=(/etc/profiles/per-user/$USER/bin /run/current-system/sw/bin)
-_front=(${(M)path:#*/mise/installs/*} $HOME/.cargo/bin)
+_front=(${(M)path:#*/mise/installs/*})
 path=(${_front} ${_nix_profiles} ${path:|_front})
 typeset -U path
 unset _nix_profiles _front
+
+# Maven's Nix wrapper sets JAVA_HOME with --set-default, which only applies
+# when it is unset - so exporting it here is what makes maven use the JDK on
+# PATH rather than the one in its own closure. Derived from `java` rather
+# than written out, because the answer is a /nix/store path that changes on
+# every update.
+_java=$(command -v java 2>/dev/null) && export JAVA_HOME="${${_java:A}:h:h}"
+unset _java
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
@@ -117,9 +130,3 @@ bindkey '^[OA' atuin-up-search
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
-
-# ------------------------------------------------------------------------------
-# sdkman (JVM toolchains; installed by bootstrap.sh, not by Nix)
-# ------------------------------------------------------------------------------
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"

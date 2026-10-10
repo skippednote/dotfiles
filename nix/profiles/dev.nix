@@ -24,11 +24,35 @@
         ps.botocore
       ]))
 
-      # Languages and runtimes. java is deliberately absent: sdkman owns JVM
-      # version switching. nixpkgs' maven wrapper sets JAVA_HOME with
-      # --set-default, so it defers to sdkman's export rather than overriding.
+      # Languages and runtimes.
+      #
+      # The Rust toolchain is the whole toolchain, not just cargo. rustup
+      # used to own this: it was curl-installed, sat ahead of Nix on PATH,
+      # and decided which rustc every project got. Nothing in the flake could
+      # see it, and ~/damrs pinned 1.94.0 through it while Nix carried a
+      # different rustc entirely. One source now - rustc from common.nix,
+      # these alongside it, all 1.98.1 from the same revision.
+      #
+      # rustfmt and clippy are not optional extras here: `cargo fmt` and
+      # `cargo clippy` are separate binaries, and without them both damrs
+      # gates fail with "no such subcommand" rather than with a lint.
       cargo
+      clippy
+      rustfmt
+      rust-analyzer
+
+      # JVM. This was sdkman's job - a curl-installed version manager, its
+      # own init block in .zshrc, and its own step in bootstrap.sh, all to
+      # hold exactly one JDK. temurin-bin-25 is 25.0.4, the same build
+      # sdkman had installed as 25.0.4-tem, so adopting it changed the source
+      # and nothing else.
+      #
+      # nixpkgs' maven wrapper sets JAVA_HOME with --set-default, which only
+      # applies when it is unset; .zshrc exports it from whichever java is on
+      # PATH, so maven follows this JDK rather than its own closure's.
+      temurin-bin-25
       maven
+
       bun
       uv
 
@@ -58,10 +82,24 @@
       upsun
       ddev
 
+      # `aws ssm start-session`. Was a hand-unzipped bundle in ~/.local/bin,
+      # which is where the AWS installer puts it and where nothing tracks it.
+      ssm-session-manager-plugin
+
       # acli is not in nixpkgs - upstream ships only a phar. Pinned to the same
       # version the PADI backend's deploy buildspec uses, so a local database
       # pull and a CI deploy run the same binary. See nix/packages/acli.nix.
       (callPackage ../packages/acli.nix { })
+
+      # Disk-usage treemap. Not in nixpkgs; built from source. Upstream is
+      # Linux-only but it builds and runs here - except "Move to trash", which
+      # lands in ~/.local/share/Trash, not the Finder Trash. See
+      # nix/packages/disktree.nix.
+      (callPackage ../packages/disktree.nix { })
+
+      # Game-server latency TUI. My own tool; built from the tagged release.
+      # See nix/packages/gameping.nix.
+      (callPackage ../packages/gameping.nix { })
 
       # Secrets
       _1password-cli # unfree
