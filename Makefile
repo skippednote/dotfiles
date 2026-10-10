@@ -1,4 +1,4 @@
-.PHONY: switch check update mas-update test fmt drift packages packages-lock
+.PHONY: switch check update skills-update mas-update test fmt drift packages packages-lock
 
 
 # Picked from the machine itself, so `make switch` needs no flag and cannot
@@ -26,6 +26,12 @@ update:
 	@brew upgrade
 	@$(MAKE) --no-print-directory packages-lock
 	@$(MAKE) --no-print-directory mas-update
+
+# Move only the skills-* inputs, so a skill can be picked up (say, after a
+# push to skippednote/skills) without dragging nixpkgs along.
+skills-update:
+	@nix flake update $$(nix flake metadata --json | jq -r '.locks.nodes.root.inputs | keys[] | select(startswith("skills-"))')
+	@$(MAKE) --no-print-directory switch
 
 # homebrew.masApps installs but does not upgrade.
 # mas is declared on skippednote only, and cleanup = "zap" actively removes
