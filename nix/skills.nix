@@ -27,4 +27,15 @@
       "grilling"
     ];
   }
+  {
+    input = "skills-mattpocock";
+    dir = "skills/engineering";
+    # improve-codebase-architecture calls codebase-design, domain-modeling
+    # and grilling (above).
+    skills = [
+      "improve-codebase-architecture"
+      "codebase-design"
+      "domain-modeling"
+    ];
+  }
 ]
