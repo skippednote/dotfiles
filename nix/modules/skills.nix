@@ -34,7 +34,19 @@ let
     ) names;
 
   skills = lib.concatMap skillsOf entries;
+
+  # Two entries providing the same name would otherwise surface as a
+  # home-manager conflict on the link path, which names neither source.
+  dupes = lib.attrNames (
+    lib.filterAttrs (_: n: n > 1) (
+      lib.foldl' (acc: s: acc // { ${s.name} = (acc.${s.name} or 0) + 1; }) { } skills
+    )
+  );
 in
+
+assert
+  dupes == [ ]
+  || throw "nix/skills.nix: more than one entry provides ${lib.concatStringsSep ", " dupes}";
 
 {
   home.file = lib.listToAttrs (
