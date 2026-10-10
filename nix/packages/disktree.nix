@@ -1,4 +1,5 @@
-# disktree from source. Not in nixpkgs, and upstream ships no flake.
+# disktree from source. Upstream ships no flake, and nixpkgs' package is
+# Linux-only (meta.platforms), so pkgs.disktree refuses to evaluate here.
 #
 # disktree is a GPUI treemap written for Omarchy. Upstream targets Linux only
 # and publishes one x86_64-linux tarball, but GPUI has a macOS backend and the
@@ -42,16 +43,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "disktree";
-  version = "0.10.1";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "tobi";
     repo = "disktree";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-HoJjSLQeLEK20SpEd40DakAwV6WTdtcWM779YCjI3Jk=";
+    hash = "sha256-b7VP3VgOS+zUTR2bhOh6JNcN5mIIeHL/fe3u/eHC+X4=";
   };
 
-  cargoHash = "sha256-+IG75eHRo1+4Sg5dq+b77UWYLKQlqPH30WtAnND/Cbk=";
+  cargoHash = "sha256-k+iLvOS+6o5oC+JcG9BJ3UUAzZAQpcpNelKCXsDx0Fw=";
 
   nativeBuildInputs = [ pkg-config ];
 
