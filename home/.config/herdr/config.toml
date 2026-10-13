@@ -4,10 +4,10 @@ onboarding = false
 delivery = "terminal"
 
 [theme]
-name = "tokyo-night"
+name = "solarized-light"
 auto_switch = false
 
 [ui]
 agent_panel_sort = "spaces"
-status_indicators = "dots"
+status_indicators = "symbols"
 show_agent_labels_on_pane_borders = true
