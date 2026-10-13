@@ -52,6 +52,10 @@
       # Kept installed purely to serve per-project mise.toml files; the
       # global [tools] list is empty on both machines.
       mise
+
+      # The daemon Herdr.app (skippednote) attaches to over SSH, so every
+      # machine it manages needs one.
+      herdr
     ]
     ++ [
       # From the separate nixpkgs-agents input so it can be updated on its
