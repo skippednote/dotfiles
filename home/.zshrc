@@ -5,11 +5,6 @@ export ATUIN_NOBIND=true
 export GOPATH=$HOME/.go
 export EDITOR="nvim"
 export _ZO_DOCTOR=0
-# Ghostty sets TERM=xterm-ghostty.
-# Fall back on hosts that do not have that terminfo entry installed.
-if [[ "$TERM" == "xterm-ghostty" ]] && ! infocmp xterm-ghostty &>/dev/null; then
-  export TERM=xterm-256color
-fi
 
 # ------------------------------------------------------------------------------
 # Path
@@ -93,7 +88,6 @@ alias e="nvim"
 alias v="nvim"
 alias vim="nvim"
 alias tf="terraform"
-alias h="herdr"
 # ------------------------------------------------------------------------------
 # 4Cs
 # ------------------------------------------------------------------------------
