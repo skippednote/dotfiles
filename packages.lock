@@ -17,6 +17,7 @@ fzf
 gh
 gitleaks
 go
+herdr
 lsd
 mise
 nodejs
@@ -129,6 +130,7 @@ logi-options+
 microsoft-teams
 notion-calendar
 orbstack
+penso/tap/herdr-gpui
 raycast
 rectangle
 slack

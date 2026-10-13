@@ -123,7 +123,6 @@
 
       # Agents and tooling
       rtk
-      herdr
     ]
     ++ [
       openspecPkg # provides `openspec`
