@@ -1,3 +1,6 @@
 .DS_Store
 result
 result-*
+
+# Written next to home/.config/herdr/config.toml by Herdr.app while it saves.
+home/.config/herdr/.config.toml.gpui-lock

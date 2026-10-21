@@ -12,7 +12,10 @@
 [
   {
     input = "skills-skippednote";
-    skills = [ "retro" ];
+    skills = [
+      "retro"
+      "slack-send"
+    ];
   }
   {
     input = "skills-herdr";
