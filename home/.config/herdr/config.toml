@@ -4,10 +4,12 @@ onboarding = false
 delivery = "terminal"
 
 [theme]
-name = "solarized-light"
+name = "solarized"
 auto_switch = false
 
 [ui]
 agent_panel_sort = "spaces"
 status_indicators = "symbols"
 show_agent_labels_on_pane_borders = true
+tab_bar_position = "top"
+hide_tab_bar_when_single_tab = false
