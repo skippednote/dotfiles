@@ -39,7 +39,10 @@
   homebrew = {
     # Declared, not just used in a cask name: cleanup = "zap" untaps
     # anything unlisted.
-    taps = [ "penso/tap" ];
+    taps = [
+      "axelerant/tap"
+      "penso/tap"
+    ];
 
     brews = [
       "mas" # for `make mas-update`
@@ -50,6 +53,7 @@
       "chatgpt"
       "claude"
       "cleanshot"
+      "axelerant/tap/fynn"
       "google-chrome"
       "granola"
       "grok-bot"
