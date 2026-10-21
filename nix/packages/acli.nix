@@ -24,11 +24,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "acli";
-  version = "2.61.3";
+  version = "4.1.0";
 
   src = fetchurl {
     url = "https://github.com/acquia/cli/releases/download/${finalAttrs.version}/acli.phar";
-    hash = "sha256-MVgTJeduyucVoSc+5EJ9RhC53LZUXNa6rdvwTDRWBVA=";
+    hash = "sha256-sqjgJWCzZxx+5SkXx56OaAgLxXFY3WgyojQnszLYPNQ=";
   };
 
   dontUnpack = true;

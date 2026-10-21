@@ -37,6 +37,10 @@
   };
 
   homebrew = {
+    # Declared, not just used in a cask name: cleanup = "zap" untaps
+    # anything unlisted.
+    taps = [ "penso/tap" ];
+
     brews = [
       "mas" # for `make mas-update`
     ];
@@ -46,10 +50,12 @@
       "chatgpt"
       "claude"
       "cleanshot"
-      "ghostty"
       "google-chrome"
       "granola"
       "grok-bot"
+      # GUI client for the herdr daemon (pkgs.herdr, common.nix). Upstream's
+      # supported macOS route: a signed, notarized universal app.
+      "penso/tap/herdr-gpui"
       "insta360-link-controller"
       "logi-options+"
       "microsoft-teams"
@@ -70,6 +76,7 @@
     masApps = {
       "Developer" = 640199958;
       "WireGuard" = 1451685025;
+      "Xcode" = 497799835; # keep: onActivation.cleanup = "zap" uninstalls unlisted App Store apps
     };
   };
 }

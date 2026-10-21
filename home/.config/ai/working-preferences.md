@@ -39,3 +39,4 @@ overrides live in the respective `~/.claude/CLAUDE.md` / `~/.codex/AGENTS.md`.
 - Prefer Terraform for infra changes; avoid drift (commit/push the tf). Default to dev/non-prod unless told otherwise.
 - Prefer SSO / SSM / OIDC over static credentials; prefer official CLIs (gh, aws). Use official/supported routes — don't circumvent blocks or paywalls; say why.
 - Never print or commit secret values — reference locations only (1Password / Vaultwarden / SOPS / .env). Redact secret or private detail in shared artifacts. Don't re-raise items I've parked ("rotate later").
+- Never run a script under `bash -x` / `set -x` if it reads or writes a credential — the trace prints the value. Debug with explicit non-secret checkpoints (`echo "step N ok"`) instead.

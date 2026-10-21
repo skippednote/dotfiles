@@ -1,6 +1,0 @@
-# Ghostty terminal config
-# https://ghostty.org/docs/config
-
-theme = TokyoNight Night
-font-size = 14
-adjust-cell-height = 10
