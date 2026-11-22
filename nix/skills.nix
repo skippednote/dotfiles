@@ -37,4 +37,8 @@
       "domain-modeling"
     ];
   }
+  {
+    input = "skills-cloudflare-security-audit";
+    skills = [ "security-audit" ];
+  }
 ]

@@ -29,6 +29,11 @@
       url = "github:mattpocock/skills/v1.3.1";
       flake = false;
     };
+    # No tags upstream, so this tracks main; flake.lock holds the revision.
+    skills-cloudflare-security-audit = {
+      url = "github:cloudflare/security-audit-skill";
+      flake = false;
+    };
   };
 
   outputs =
