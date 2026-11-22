@@ -60,10 +60,11 @@
       # The Darwin system store can omit public roots. Restore Claude's
       # default trust sources instead of nixpkgs' system-only default.
       (agentPkgs.claude-code.overrideAttrs (oldAttrs: {
-        installPhase = builtins.replaceStrings
-          [ "--set-default CLAUDE_CODE_CERT_STORE system" ]
-          [ "--set-default CLAUDE_CODE_CERT_STORE bundled,system" ]
-          oldAttrs.installPhase;
+        installPhase =
+          builtins.replaceStrings
+            [ "--set-default CLAUDE_CODE_CERT_STORE system" ]
+            [ "--set-default CLAUDE_CODE_CERT_STORE bundled,system" ]
+            oldAttrs.installPhase;
       })) # provides `claude`
     ];
 }
