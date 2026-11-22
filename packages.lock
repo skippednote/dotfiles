@@ -17,7 +17,6 @@ fzf
 gh
 gitleaks
 go
-herdr
 lsd
 mise
 nodejs
@@ -46,7 +45,6 @@ tailscale-app
 acli
 ansible-core
 atuin
-aws-sam-cli
 aws-vault
 awscli2
 bat
@@ -58,7 +56,6 @@ claude-code
 clippy
 cloudflared
 codex
-dbmate
 ddev
 delta
 disktree
@@ -71,12 +68,7 @@ gh
 glow
 go
 golangci-lint
-grpcurl
-harlequin
-herdr
 k6
-k9s
-kubernetes-helm
 lazygit
 lsd
 markitdown
@@ -84,11 +76,8 @@ maven
 mise
 neovim
 nodejs
-openspec
 pi-coding-agent
 pnpm
-poetry
-protobuf
 python3
 ripgrep
 rtk
@@ -98,7 +87,6 @@ rustc
 rustfmt
 sops
 sshpass
-ssm-session-manager-plugin
 starship
 temurin-bin
 terraform
@@ -109,7 +97,6 @@ wrangler
 xcodegen
 xh
 yt-dlp
-zola
 zoxide
 zsh-autosuggestions
 
@@ -123,14 +110,11 @@ chatgpt
 claude
 cleanshot
 google-chrome
-granola
-grok-bot
 insta360-link-controller
 logi-options+
 microsoft-teams
 notion-calendar
 orbstack
-penso/tap/herdr-gpui
 raycast
 rectangle
 slack
@@ -142,6 +126,5 @@ zoom
 
 [skippednote masApps]
 Developer
-WireGuard
 Xcode
 

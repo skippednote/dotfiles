@@ -136,8 +136,7 @@ stray binary can no longer win.
 ## Tooling
 
 CLI tools come from nixpkgs, tracking `nixpkgs-unstable`. The stable
-`26.05-darwin` channel was rejected: it is a major version behind on `helm`
-and carries neither `herdr` nor `markitdown`. The agent CLIs come from a
+`26.05-darwin` channel was rejected: it does not carry `markitdown`. The agent CLIs come from a
 second `nixpkgs-agents` input that deliberately does not follow the first, so
 they can be moved with `nix flake update nixpkgs-agents` without dragging
 everything else.

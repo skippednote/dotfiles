@@ -8,9 +8,6 @@
 # that nixpkgs already serves at the same or a newer version is redundant
 # and belongs in a profile instead, not here.
 [tools]
-actionlint = "latest"
-ffmpeg = "latest"
-shellcheck = "latest"
 
 [settings]
 

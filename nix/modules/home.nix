@@ -61,11 +61,10 @@ in
     ".config/git/host.conf".source = link ".config/git/host-${hostname}.conf";
 
     # Application configs that are hand-authored text. Tracked as single
-    # files, never whole directories: ~/.config/herdr also holds session
-    # state and logs, and ~/.config/zed/prompts is an LMDB database.
+    # files, never whole directories: ~/.config/zed/prompts is an LMDB
+    # database.
     ".config/zed/settings.json".source = link ".config/zed/settings.json";
     ".config/atuin/config.toml".source = link ".config/atuin/config.toml";
-    ".config/herdr/config.toml".source = link ".config/herdr/config.toml";
     ".config/mise/config.toml".source = link ".config/mise/config.toml";
     # .config/gh/config.yml is deliberately not linked: gh rewrites the whole
     # file on any config change, and the only content that was not a default

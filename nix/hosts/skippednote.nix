@@ -41,7 +41,6 @@
     # anything unlisted.
     taps = [
       "axelerant/tap"
-      "penso/tap"
     ];
 
     brews = [
@@ -55,11 +54,6 @@
       "cleanshot"
       "axelerant/tap/fynn"
       "google-chrome"
-      "granola"
-      "grok-bot"
-      # GUI client for the herdr daemon (pkgs.herdr, common.nix). Upstream's
-      # supported macOS route: a signed, notarized universal app.
-      "penso/tap/herdr-gpui"
       "insta360-link-controller"
       "logi-options+"
       "microsoft-teams"
@@ -79,7 +73,6 @@
     # and only agrees with reality while that index is healthy.
     masApps = {
       "Developer" = 640199958;
-      "WireGuard" = 1451685025;
       "Xcode" = 497799835; # keep: onActivation.cleanup = "zap" uninstalls unlisted App Store apps
     };
   };

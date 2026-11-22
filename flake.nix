@@ -18,19 +18,7 @@
     # everything else here.
     nixpkgs-agents.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # Upstream's own flake. nixpkgs carries openspec, but three minor
-    # versions behind (1.10.0 vs 1.13.0), and this is the source the tool
-    # was installed from by hand before it was declared here.
-    openspec.url = "github:Fission-AI/OpenSpec";
-    openspec.inputs.nixpkgs.follows = "nixpkgs";
-
     # Repos that agent skills are pulled from; nix/skills.nix picks which.
-    # Pinned to the release matching the installed herdr, not main, which
-    # documents unreleased flags. Move the tag when herdr is upgraded.
-    skills-herdr = {
-      url = "github:herdrdev/herdr/v0.9.3";
-      flake = false;
-    };
     # My own skills. Tracks main: edits land by pushing there and running
     # `nix flake update skills-skippednote`.
     skills-skippednote = {
@@ -38,7 +26,12 @@
       flake = false;
     };
     skills-mattpocock = {
-      url = "github:mattpocock/skills/v1.3.1";
+      url = "github:mattpocock/skills/v1.3.2";
+      flake = false;
+    };
+    # No tags upstream, so this tracks main; flake.lock holds the revision.
+    skills-cloudflare-security-audit = {
+      url = "github:cloudflare/security-audit-skill";
       flake = false;
     };
   };
@@ -48,7 +41,6 @@
       self,
       nixpkgs,
       nixpkgs-agents,
-      openspec,
       nix-darwin,
       home-manager,
       ...
@@ -72,7 +64,6 @@
         nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit user hostname agentPkgs;
-            openspecPkg = openspec.packages.${system}.default;
           };
           modules = [
             ./nix/modules/system.nix

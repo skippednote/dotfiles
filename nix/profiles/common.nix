@@ -52,15 +52,19 @@
       # Kept installed purely to serve per-project mise.toml files; the
       # global [tools] list is empty on both machines.
       mise
-
-      # The daemon Herdr.app (skippednote) attaches to over SSH, so every
-      # machine it manages needs one.
-      herdr
     ]
     ++ [
       # From the separate nixpkgs-agents input so it can be updated on its
       # own cadence. skippedbook was running 2.1.150 against skippednote's
       # 2.1.258 under `latest`; one pinned revision ends that drift.
-      agentPkgs.claude-code # provides `claude`
+      # The Darwin system store can omit public roots. Restore Claude's
+      # default trust sources instead of nixpkgs' system-only default.
+      (agentPkgs.claude-code.overrideAttrs (oldAttrs: {
+        installPhase =
+          builtins.replaceStrings
+            [ "--set-default CLAUDE_CODE_CERT_STORE system" ]
+            [ "--set-default CLAUDE_CODE_CERT_STORE bundled,system" ]
+            oldAttrs.installPhase;
+      })) # provides `claude`
     ];
 }
