@@ -54,8 +54,6 @@
       "cleanshot"
       "axelerant/tap/fynn"
       "google-chrome"
-      "granola"
-      "grok-bot"
       "insta360-link-controller"
       "logi-options+"
       "microsoft-teams"
@@ -75,7 +73,6 @@
     # and only agrees with reality while that index is healthy.
     masApps = {
       "Developer" = 640199958;
-      "WireGuard" = 1451685025;
       "Xcode" = 497799835; # keep: onActivation.cleanup = "zap" uninstalls unlisted App Store apps
     };
   };

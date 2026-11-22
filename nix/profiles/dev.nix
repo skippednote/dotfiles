@@ -4,7 +4,6 @@
 {
   pkgs,
   agentPkgs,
-  openspecPkg,
   user,
   ...
 }:
@@ -67,24 +66,15 @@
       golangci-lint
       cargo-binstall
       ruff
-      protobuf # provides protoc
-      grpcurl # was installed by hand via brew and undeclared
       xcodegen
 
       # Cloud and infrastructure
       terraform # unfree: BSL
       aws-vault
-      aws-sam-cli
-      kubernetes-helm # the `helm` binary; nixpkgs' `helm` is a different tool
-      k9s
       k6
       wrangler
       upsun
       ddev
-
-      # `aws ssm start-session`. Was a hand-unzipped bundle in ~/.local/bin,
-      # which is where the AWS installer puts it and where nothing tracks it.
-      ssm-session-manager-plugin
 
       # acli is not in nixpkgs - upstream ships only a phar. Pinned to the same
       # version the PADI backend's deploy buildspec uses, so a local database
@@ -108,8 +98,6 @@
       # the hudochenkov/sshpass tap and the brew-trust target.
       xh
       doggo
-      harlequin
-      dbmate
       sshpass
 
       # Docs, media and automation. Top-level `ansible` is ansible-core
@@ -117,15 +105,12 @@
       # deliberate trade for keeping it out of a python env.
       markitdown
       yt-dlp
-      zola
-      poetry
       ansible
 
       # Agents and tooling
       rtk
     ]
     ++ [
-      openspecPkg # provides `openspec`
       agentPkgs.codex
       agentPkgs.pi-coding-agent # provides `pi`
     ];

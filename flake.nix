@@ -18,12 +18,6 @@
     # everything else here.
     nixpkgs-agents.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # Upstream's own flake. nixpkgs carries openspec, but three minor
-    # versions behind (1.10.0 vs 1.13.0), and this is the source the tool
-    # was installed from by hand before it was declared here.
-    openspec.url = "github:Fission-AI/OpenSpec";
-    openspec.inputs.nixpkgs.follows = "nixpkgs";
-
     # Repos that agent skills are pulled from; nix/skills.nix picks which.
     # My own skills. Tracks main: edits land by pushing there and running
     # `nix flake update skills-skippednote`.
@@ -42,7 +36,6 @@
       self,
       nixpkgs,
       nixpkgs-agents,
-      openspec,
       nix-darwin,
       home-manager,
       ...
@@ -66,7 +59,6 @@
         nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit user hostname agentPkgs;
-            openspecPkg = openspec.packages.${system}.default;
           };
           modules = [
             ./nix/modules/system.nix
