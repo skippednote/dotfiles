@@ -18,10 +18,6 @@
     ];
   }
   {
-    input = "skills-herdr";
-    skills = [ "herdr" ];
-  }
-  {
     input = "skills-mattpocock";
     dir = "skills/productivity";
     # grill-me only calls the Skill tool with "grilling".

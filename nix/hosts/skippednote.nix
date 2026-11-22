@@ -41,7 +41,6 @@
     # anything unlisted.
     taps = [
       "axelerant/tap"
-      "penso/tap"
     ];
 
     brews = [
@@ -57,9 +56,6 @@
       "google-chrome"
       "granola"
       "grok-bot"
-      # GUI client for the herdr daemon (pkgs.herdr, common.nix). Upstream's
-      # supported macOS route: a signed, notarized universal app.
-      "penso/tap/herdr-gpui"
       "insta360-link-controller"
       "logi-options+"
       "microsoft-teams"

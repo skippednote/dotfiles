@@ -25,12 +25,6 @@
     openspec.inputs.nixpkgs.follows = "nixpkgs";
 
     # Repos that agent skills are pulled from; nix/skills.nix picks which.
-    # Pinned to the release matching the installed herdr, not main, which
-    # documents unreleased flags. Move the tag when herdr is upgraded.
-    skills-herdr = {
-      url = "github:herdrdev/herdr/v0.9.3";
-      flake = false;
-    };
     # My own skills. Tracks main: edits land by pushing there and running
     # `nix flake update skills-skippednote`.
     skills-skippednote = {
