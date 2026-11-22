@@ -121,11 +121,11 @@
     "skills-skippednote": {
       "flake": false,
       "locked": {
-        "lastModified": 1792550983,
-        "narHash": "sha256-nAY/W6lxjEIc8IfPiJMCEt42QckAAaU5y5b6ezWexzk=",
+        "lastModified": 1795429475,
+        "narHash": "sha256-GReaw02NY3QP73J1Sm9rVeugGKnCyTckYHsiS5Pv+3I=",
         "owner": "skippednote",
         "repo": "skills",
-        "rev": "fa4a3555a2178127a52c36f759ec72da8850a67d",
+        "rev": "8102078fa4c88de84439de458e7ddd1611cf05c5",
         "type": "github"
       },
       "original": {
