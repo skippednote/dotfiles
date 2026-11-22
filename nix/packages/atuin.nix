@@ -26,11 +26,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "atuin";
-  version = "18.23.0";
+  version = "18.25.1";
 
   src = fetchurl {
     url = "https://github.com/atuinsh/atuin/releases/download/v${finalAttrs.version}/atuin-aarch64-apple-darwin.tar.gz";
-    hash = "sha256-yYi+HN4ZzXKVzmS8i5VdQvsYVeUifLZAyH/AnIQIw/w=";
+    hash = "sha256-wtlK502lXGRN4Izj7tsKvV9KMjQPPpuOLa3il2SsUkw=";
   };
 
   sourceRoot = ".";

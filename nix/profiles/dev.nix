@@ -69,16 +69,17 @@
       xcodegen
 
       # Cloud and infrastructure
-      terraform # unfree: BSL
+      # Prebuilt: nixpkgs' copy is unfree, so uncached and built from source.
+      # See nix/packages/terraform.nix.
+      (callPackage ../packages/terraform.nix { })
       aws-vault
       k6
       wrangler
       upsun
       ddev
 
-      # acli is not in nixpkgs - upstream ships only a phar. Pinned to the same
-      # version the PADI backend's deploy buildspec uses, so a local database
-      # pull and a CI deploy run the same binary. See nix/packages/acli.nix.
+      # acli is not in nixpkgs - upstream ships only a phar. See
+      # nix/packages/acli.nix.
       (callPackage ../packages/acli.nix { })
 
       # Disk-usage treemap. Not in nixpkgs; built from source. Upstream is

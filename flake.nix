@@ -26,7 +26,7 @@
       flake = false;
     };
     skills-mattpocock = {
-      url = "github:mattpocock/skills/v1.3.1";
+      url = "github:mattpocock/skills/v1.3.2";
       flake = false;
     };
     # No tags upstream, so this tracks main; flake.lock holds the revision.

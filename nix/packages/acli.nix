@@ -1,14 +1,12 @@
 # Acquia CLI from upstream's released phar. Not in nixpkgs at all.
 #
 # acli ships only as a PHP archive attached to a GitHub release; there is no
-# package to track. The version and hash here are deliberately the same ones
-# pinned in the PADI backend repo's .aws/buildspec-deploy.yml, so the acli that
-# pulls a database locally is byte-identical to the one CI deploys with. That
-# repo refuses to run a mismatched checksum, and this should not diverge from it
-# silently.
+# package to track. This follows upstream's latest release and is not tied to
+# CI: PADI deploys with the acli baked into the padi-ci image, pinned
+# separately in that repo's images/lib/versions.env (2.61.3 when this was
+# written).
 #
-# To bump: change the version here AND in that buildspec together, then get the
-# hash with
+# To bump: change the version, then get the hash with
 #
 #   nix store prefetch-file https://github.com/acquia/cli/releases/download/X.Y.Z/acli.phar
 #
@@ -24,11 +22,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "acli";
-  version = "4.1.0";
+  version = "4.4.0";
 
   src = fetchurl {
     url = "https://github.com/acquia/cli/releases/download/${finalAttrs.version}/acli.phar";
-    hash = "sha256-sqjgJWCzZxx+5SkXx56OaAgLxXFY3WgyojQnszLYPNQ=";
+    hash = "sha256-hq9NWjG3vYJQrhoCjI2ZcpoiGdQ0EC2bHfxVLs5dT2M=";
   };
 
   dontUnpack = true;

@@ -14,6 +14,8 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  pkg-config,
+  aws-lc,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -28,6 +30,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-z17NBZn5vt8cd8hnlZNX/iF+kwwnEunzv8RHA/xncEo=";
+
+  # nixpkgs' cargo setup hook sets AWS_LC_SYS_USE_SYSTEM=1, so aws-lc-sys
+  # (pulled in through rustls) no longer builds its vendored copy and needs
+  # the system library instead.
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ aws-lc ];
 
   meta = {
     description = "Latency to game servers and the cloud regions games run in, with a live TUI";
