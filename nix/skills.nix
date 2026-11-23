@@ -13,8 +13,14 @@
   {
     input = "skills-skippednote";
     skills = [
+      "confluence-sync"
+      "datadog-triage"
+      "doc"
+      "engagement-init"
       "retro"
       "slack-send"
+      "ticket"
+      "workstream"
     ];
   }
   {
