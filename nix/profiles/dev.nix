@@ -73,6 +73,8 @@
       # See nix/packages/terraform.nix.
       (callPackage ../packages/terraform.nix { })
       aws-vault
+      # `aws ssm start-session` refuses to open a shell without it.
+      ssm-session-manager-plugin
       k6
       wrangler
       upsun
